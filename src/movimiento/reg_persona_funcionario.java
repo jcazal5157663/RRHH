@@ -1,6 +1,6 @@
 package movimiento;
 
-import buscadores.buscador_barrios;
+import buscadores.buscador_barrio;
 import buscadores.buscador_cargo;
 import buscadores.buscador_departamento;
 import buscadores.buscador_direccion;
@@ -2489,7 +2489,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_profesionActionPerformed
 
     private void btn_barrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_barrioActionPerformed
-        buscador_barrios bp = new buscador_barrios(modal, true);
+        buscador_barrio bp = new buscador_barrio(modal, true);
         bp.setVisible(true);
         idbarrio = bp.getIdbarrio();
         barrio.setText(bp.getDescBarrio());

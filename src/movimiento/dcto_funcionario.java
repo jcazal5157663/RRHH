@@ -1,5 +1,7 @@
 package movimiento;
 
+import buscadores.buscador_Funcionario;
+import buscadores.buscador_barrio;
 import java.util.Date;
 import clases.*;
 import java.awt.Color;
@@ -21,7 +23,10 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     DefaultTableModel modelo;
     private String sql = "";
     Query db = new Query();
-
+    int idFuncionario = 0;
+    String res[];
+    int dias = 0;
+    
     public dcto_funcionario() {
         initComponents();
         lb.CambiarColor(btn_nuevo, entrada, Salida);
@@ -56,7 +61,10 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         fecha_hasta = new com.toedter.calendar.JDateChooser("dd/MM/yyyy","##/##/####",'_');
         checkSabado = new javax.swing.JCheckBox();
         chekDomingo = new javax.swing.JCheckBox();
-        jButton4 = new javax.swing.JButton();
+        btnCalcula = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        txtDias = new javax.swing.JTextField();
+        btnCalcDcto = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
@@ -95,7 +103,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         modal.setModal(true);
         modal.setUndecorated(true);
         modal.setResizable(false);
-        modal.setSize(new java.awt.Dimension(553, 422));
+        modal.setSize(new java.awt.Dimension(563, 430));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
@@ -116,6 +124,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         btnSaveAplication.setIconTextGap(0);
         btnSaveAplication.setMargin(new java.awt.Insets(2, 0, 2, 0));
 
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -146,7 +155,26 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
 
         chekDomingo.setText("Considerar Domingo");
 
-        jButton4.setText("Calcular");
+        btnCalcula.setText("Calcular Días");
+        btnCalcula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalculaActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Total Días");
+
+        txtDias.setEditable(false);
+        txtDias.setForeground(new java.awt.Color(51, 153, 255));
+        txtDias.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtDias.setText("0");
+
+        btnCalcDcto.setText("Cal. Descto");
+        btnCalcDcto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalcDctoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -160,11 +188,17 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                         .addComponent(fecha_hasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(chekDomingo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(checkSabado, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDias))
+                            .addComponent(chekDomingo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(checkSabado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCalcula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCalcDcto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -175,12 +209,21 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                     .addComponent(fecha_hasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fecha_desde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkSabado, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chekDomingo)
-                    .addComponent(jButton4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(checkSabado, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chekDomingo)
+                            .addComponent(btnCalcula))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(txtDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCalcDcto)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -198,9 +241,9 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -248,6 +291,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         );
 
         txtFuncionario.setEditable(false);
+        txtFuncionario.setForeground(new java.awt.Color(51, 153, 255));
 
         jLabel2.setText("Funcionario:");
 
@@ -255,10 +299,16 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Monto:");
 
+        txtMonto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
         txtSalario.setEditable(false);
+        txtSalario.setForeground(new java.awt.Color(51, 153, 255));
+        txtSalario.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtSalario.setText("0");
 
         txtSueldoporDia.setEditable(false);
+        txtSueldoporDia.setForeground(new java.awt.Color(51, 153, 255));
+        txtSueldoporDia.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtSueldoporDia.setText("0");
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -689,8 +739,30 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void btnFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionarioActionPerformed
-        // TODO add your handling code here:
+        buscador_Funcionario bp = new buscador_Funcionario(modal, true);
+        bp.setVisible(true);
+        idFuncionario = bp.getIdbarrio();
+        txtFuncionario.setText(bp.getDescBarrio());
+        cbTipoDcto.requestFocus();
+        if(idFuncionario != 0){
+            TraerSalario(idFuncionario);
+        }
+        
+        
     }//GEN-LAST:event_btnFuncionarioActionPerformed
+
+    private void btnCalculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculaActionPerformed
+        int dias = db.CalcularDias(fecha_desde, fecha_hasta , checkSabado, chekDomingo);
+        txtDias.setText(String.valueOf(dias));   
+        this.dias = dias;
+        
+    }//GEN-LAST:event_btnCalculaActionPerformed
+
+    private void btnCalcDctoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcDctoActionPerformed
+        Double sxDia = Double.parseDouble(txtSueldoporDia.getText().replace(".", "").replace(",", "."));
+        Double resultado = sxDia * this.dias;
+        txtMonto.setText(db.getDecimalString(resultado));
+    }//GEN-LAST:event_btnCalcDctoActionPerformed
 
     private void select() {
 
@@ -719,7 +791,9 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     }
 
     private void validarCaracteres() {
+        //numericos
         db.Solo_Numeros(txtMonto);
+        db.JtextFieldDecimal(txtMonto);
     }
 
     private void ValidarModal() {
@@ -732,9 +806,31 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                 + "order by td.descripcion";
         db.CargarCombo(cbTipoDcto, sql, menu.getConexion());
     }
+    
+    
+    private void TraerSalario(int id ){
+        try {
+            sql = "select v.salario, v.\"Salario por Dia\" from view_salariofun v \n" +
+                    "where v.id = ?";
+            PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+            ps.setInt(1, id);
+            res = db.QueryDinamico(ps);
+            if(res != null){
+                txtSalario.setText(res[1]);
+                txtSueldoporDia.setText(res[2]);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(dcto_funcionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCalcDcto;
+    private javax.swing.JButton btnCalcula;
     private javax.swing.JButton btnFuncionario;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSaveAplication;
@@ -749,11 +845,11 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser fecha_desde;
     private com.toedter.calendar.JDateChooser fecha_hasta;
     private com.toedter.calendar.JDateChooser fecha_vencimiento;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -777,6 +873,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JDialog modal_informes;
     private javax.swing.JTable tbl_dcto;
     private javax.swing.JSpinner txtCuota;
+    private javax.swing.JTextField txtDias;
     private javax.swing.JTextField txtFuncionario;
     private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtSalario;

@@ -16,7 +16,7 @@ import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 import principal.menu;
 
-public class buscador_barrios extends javax.swing.JDialog {
+public class buscador_barrio extends javax.swing.JDialog {
 
     Color entrada = new Color(44, 59, 65);
     Color Salida = new Color(34, 45, 50);
@@ -35,7 +35,7 @@ public class buscador_barrios extends javax.swing.JDialog {
     int xx;
     int xy;
 
-    public buscador_barrios(java.awt.Dialog parent, boolean modal) {
+    public buscador_barrio(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
@@ -691,7 +691,7 @@ public class buscador_barrios extends javax.swing.JDialog {
 
             db.centrar(tabla, new int[]{0, 2, 3});
         } catch (SQLException ex) {
-            Logger.getLogger(buscador_barrios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(buscador_barrio.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

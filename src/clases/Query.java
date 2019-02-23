@@ -1,6 +1,7 @@
 package clases;
 
 import com.toedter.calendar.JDateChooser;
+import java.awt.Checkbox;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -17,7 +18,9 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
@@ -651,13 +654,16 @@ public class Query {
             DecimalFormat formato_decimal = new DecimalFormat("###,###.##");
             if (resultado.next()) {
                 for (int i = 1; i < cantidadColumnas; i++) {
-
+                    //System.out.println(resultado.getMetaData().getColumnType(i));        
                     switch (resultado.getMetaData().getColumnType(i)) {
                         case 91:
                             respuesta[i] = resultado.getString(i) != null ? formateador.format(resultado.getDate(i)) : "";
                             break;
                         case 2:
-                            respuesta[i] = resultado.getString(i) != null ? formato_decimal.format(resultado.getFloat(i)) : "";
+                            respuesta[i] = resultado.getString(i) != null ? formato_decimal.format(resultado.getFloat(i)) : "0";
+                            break;
+                        case 8:
+                            respuesta[i] = resultado.getString(i) != null ? formato_decimal.format(resultado.getDouble(i)) : "0";
                             break;
                         default:
                             respuesta[i] = resultado.getString(i) != null ? resultado.getString(i).trim() : "";
@@ -910,4 +916,118 @@ public class Query {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
+
+    public void JtextFieldDecimal(JTextField jTextField) {
+        DecimalFormat df = new DecimalFormat("###,###.##");
+        jTextField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (jTextField.getText().trim().equals("0")) {
+                    String replace = jTextField.getText().replace("0", "");
+                    jTextField.setText(replace);
+                }
+                /*validamos que sea solo una coma*/
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar() != ',') {
+                    e.consume();
+                }
+                if (e.getKeyChar() == ',' && jTextField.getText().contains(",")) {
+                    e.consume();
+                }
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (jTextField.getText().trim().equals("")) {
+                    jTextField.setText("0");
+                }
+
+                int letra = e.getKeyChar();
+                if (Character.isDigit(letra) || letra == 8) {
+                    jTextField.setText(df.format(Double.parseDouble(jTextField.getText().replace(".", "").replace(",", "."))));
+                }
+            }
+        });
+
+    }
+
+    public int CalcularDias(JDateChooser fecha1, JDateChooser fecha2, JCheckBox sabado, JCheckBox domingo) {
+
+        Boolean valf1 = ValidacionFecha(fecha1, "Formato Invalido", "No puede Dejar Vacio", true, null);
+        Boolean valf2 = ValidacionFecha(fecha2, "Formato Invalido", "No puede Dejar Vacio", true, null);
+        int dias = 0;
+        if (valf1 && valf2) {
+
+            Calendar f1 = fecha1.getCalendar();
+            Calendar f2 = fecha2.getCalendar();
+
+            while (f1.before(f2) || f1.equals(f2)) {
+
+                //Preguntamos si primero nunguno de los dos esta marcado
+                if (!sabado.isSelected() && !domingo.isSelected()) {
+
+                    if (f1.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY
+                            && f1.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
+                        dias++;
+                    }
+
+                } else {
+                    //Preguntamos si Solo Sabado Esta Marcado
+                    if (sabado.isSelected() && !domingo.isSelected()) {
+
+                        if (f1.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
+                            dias++;
+                        }
+                    } else {
+                        if (!sabado.isSelected() && domingo.isSelected()) {
+                            if (f1.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
+                                dias++;
+                            }
+                        } else {
+                            //por Default toma si ninguno de los dos Esta Marcado
+                            dias++;
+                        }
+                    }
+                }
+                f1.add(Calendar.DATE, 1);
+            }
+
+        }
+        return dias;
+    }
+
+    public Boolean ValidacionFecha(JDateChooser fecha, String mensajeErroneo, String MensajeVacio, Boolean ValidarVacio, JDialog modal) {
+        if (!((JTextField) fecha.getDateEditor()).getText().equals("__/__/____")) {
+            if (!Controlar_Fecha(((JTextField) fecha.getDateEditor()).getText())) {
+                JOptionPane.showMessageDialog(modal, mensajeErroneo, "Error", JOptionPane.ERROR_MESSAGE);
+                fecha.getDateEditor().getUiComponent().requestFocus();
+                return false;
+            }
+        }
+        if (((JTextField) fecha.getDateEditor()).getText().equals("__/__/____") && ValidarVacio) {
+            JOptionPane.showMessageDialog(modal, MensajeVacio, "Error", JOptionPane.ERROR_MESSAGE);
+            fecha.getDateEditor().getUiComponent().requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+    
+    
+    public String getDecimalString(Double monto){
+        return new DecimalFormat("###,###.##").format(monto);
+    }
+    
+    
+    private void TraerCuotas(){
+        
+    }
+    
+    
+
 }

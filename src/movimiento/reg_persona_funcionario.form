@@ -2569,13 +2569,10 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="btn_titulo" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="jDateChooser2" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jDateChooser1" alignment="0" min="-2" pref="149" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="165" pref="165" max="-2" attributes="0"/>
+                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="jDateChooser2" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jDateChooser1" alignment="0" min="-2" pref="149" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
