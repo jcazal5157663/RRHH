@@ -5,11 +5,14 @@ import buscadores.buscador_barrio;
 import java.util.Date;
 import clases.*;
 import java.awt.Color;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import objetos.Model_Cuota;
 import principal.menu;
@@ -41,8 +44,14 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         CargarGrilla();
         CargarCombo();
         validarCaracteres();
-        
+
         db.CentrarCabeceraTabla(tblCuota);
+
+        fecha_vencimiento.setEnabled(true);
+        txtCuota.setEnabled(false);
+        btnGenCuotas.setEnabled(false);
+        EventoCombo();
+        db.getDisabledPanel(jpCalculo);
 
     }
 
@@ -62,7 +71,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblCuota = new javax.swing.JTable();
-        jPanel6 = new javax.swing.JPanel();
+        jpCalculo = new javax.swing.JPanel();
         fecha_desde = new com.toedter.calendar.JDateChooser("dd/MM/yyyy","##/##/####",'_');
         fecha_hasta = new com.toedter.calendar.JDateChooser("dd/MM/yyyy","##/##/####",'_');
         checkSabado = new javax.swing.JCheckBox();
@@ -87,7 +96,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         txtCuota = new javax.swing.JSpinner();
         jLabel7 = new javax.swing.JLabel();
         fecha_vencimiento = new com.toedter.calendar.JDateChooser("dd/MM/yyyy","##/##/####",'_');
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cbFraccionar = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnFuncionario = new javax.swing.JButton();
@@ -122,6 +131,11 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         btnSave.setContentAreaFilled(false);
         btnSave.setIconTextGap(0);
         btnSave.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnSaveAplication.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Checkmark_32px.png"))); // NOI18N
         btnSaveAplication.setMnemonic('A');
@@ -152,8 +166,8 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tblCuota);
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Cuadro de Calculo de Dcto por Ausencia"));
+        jpCalculo.setBackground(new java.awt.Color(255, 255, 255));
+        jpCalculo.setBorder(javax.swing.BorderFactory.createTitledBorder("Cuadro de Calculo de Dcto. por Ausencia"));
 
         fecha_desde.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha Desde"));
 
@@ -185,51 +199,51 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        javax.swing.GroupLayout jpCalculoLayout = new javax.swing.GroupLayout(jpCalculo);
+        jpCalculo.setLayout(jpCalculoLayout);
+        jpCalculoLayout.setHorizontalGroup(
+            jpCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpCalculoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jpCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpCalculoLayout.createSequentialGroup()
                         .addComponent(fecha_desde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                         .addComponent(fecha_hasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
+                    .addGroup(jpCalculoLayout.createSequentialGroup()
+                        .addGroup(jpCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpCalculoLayout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtDias))
                             .addComponent(chekDomingo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(checkSabado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jpCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnCalcula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCalcDcto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        jpCalculoLayout.setVerticalGroup(
+            jpCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpCalculoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jpCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(fecha_hasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fecha_desde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jpCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpCalculoLayout.createSequentialGroup()
                         .addComponent(checkSabado, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jpCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(chekDomingo)
                             .addComponent(btnCalcula))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jpCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
                             .addComponent(txtDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpCalculoLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCalcDcto)))
                 .addContainerGap())
@@ -241,7 +255,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpCalculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                 .addContainerGap())
@@ -252,7 +266,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jpCalculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -310,6 +324,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         jLabel4.setText("Monto:");
 
         txtMonto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtMonto.setText("0");
 
         txtSalario.setEditable(false);
         txtSalario.setBackground(new java.awt.Color(255, 255, 255));
@@ -330,10 +345,20 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         jLabel8.setText("Sueldo:");
 
         txtCuota.setModel(new javax.swing.SpinnerNumberModel(1, 1, 24, 1));
+        txtCuota.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCuotaKeyTyped(evt);
+            }
+        });
 
         jLabel7.setText("Cuotas:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Sí" }));
+        cbFraccionar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Sí" }));
+        cbFraccionar.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbFraccionarItemStateChanged(evt);
+            }
+        });
 
         jLabel5.setText("Fraccionar:");
 
@@ -378,7 +403,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(cbTipoDcto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtMonto)
-                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cbFraccionar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(fecha_vencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -433,7 +458,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbFraccionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -775,9 +800,19 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnFuncionarioActionPerformed
 
     private void btnCalculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculaActionPerformed
-        int dias = db.CalcularDias(fecha_desde, fecha_hasta, checkSabado, chekDomingo);
-        txtDias.setText(String.valueOf(dias));
-        this.dias = dias;
+        if (db.ValidacionFecha(fecha_desde, "Error de Formato", "No puede Dejar Vacio", true, modal)) {
+            if (db.ValidacionFecha(fecha_hasta, "Error de Formato", "No puede Dejar Vacio", true, modal)) {
+                if (fecha_hasta.getDate().before(fecha_desde.getDate())) {
+                    JOptionPane.showMessageDialog(modal, "La Fecha Hasta, no puede Ser menor a la Fecha Desde", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+
+                    int dias = db.CalcularDias(fecha_desde, fecha_hasta, checkSabado, chekDomingo);
+                    txtDias.setText(String.valueOf(dias));
+                    this.dias = dias;
+                }
+            }
+        }
+
 
     }//GEN-LAST:event_btnCalculaActionPerformed
 
@@ -788,20 +823,43 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCalcDctoActionPerformed
 
     private void btnGenCuotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenCuotasActionPerformed
-         for (int i = tblCuota.getRowCount() - 1; i >= 0; i--) {
+
+        if (ValidarGenCuota()) {
+            for (int i = tblCuota.getRowCount() - 1; i >= 0; i--) {
                 modeloCuota.removeRow(i);
             }
-        
-        
-        int cuota = (Integer) txtCuota.getValue();
-        int monto = (Integer) Integer.parseInt(txtMonto.getText().replace(".", ""));
-        ArrayList<Model_Cuota> array = db.TraerCuotas(monto, cuota);
-        array.forEach((array1) -> {
-            modeloCuota.addRow(new Object[]{array1.getCuota(), array1.getFecha(), array1.getMonto()});
-        });
 
+            int cuota = (Integer) txtCuota.getValue();
+            int monto = (Integer) Integer.parseInt(txtMonto.getText().replace(".", ""));
+            ArrayList<Model_Cuota> array = db.TraerCuotas(monto, cuota);
+            array.forEach((array1) -> {
+                modeloCuota.addRow(new Object[]{array1.getCuota(), array1.getFecha(), array1.getMonto()});
+            });
+
+            db.centrar(tblCuota, new int[]{0, 1});
+            db.derecha(tblCuota, new int[]{2});
+
+        }
 
     }//GEN-LAST:event_btnGenCuotasActionPerformed
+
+    private void cbFraccionarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbFraccionarItemStateChanged
+        fraccionar();
+    }//GEN-LAST:event_cbFraccionarItemStateChanged
+
+    private void txtCuotaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCuotaKeyTyped
+        int letra = evt.getKeyChar();
+        if (Character.isDigit(letra)) {
+            evt.consume();
+        }
+
+    }//GEN-LAST:event_txtCuotaKeyTyped
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if(ValidarModal()){
+            
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     private void select() {
 
@@ -835,8 +893,78 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         db.JtextFieldDecimal(txtMonto);
     }
 
-    private void ValidarModal() {
+    private boolean ValidarModal() {
 
+        if (idFuncionario == 0) {
+            JOptionPane.showMessageDialog(modal, "Debe de Seleccionar un funcionario", "Error", JOptionPane.ERROR_MESSAGE);
+            btnFuncionario.requestFocus();
+            return false;
+        }
+
+        if (txtMonto.getText().equals("0") || txtMonto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(modal, "Debe Cargar Monto", "Error", JOptionPane.ERROR_MESSAGE);
+            txtMonto.requestFocus();
+            return false;
+        }
+        if (cbFraccionar.getSelectedIndex() == 0) {
+            if (!db.ValidacionFecha(fecha_vencimiento, "Error d Formato", "No puede Dejar Vacio", true, modal)) {
+                return false;
+            }
+        } else {
+            if (tblCuota.getRowCount() <= 0) {
+                JOptionPane.showMessageDialog(modal, "Debe de Generar la Cuota", "Error", JOptionPane.ERROR_MESSAGE);
+                btnGenCuotas.requestFocus();
+                return false;
+            }
+
+        }
+
+        switch (db.getIdCombo(cbTipoDcto)) {
+
+            case 5:
+                if (!db.ValidacionFecha(fecha_desde, "Error d Formato", "No puede Dejar Vacio", true, modal)) {
+                    return false;
+                }
+                if (!db.ValidacionFecha(fecha_hasta, "Error d Formato", "No puede Dejar Vacio", true, modal)) {
+                    return false;
+                }
+                if (Integer.parseInt(txtDias.getText()) <= 0) {
+                    JOptionPane.showMessageDialog(modal, "Debe de Generar los Dias de Ausencia", "Error", JOptionPane.ERROR_MESSAGE);
+                    btnCalcula.requestFocus();
+                    return false;
+                }
+                break;
+            case 3:
+                if (!db.ValidacionFecha(fecha_desde, "Error d Formato", "No puede Dejar Vacio", true, modal)) {
+                    return false;
+                }
+                if (!db.ValidacionFecha(fecha_hasta, "Error d Formato", "No puede Dejar Vacio", true, modal)) {
+                    return false;
+                }
+                if (Integer.parseInt(txtDias.getText()) <= 0) {
+                    JOptionPane.showMessageDialog(modal, "Debe de Generar la Cuota", "Error", JOptionPane.ERROR_MESSAGE);
+                    btnGenCuotas.requestFocus();
+                    return false;
+                }
+
+                break;
+
+        }
+
+        return true;
+    }
+
+    private boolean ValidarGenCuota() {
+        if (Integer.parseInt(txtMonto.getText().replace(".", "")) <= 0) {
+            JOptionPane.showMessageDialog(modal, "Monto debe de ser Mayor a Cero", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (Integer.parseInt(txtCuota.getValue().toString()) <= 1) {
+            JOptionPane.showMessageDialog(modal, "La Cuota debe de Ser Mayor a uno", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
     }
 
     private void CargarCombo() {
@@ -864,6 +992,50 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
 
     }
 
+    private void fraccionar() {
+        int st = cbFraccionar.getSelectedIndex();
+        if (st == 0) {
+            fecha_vencimiento.setEnabled(true);
+            txtCuota.setEnabled(false);
+            btnGenCuotas.setEnabled(false);
+            for (int i = tblCuota.getRowCount() - 1; i >= 0; i--) {
+                modeloCuota.removeRow(i);
+            }
+
+            txtCuota.setValue(1);
+
+        } else {
+            fecha_vencimiento.setEnabled(false);
+            txtCuota.setEnabled(true);
+            btnGenCuotas.setEnabled(true);
+        }
+
+    }
+
+    private void EventoCombo() {
+        cbTipoDcto.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                switch (db.getIdCombo(cbTipoDcto)) {
+                    case 5:
+                        db.getEnabledPanel(jpCalculo);
+                        break;
+                    case 3:
+                        db.getEnabledPanel(jpCalculo);
+                        break;
+                    default:
+                        db.getDisabledPanel(jpCalculo);
+                        fecha_desde.setDate(null);
+                        fecha_hasta.setDate(null);
+                        checkSabado.setSelected(false);
+                        chekDomingo.setSelected(false);
+                        txtDias.setText("0");
+                        break;
+                }
+            }
+        });
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalcDcto;
@@ -877,6 +1049,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_informes;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_nuevo;
+    private javax.swing.JComboBox<String> cbFraccionar;
     private javax.swing.JComboBox<Query> cbTipoDcto;
     private javax.swing.JCheckBox checkSabado;
     private javax.swing.JCheckBox chekDomingo;
@@ -884,7 +1057,6 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser fecha_hasta;
     private com.toedter.calendar.JDateChooser fecha_vencimiento;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -901,11 +1073,11 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel jpCalculo;
     private javax.swing.JDialog modal;
     private javax.swing.JDialog modal_informes;
     private javax.swing.JTable tblCuota;

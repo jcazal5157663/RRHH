@@ -24,6 +24,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -393,7 +394,10 @@ public class Query {
                             fila[i] = resultado.getInt(i + 1);
                             break;
                         case 2:
-                            fila[i] = formato_decimal.format(resultado.getFloat(i + 1));
+                            fila[i] = resultado.getString(i + 1) != null ? formato_decimal.format(resultado.getFloat(i + 1)) : 0;
+                            break;
+                        case 8:
+                            fila[i] = resultado.getString(i + 1) != null ? formato_decimal.format(resultado.getDouble(i + 1)) : 0;
                             break;
                         case 91:
                             fila[i] = formato_fecha.format(resultado.getDate(i + 1));
@@ -1069,5 +1073,30 @@ public class Query {
         rend.setHorizontalAlignment(JLabel.CENTER);
         jtableHeader.setDefaultRenderer(rend);
     }
+
+    public int getIdCombo(JComboBox<Query> combo) {
+        return combo.getItemAt(combo.getSelectedIndex()).getId();
+    }
+
+    public void getDisabledPanel(JPanel panel) {
+
+        for (Component component : panel.getComponents()) {
+
+            component.setEnabled(false);
+        }
+
+    }
+
+    public void getEnabledPanel(JPanel panel) {
+
+        for (Component component : panel.getComponents()) {
+
+            component.setEnabled(true);
+        }
+
+    }
+    
+
+    
 
 }

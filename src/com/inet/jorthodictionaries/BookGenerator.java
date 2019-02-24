@@ -143,7 +143,7 @@ public abstract class BookGenerator {
         Object factory = constructor.newInstance();
         Method loadWordList = clazz.getDeclaredMethod( "loadWordList", URL.class );
         loadWordList.setAccessible(true);
-        loadWordList.invoke(factory, dictFile.toURL());
+        loadWordList.invoke(factory, dictFile.toURI().toURL());
         Method create = clazz.getDeclaredMethod( "create" );
         create.setAccessible(true);
         Object dictionary = create.invoke( factory );
