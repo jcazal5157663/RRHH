@@ -2,7 +2,7 @@ package referenciales;
 
 import clases.Cerrar_Escape;
 import clases.EstilosLabel;
-import clases.Query;
+import clases.Tools;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.PreparedStatement;
@@ -20,7 +20,7 @@ public class tipo_descuento extends javax.swing.JInternalFrame {
     Color entrada = new Color(240, 240, 240);
     Color Salida = new Color(255, 255, 255);
     EstilosLabel lb = new EstilosLabel();
-    Query db = new Query();
+    Tools db = new Tools();
     Cerrar_Escape es = new Cerrar_Escape();
     DefaultTableModel modelo = new DefaultTableModel();
     String sql = "";
@@ -70,6 +70,7 @@ public class tipo_descuento extends javax.swing.JInternalFrame {
         descripcion = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         estado = new javax.swing.JComboBox<>();
+        fraccionable = new javax.swing.JCheckBox();
         btn_guardar = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
         btn_aplicar = new javax.swing.JButton();
@@ -90,7 +91,7 @@ public class tipo_descuento extends javax.swing.JInternalFrame {
         modal.setModal(true);
         modal.setUndecorated(true);
         modal.setResizable(false);
-        modal.setSize(new java.awt.Dimension(450, 162));
+        modal.setSize(new java.awt.Dimension(450, 164));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -124,6 +125,8 @@ public class tipo_descuento extends javax.swing.JInternalFrame {
 
         estado.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
 
+        fraccionable.setText("Fraccionable");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -138,7 +141,9 @@ public class tipo_descuento extends javax.swing.JInternalFrame {
                     .addComponent(descripcion)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 231, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fraccionable)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(16, 16, 16))
         );
         jPanel5Layout.setVerticalGroup(
@@ -150,7 +155,9 @@ public class tipo_descuento extends javax.swing.JInternalFrame {
                     .addComponent(descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(estado)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(estado)
+                        .addComponent(fraccionable))
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -212,7 +219,7 @@ public class tipo_descuento extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 54, Short.MAX_VALUE)
                         .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_aplicar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -642,12 +649,13 @@ public class tipo_descuento extends javax.swing.JInternalFrame {
 
                         try {
                             sql = "INSERT INTO tipo_descuentos(\n"
-                                    + "	descripcion, estado, usuario_input)\n"
-                                    + "	VALUES (?, ?, ?)";
+                                    + "	descripcion, estado ,usuario_input,fraccionable)\n"
+                                    + "	VALUES (?, ?, ?, ?)";
                             PreparedStatement ps = menu.getConexion().prepareStatement(sql);
                             ps.setString(1, descripcion.getText());
                             ps.setInt(2, estado.getItemAt(estado.getSelectedIndex()).getId());
                             ps.setInt(3, menu.getIduser());
+                            ps.setBoolean(4, fraccionable.isSelected());
                             db.Insertar(ps, true);
                         } catch (SQLException ex) {
                             Logger.getLogger(tipo_descuento.class.getName()).log(Level.SEVERE, null, ex);
@@ -664,7 +672,8 @@ public class tipo_descuento extends javax.swing.JInternalFrame {
                             + "	descripcion=?, \n"
                             + "	estado=?, \n"
                             + "	usuario_update=?,  \n"
-                            + "	fecha_h_update=?\n"
+                            + "	fecha_h_update=?, \n"
+                            + "fraccionable = ? \n"
                             + "WHERE id = ?;";
                     PreparedStatement ps2 = menu.getConexion().prepareStatement(sql);
                     ps2.setString(1, descripcion.getText());
@@ -672,6 +681,7 @@ public class tipo_descuento extends javax.swing.JInternalFrame {
                     ps2.setInt(3, menu.getIduser());
                     ps2.setTimestamp(4, db.getCurrentTimeStamp());
                     ps2.setInt(5, id);
+                    ps2.setBoolean(6, fraccionable.isSelected());
                     db.Actualizar(ps2, true);
 
                     break;
@@ -707,12 +717,17 @@ public class tipo_descuento extends javax.swing.JInternalFrame {
         } else {
             try {
                 id = Integer.parseInt(tabla.getValueAt(row, 0).toString());
-                sql = "select descripcion, estado from tipo_descuentos where id = ?";
+                sql = "select descripcion, estado, fraccionable from tipo_descuentos where id = ?";
                 PreparedStatement ps = menu.getConexion().prepareStatement(sql);
                 ps.setInt(1, id);
                 res = db.QueryDinamico(ps);
                 descripcion.setText(res[1]);
                 db.SelectIdCombo(estado, Integer.parseInt(res[2]));
+                if(res[3].equals("t")){
+                    fraccionable.setSelected(true);
+                }else{
+                    fraccionable.setSelected(false);
+                }
                 modal.setLocationRelativeTo(null);
                 modal.setVisible(true);
             } catch (SQLException ex) {
@@ -725,6 +740,7 @@ public class tipo_descuento extends javax.swing.JInternalFrame {
     private void limpiar() {
         descripcion.setText("");
         estado.setSelectedIndex(0);
+        fraccionable.setSelected(false);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anterior;
@@ -737,7 +753,8 @@ public class tipo_descuento extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_nuevo;
     private javax.swing.JTextField busqueda;
     private javax.swing.JTextField descripcion;
-    private javax.swing.JComboBox<Query> estado;
+    private javax.swing.JComboBox<clases.Tools> estado;
+    private javax.swing.JCheckBox fraccionable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

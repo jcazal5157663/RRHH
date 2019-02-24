@@ -8,7 +8,7 @@
         <Property name="undecorated" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="false"/>
         <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[450, 162]"/>
+          <Dimension value="[450, 164]"/>
         </Property>
       </Properties>
 
@@ -49,7 +49,7 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jPanel5" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="54" max="32767" attributes="0"/>
                               <Component id="btn_guardar" min="-2" pref="120" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btn_aplicar" min="-2" pref="120" max="-2" attributes="0"/>
@@ -106,7 +106,9 @@
                               <Component id="descripcion" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="estado" min="-2" pref="90" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="231" max="32767" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="fraccionable" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
@@ -123,7 +125,10 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="estado" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="estado" alignment="3" max="32767" attributes="0"/>
+                                  <Component id="fraccionable" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <Component id="jLabel3" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -169,8 +174,13 @@
                     </Property>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Query&gt;"/>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;clases.Tools&gt;"/>
                   </AuxValues>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="fraccionable">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Fraccionable"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>

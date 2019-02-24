@@ -3,7 +3,7 @@ package buscadores;
 import buscadores.buscador_ciudad;
 import clases.Cerrar_Escape;
 import clases.EstilosLabel;
-import clases.Query;
+import clases.Tools;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.PreparedStatement;
@@ -23,7 +23,7 @@ public class buscador_barrio extends javax.swing.JDialog {
     Color entrada_1 = new Color(240, 240, 240);
     Color Salida_1 = new Color(255, 255, 255);
     EstilosLabel lb = new EstilosLabel();
-    Query db = new Query();
+    Tools db = new Tools();
     Cerrar_Escape es = new Cerrar_Escape();
     DefaultTableModel modelo = new DefaultTableModel();
     String sql = "";
@@ -827,7 +827,7 @@ public class buscador_barrio extends javax.swing.JDialog {
     private javax.swing.JTextField busqueda;
     private javax.swing.JTextField ciu_descri;
     private javax.swing.JTextField descripcion;
-    private javax.swing.JComboBox<Query> estado;
+    private javax.swing.JComboBox<Tools> estado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -31,7 +31,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
 
     Cerrar_Escape es = new Cerrar_Escape();
     EstilosLabel lb = new EstilosLabel();
-    Query db = new Query();
+    Tools db = new Tools();
     String sql = "";
     String res[] = null;
 
@@ -4071,7 +4071,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JButton ExpeNuevo;
     private javax.swing.JButton ExpeNuevo1;
     private javax.swing.JTextField apellido;
-    private javax.swing.JComboBox<Query> banco;
+    private javax.swing.JComboBox<Tools> banco;
     private javax.swing.JTextField barrio;
     private javax.swing.JButton btn_aplicar;
     private javax.swing.JButton btn_barrio;
@@ -4101,7 +4101,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JButton eliminarPariente;
     private javax.swing.JButton eliminarreflab;
     private javax.swing.JTextField emails;
-    private javax.swing.JComboBox<Query> estado_civil;
+    private javax.swing.JComboBox<Tools> estado_civil;
     private javax.swing.JTextField expeEmpresa;
     private com.toedter.calendar.JDateChooser fecha_contrato;
     private com.toedter.calendar.JDateChooser fecha_fin_contrato;
@@ -4110,11 +4110,11 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser fecha_nacimiento;
     private com.toedter.calendar.JDateChooser fecha_vencimiento;
     private javax.swing.JTextField formInstituto;
-    private javax.swing.JComboBox<Query> forma_cobro;
+    private javax.swing.JComboBox<Tools> forma_cobro;
     private javax.swing.JCheckBox funcio;
     private javax.swing.JButton grabarPariente;
     private javax.swing.JButton grabarreflab;
-    private javax.swing.JComboBox<Query> grupo_sanguineo;
+    private javax.swing.JComboBox<Tools> grupo_sanguineo;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
@@ -4212,7 +4212,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JDialog modal;
     private javax.swing.JButton modificarPariente;
     private javax.swing.JButton modificarreflab;
-    private javax.swing.JComboBox<Query> moneda;
+    private javax.swing.JComboBox<Tools> moneda;
     private javax.swing.JTextField nacionalidad;
     private javax.swing.JTextField nombre;
     private javax.swing.JTextField nro_cuenta;
@@ -4226,7 +4226,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField parientApellido;
     private com.toedter.calendar.JDateChooser parientFechaNac;
     private javax.swing.JTextField parientNombre;
-    private javax.swing.JComboBox<Query> parientParentesc;
+    private javax.swing.JComboBox<Tools> parientParentesc;
     private javax.swing.JTextField parientTelefono;
     private javax.swing.JTextField profesion;
     private javax.swing.JTextField reflaCargo;
@@ -4236,8 +4236,8 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField resolucion;
     private javax.swing.JTextField salario;
     private javax.swing.JTextField sector;
-    private javax.swing.JComboBox<Query> sexo;
-    private javax.swing.JComboBox<Query> sucursal;
+    private javax.swing.JComboBox<Tools> sexo;
+    private javax.swing.JComboBox<Tools> sucursal;
     private javax.swing.JTable tbl_Experiencia;
     private javax.swing.JTable tbl_Experiencia1;
     private javax.swing.JTable tbl_funcionario;
@@ -4245,8 +4245,8 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbl_persona;
     private javax.swing.JTable tbl_ref_laboral;
     private javax.swing.JTextField telefono;
-    private javax.swing.JComboBox<Query> tipo_Contrato;
-    private javax.swing.JComboBox<Query> tipo_documento;
-    private javax.swing.JComboBox<Query> tipo_empleado;
+    private javax.swing.JComboBox<Tools> tipo_Contrato;
+    private javax.swing.JComboBox<Tools> tipo_documento;
+    private javax.swing.JComboBox<Tools> tipo_empleado;
     // End of variables declaration//GEN-END:variables
 }

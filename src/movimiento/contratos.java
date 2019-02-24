@@ -32,7 +32,7 @@ public class contratos extends javax.swing.JInternalFrame {
     int idcontrato = 0;
     String sql = "";
     String res[] = null;
-    Query db = new Query();
+    Tools db = new Tools();
     DefaultTableModel Model_Index = new DefaultTableModel();
     DefaultTableModel ModelDetalle = new DefaultTableModel();
 

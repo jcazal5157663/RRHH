@@ -29,10 +29,11 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     DefaultTableModel modelo;
     DefaultTableModel modeloCuota;
     private String sql = "";
-    Query db = new Query();
+    Tools db = new Tools();
     int idFuncionario = 0;
     String res[];
     int dias = 0;
+    int iddescuento = 0;
 
     public dcto_funcionario() {
         initComponents();
@@ -1017,32 +1018,55 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         cbTipoDcto.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                switch (db.getIdCombo(cbTipoDcto)) {
-                    case 5:
-                        db.getEnabledPanel(jpCalculo);
-                        break;
-                    case 3:
-                        db.getEnabledPanel(jpCalculo);
-                        break;
-                    default:
-                        db.getDisabledPanel(jpCalculo);
-                        fecha_desde.setDate(null);
-                        fecha_hasta.setDate(null);
-                        checkSabado.setSelected(false);
-                        chekDomingo.setSelected(false);
-                        txtDias.setText("0");
-                        break;
+                try {
+                    switch (db.getIdCombo(cbTipoDcto)) {
+                        case 5:
+                            db.getEnabledPanel(jpCalculo);
+                            
+                            break;
+                        case 3:
+                            db.getEnabledPanel(jpCalculo);
+                            
+                            break;
+                        default:
+                            
+                            db.getDisabledPanel(jpCalculo);
+                            fecha_desde.setDate(null);
+                            fecha_hasta.setDate(null);
+                            checkSabado.setSelected(false);
+                            chekDomingo.setSelected(false);
+                            txtDias.setText("0");
+                            break;
+                    }
+                    
+                    sql = "select fraccionable from tipo_descuentos \n"
+                            + "where id = ?";
+                    PreparedStatement ps = menu.getConexion().prepareCall(sql);
+                    ps.setInt(1, db.getIdCombo(cbTipoDcto));
+                    res = db.QueryDinamico(ps);
+                   
+                    if(res[1].equals("t")){
+                        cbFraccionar.setEnabled(true);
+                    }else{
+                        cbFraccionar.setEnabled(false);
+                    }
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(dcto_funcionario.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
             }
         });
     }
 
     private void spFormulario() {
+        sql = "INSERT INTO descuento_fun\n"
+                + "(funcionario, tipo_descuentos, monto, saldo, cuota, fecha_pago,usuario_input)\n"
+                + "VALUES(?, ?, ?, ?, ?, ?, ?)"
+                + "RETURNING id";
         if (cbFraccionar.getSelectedIndex() == 0) {
             try {
-                sql = "INSERT INTO descuento_fun\n"
-                        + "(funcionario, tipo_descuentos, monto, saldo, cuota, fecha_pago,usuario_input)\n"
-                        + "VALUES(?, ?, ?, ?, ?, ?, ?);";
+
                 PreparedStatement ps = menu.getConexion().prepareStatement(sql);
                 ps.setInt(1, idFuncionario);
                 ps.setInt(2, db.getIdCombo(cbTipoDcto));
@@ -1051,14 +1075,48 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                 ps.setInt(5, 1);
                 ps.setDate(6, db.convertUtilToSql(fecha_vencimiento));
                 ps.setInt(7, menu.getIduser());
-                db.Insertar(ps, true);
+                res = db.QueryDinamico(ps);
+
+                if (db.getIdCombo(cbTipoDcto) == 5 || db.getIdCombo(cbTipoDcto) == 3) {
+                    iddescuento = Integer.parseInt(res[1]);
+                    sql = "INSERT INTO detdescausencia\n"
+                            + "(tipo_descuentos, descuento_fun, fecha_desde, fecha_hasta, dias_ausencias, usuario_input)\n"
+                            + "VALUES(?, ?, ? ,? ,? ,?);";
+                    PreparedStatement ps2 = menu.getConexion().prepareStatement(sql);
+                    ps2.setInt(1, db.getIdCombo(cbTipoDcto));
+                    ps2.setInt(2, iddescuento);
+                    ps2.setDate(3, db.convertUtilToSql(fecha_desde));
+                    ps2.setDate(4, db.convertUtilToSql(fecha_hasta));
+                    ps2.setInt(5, Integer.parseInt(txtDias.getText()));
+                    ps2.setInt(6, menu.getIduser());
+                    db.Insertar(ps2, false);
+                }
 
             } catch (SQLException ex) {
                 Logger.getLogger(dcto_funcionario.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
+            try {
+                PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+                for (int i = 0; i < tblCuota.getRowCount(); i++) {
 
+                    ps.setInt(1, idFuncionario);
+                    ps.setInt(2, db.getIdCombo(cbTipoDcto));
+                    ps.setDouble(3, db.getParseString(tblCuota, i, 2));
+                    ps.setDouble(4, db.getParseString(tblCuota, i, 2));
+                    ps.setInt(5, db.getParseStringint(tblCuota, i, 0));
+                    ps.setDate(6, db.convertUtilToSql(tblCuota, i, 1));
+                    ps.setInt(7, menu.getIduser());
+                    ps.addBatch();
+                }
+
+                ps.executeBatch();
+            } catch (SQLException ex) {
+                Logger.getLogger(dcto_funcionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+
+        db.getMessage(operacion);
     }
 
 
@@ -1075,7 +1133,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_nuevo;
     private javax.swing.JComboBox<String> cbFraccionar;
-    private javax.swing.JComboBox<Query> cbTipoDcto;
+    private javax.swing.JComboBox<Tools> cbTipoDcto;
     private javax.swing.JCheckBox checkSabado;
     private javax.swing.JCheckBox chekDomingo;
     private com.toedter.calendar.JDateChooser fecha_desde;

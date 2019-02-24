@@ -20,7 +20,7 @@ public class prueba {
         int cuota = 15;
         int monto = 425000;
         
-        ArrayList<Model_Cuota> array = new Query().TraerCuotas(monto, cuota);
+        ArrayList<Model_Cuota> array = new Tools().TraerCuotas(monto, cuota);
         
         for (Model_Cuota array1 : array) {
             System.out.println(array1.toString());

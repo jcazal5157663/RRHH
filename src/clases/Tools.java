@@ -12,6 +12,7 @@ import java.awt.event.KeyListener;
 import java.net.URL;
 import java.sql.*;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,21 +47,21 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import objetos.Model_Cuota;
 
-public class Query {
+public class Tools {
 
     private int id;
     private String idDescri;
     private String descripcion;
 
-    public Query() {
+    public Tools() {
     }
 
-    public Query(int id, String descripcion) {
+    public Tools(int id, String descripcion) {
         this.id = id;
         this.descripcion = descripcion;
     }
 
-    public Query(String idDescri, String descripcion) {
+    public Tools(String idDescri, String descripcion) {
         this.idDescri = idDescri;
         this.descripcion = descripcion;
     }
@@ -94,19 +95,19 @@ public class Query {
         return descripcion;
     }
 
-    public void CargarCombo(JComboBox<Query> Combo, String cod[], String descri[]) {
+    public void CargarCombo(JComboBox<Tools> Combo, String cod[], String descri[]) {
         for (int i = 0; i < cod.length; i++) {
-            Combo.addItem(new Query(Integer.parseInt(cod[i]), descri[i]));
+            Combo.addItem(new Tools(Integer.parseInt(cod[i]), descri[i]));
         }
     }
 
-    public void CargarCombo2(JComboBox<Query> Combo, String cod[], String descri[]) {
+    public void CargarCombo2(JComboBox<Tools> Combo, String cod[], String descri[]) {
         for (int i = 0; i < cod.length; i++) {
-            Combo.addItem(new Query(cod[i], descri[i]));
+            Combo.addItem(new Tools(cod[i], descri[i]));
         }
     }
 
-    public void CargarCombo(JComboBox<Query> Combo, String sql, Connection cn) {
+    public void CargarCombo(JComboBox<Tools> Combo, String sql, Connection cn) {
         try {
 
             Statement Sentencia;
@@ -115,28 +116,28 @@ public class Query {
             Sentencia = cn.createStatement();
             resultado = Sentencia.executeQuery(sql);
             while (resultado.next()) {
-                Combo.addItem(new Query(resultado.getInt(1), resultado.getString(2)));
+                Combo.addItem(new Tools(resultado.getInt(1), resultado.getString(2)));
             }
             resultado.close();
             Sentencia.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void SelectIdCombo(JComboBox<Query> combo, int id) {
+    public void SelectIdCombo(JComboBox<Tools> combo, int id) {
         for (int i = 0; i < combo.getModel().getSize(); i++) {
-            Query objeto = (Query) combo.getModel().getElementAt(i);
+            Tools objeto = (Tools) combo.getModel().getElementAt(i);
             if (objeto.getId() == id) {
                 combo.setSelectedItem(objeto);
             }
         }
     }
 
-    public void SelectIdCombo(JComboBox<Query> combo, String id) {
+    public void SelectIdCombo(JComboBox<Tools> combo, String id) {
         for (int i = 0; i < combo.getModel().getSize(); i++) {
-            Query objeto = (Query) combo.getModel().getElementAt(i);
+            Tools objeto = (Tools) combo.getModel().getElementAt(i);
             if (objeto.getIdDescri().endsWith(id)) {
                 combo.setSelectedItem(objeto);
             }
@@ -339,7 +340,7 @@ public class Query {
             tabla.getSelectionModel().setSelectionInterval(0, 0);
 
         } catch (SQLException ex) {
-            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -430,7 +431,7 @@ public class Query {
             tabla.getSelectionModel().setSelectionInterval(0, 0);
 
         } catch (SQLException ex) {
-            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -518,7 +519,7 @@ public class Query {
             tabla.getSelectionModel().setSelectionInterval(0, 0);
 
         } catch (SQLException ex) {
-            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -638,7 +639,7 @@ public class Query {
                 respuesta = null;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
         }
         return respuesta;
 
@@ -682,7 +683,7 @@ public class Query {
                 respuesta = null;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
         }
         return respuesta;
 
@@ -924,7 +925,7 @@ public class Query {
             vista.setTitle(titulo_informe);
             vista.setVisible(true);
         } catch (JRException ex) {
-            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
@@ -1080,7 +1081,7 @@ public class Query {
         jtableHeader.setDefaultRenderer(rend);
     }
 
-    public int getIdCombo(JComboBox<Query> combo) {
+    public int getIdCombo(JComboBox<Tools> combo) {
         return combo.getItemAt(combo.getSelectedIndex()).getId();
     }
 
@@ -1109,5 +1110,43 @@ public class Query {
     public Double getParseString(JTextField value) {
         return Double.parseDouble(value.getText().replace(".", "").replace(",", "."));
     }
+
+    public void getMessage(int operacion) {
+        switch (operacion) {
+            case 1:
+                JOptionPane.showMessageDialog(null, "Datos Guardados", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null, "Datos Modificados", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(null, "Datos Eliminados", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
+    }
+
+    public Double getParseString(JTable value, int position, int column) {
+        return Double.parseDouble(value.getValueAt(position, column).toString().replace(".", "").replace(",", "."));
+    }
+
+    public int getParseStringint(JTable value, int position, int column) {
+        return Integer.parseInt(value.getValueAt(position, column).toString().replace(".", "").replace(",", "."));
+    }
+
+    public java.sql.Date convertUtilToSql(JTable value, int position, int column) {
+        try {
+            String date = value.getValueAt(position, column).toString();
+            SimpleDateFormat fs = new SimpleDateFormat("dd/MM/yyyy");
+            java.util.Date uDate = fs.parse(date);
+            java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+            return sDate;
+        } catch (ParseException ex) {
+            Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
+    
 
 }
