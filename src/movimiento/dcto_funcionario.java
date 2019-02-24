@@ -7,9 +7,11 @@ import clases.*;
 import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import objetos.Model_Cuota;
 import principal.menu;
 
 public class dcto_funcionario extends javax.swing.JInternalFrame {
@@ -21,12 +23,13 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     int xy;
     int operacion = 0;
     DefaultTableModel modelo;
+    DefaultTableModel modeloCuota;
     private String sql = "";
     Query db = new Query();
     int idFuncionario = 0;
     String res[];
     int dias = 0;
-    
+
     public dcto_funcionario() {
         initComponents();
         lb.CambiarColor(btn_nuevo, entrada, Salida);
@@ -34,9 +37,12 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         lb.CambiarColor(btn_eliminar, entrada, Salida);
         lb.CambiarColor(btn_cerrar, entrada, Salida);
         modelo = (DefaultTableModel) tbl_dcto.getModel();
+        modeloCuota = (DefaultTableModel) tblCuota.getModel();
         CargarGrilla();
         CargarCombo();
         validarCaracteres();
+        
+        db.CentrarCabeceraTabla(tblCuota);
 
     }
 
@@ -55,7 +61,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         btnSaveAplication = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblCuota = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         fecha_desde = new com.toedter.calendar.JDateChooser("dd/MM/yyyy","##/##/####",'_');
         fecha_hasta = new com.toedter.calendar.JDateChooser("dd/MM/yyyy","##/##/####",'_');
@@ -85,6 +91,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnFuncionario = new javax.swing.JButton();
+        btnGenCuotas = new javax.swing.JButton();
         modal_informes = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -127,7 +134,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblCuota.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -143,8 +150,9 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tblCuota);
 
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Cuadro de Calculo de Dcto por Ausencia"));
 
         fecha_desde.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha Desde"));
@@ -165,6 +173,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         jLabel11.setText("Total Días");
 
         txtDias.setEditable(false);
+        txtDias.setBackground(new java.awt.Color(255, 255, 255));
         txtDias.setForeground(new java.awt.Color(51, 153, 255));
         txtDias.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtDias.setText("0");
@@ -291,6 +300,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         );
 
         txtFuncionario.setEditable(false);
+        txtFuncionario.setBackground(new java.awt.Color(255, 255, 255));
         txtFuncionario.setForeground(new java.awt.Color(51, 153, 255));
 
         jLabel2.setText("Funcionario:");
@@ -302,11 +312,13 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         txtMonto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         txtSalario.setEditable(false);
+        txtSalario.setBackground(new java.awt.Color(255, 255, 255));
         txtSalario.setForeground(new java.awt.Color(51, 153, 255));
         txtSalario.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtSalario.setText("0");
 
         txtSueldoporDia.setEditable(false);
+        txtSueldoporDia.setBackground(new java.awt.Color(255, 255, 255));
         txtSueldoporDia.setForeground(new java.awt.Color(51, 153, 255));
         txtSueldoporDia.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtSueldoporDia.setText("0");
@@ -334,6 +346,13 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         btnFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFuncionarioActionPerformed(evt);
+            }
+        });
+
+        btnGenCuotas.setText("Generar Cuotas");
+        btnGenCuotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenCuotasActionPerformed(evt);
             }
         });
 
@@ -367,7 +386,8 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel7)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtCuota, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnGenCuotas))
                                     .addGroup(jPanel7Layout.createSequentialGroup()
                                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -409,16 +429,19 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                     .addComponent(jLabel9)
                     .addComponent(txtSueldoporDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtCuota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(fecha_vencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtCuota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fecha_vencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnGenCuotas, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -744,18 +767,18 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         idFuncionario = bp.getIdbarrio();
         txtFuncionario.setText(bp.getDescBarrio());
         cbTipoDcto.requestFocus();
-        if(idFuncionario != 0){
+        if (idFuncionario != 0) {
             TraerSalario(idFuncionario);
         }
-        
-        
+
+
     }//GEN-LAST:event_btnFuncionarioActionPerformed
 
     private void btnCalculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculaActionPerformed
-        int dias = db.CalcularDias(fecha_desde, fecha_hasta , checkSabado, chekDomingo);
-        txtDias.setText(String.valueOf(dias));   
+        int dias = db.CalcularDias(fecha_desde, fecha_hasta, checkSabado, chekDomingo);
+        txtDias.setText(String.valueOf(dias));
         this.dias = dias;
-        
+
     }//GEN-LAST:event_btnCalculaActionPerformed
 
     private void btnCalcDctoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcDctoActionPerformed
@@ -763,6 +786,22 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         Double resultado = sxDia * this.dias;
         txtMonto.setText(db.getDecimalString(resultado));
     }//GEN-LAST:event_btnCalcDctoActionPerformed
+
+    private void btnGenCuotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenCuotasActionPerformed
+         for (int i = tblCuota.getRowCount() - 1; i >= 0; i--) {
+                modeloCuota.removeRow(i);
+            }
+        
+        
+        int cuota = (Integer) txtCuota.getValue();
+        int monto = (Integer) Integer.parseInt(txtMonto.getText().replace(".", ""));
+        ArrayList<Model_Cuota> array = db.TraerCuotas(monto, cuota);
+        array.forEach((array1) -> {
+            modeloCuota.addRow(new Object[]{array1.getCuota(), array1.getFecha(), array1.getMonto()});
+        });
+
+
+    }//GEN-LAST:event_btnGenCuotasActionPerformed
 
     private void select() {
 
@@ -806,32 +845,31 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                 + "order by td.descripcion";
         db.CargarCombo(cbTipoDcto, sql, menu.getConexion());
     }
-    
-    
-    private void TraerSalario(int id ){
+
+    private void TraerSalario(int id) {
         try {
-            sql = "select v.salario, v.\"Salario por Dia\" from view_salariofun v \n" +
-                    "where v.id = ?";
+            sql = "select v.salario, v.\"Salario por Dia\" from view_salariofun v \n"
+                    + "where v.id = ?";
             PreparedStatement ps = menu.getConexion().prepareStatement(sql);
             ps.setInt(1, id);
             res = db.QueryDinamico(ps);
-            if(res != null){
+            if (res != null) {
                 txtSalario.setText(res[1]);
                 txtSueldoporDia.setText(res[2]);
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(dcto_funcionario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalcDcto;
     private javax.swing.JButton btnCalcula;
     private javax.swing.JButton btnFuncionario;
+    private javax.swing.JButton btnGenCuotas;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSaveAplication;
     private javax.swing.JButton btn_cerrar;
@@ -867,10 +905,10 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JDialog modal;
     private javax.swing.JDialog modal_informes;
+    private javax.swing.JTable tblCuota;
     private javax.swing.JTable tbl_dcto;
     private javax.swing.JSpinner txtCuota;
     private javax.swing.JTextField txtDias;

@@ -13,6 +13,7 @@ import java.net.URL;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -42,6 +43,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import objetos.Model_Cuota;
 
 public class Query {
 
@@ -1017,17 +1019,55 @@ public class Query {
 
         return true;
     }
-    
-    
-    public String getDecimalString(Double monto){
+
+    public String getDecimalString(Double monto) {
         return new DecimalFormat("###,###.##").format(monto);
     }
-    
-    
-    private void TraerCuotas(){
-        
+
+    public ArrayList<Model_Cuota> TraerCuotas(int Monto, int cuota) {
+        ArrayList<Model_Cuota> arrayList = new ArrayList<>();
+
+        int numero = 0;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DecimalFormat decimal = new DecimalFormat("###,###.##");
+        Calendar c = Calendar.getInstance();
+        String fecha;
+        int division = Monto / cuota;
+        int sumador = 0;
+        int diferencia = 0;
+        while (numero < cuota) {
+            Model_Cuota mc = new Model_Cuota();
+            numero++;
+            c.add(Calendar.MONTH, 1);
+            c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
+            //obtenemos la fecha
+            fecha = (dateFormat.format(c.getTime()));
+            mc.setFecha(fecha);
+            mc.setCuota(String.valueOf(numero));
+            sumador = sumador + division;
+
+            if (numero == cuota) {
+                diferencia = Monto - sumador;
+            }
+
+            if (diferencia > 0) {
+                division = division + diferencia;
+            }
+
+            mc.setMonto(decimal.format(division));
+
+            arrayList.add(mc);
+
+        }
+
+        return arrayList;
     }
-    
-    
+
+    public void CentrarCabeceraTabla(JTable jTable) {
+        JTableHeader jtableHeader = jTable.getTableHeader();
+        DefaultTableCellRenderer rend = (DefaultTableCellRenderer) jTable.getTableHeader().getDefaultRenderer();
+        rend.setHorizontalAlignment(JLabel.CENTER);
+        jtableHeader.setDefaultRenderer(rend);
+    }
 
 }
