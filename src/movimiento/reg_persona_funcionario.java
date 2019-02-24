@@ -3458,8 +3458,6 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
         try {
             PreparedStatement ps;
 
-            switch (operacion) {
-                case 1:
                     sql = "INSERT INTO funcionario(\n"
                             + "	 persona, cargo, sector, departamento, direccion, sede, nro_seg_ips, fecha_ingreso, fecha_de_contrato,"
                             + " fecha_ing_meets,"
@@ -3489,12 +3487,8 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                     ps.setDate(20, (!((JTextField) fecha_fin_contrato.getDateEditor()).getText().equals("__/__/____") ? convertUtilToSql(fecha_fin_contrato.getDate()) : null));
                     ps.execute();
 
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-            }
+                 
+            
         } catch (SQLException ex) {
             Logger.getLogger(reg_persona_funcionario.class.getName()).log(Level.SEVERE, null, ex);
         }

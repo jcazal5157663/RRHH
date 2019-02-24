@@ -10,6 +10,7 @@ import java.awt.event.ItemListener;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -737,7 +738,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
 
     private void btn_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevoActionPerformed
         operacion = 1;
-        modal.setLocationRelativeTo(null);    
+        modal.setLocationRelativeTo(null);
         modal.setVisible(true);
     }//GEN-LAST:event_btn_nuevoActionPerformed
 
@@ -856,8 +857,8 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCuotaKeyTyped
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        if(ValidarModal()){
-            
+        if (ValidarModal()) {
+            spFormulario();
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -1036,13 +1037,30 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         });
     }
 
-    private void spFormulario(){
-        if(cbFraccionar.getSelectedIndex() == 0){
-            sql = "";
-            
+    private void spFormulario() {
+        if (cbFraccionar.getSelectedIndex() == 0) {
+            try {
+                sql = "INSERT INTO descuento_fun\n"
+                        + "(funcionario, tipo_descuentos, monto, saldo, cuota, fecha_pago,usuario_input)\n"
+                        + "VALUES(?, ?, ?, ?, ?, ?, ?);";
+                PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+                ps.setInt(1, idFuncionario);
+                ps.setInt(2, db.getIdCombo(cbTipoDcto));
+                ps.setDouble(3, db.getParseString(txtMonto));
+                ps.setDouble(4, db.getParseString(txtMonto));
+                ps.setInt(5, 1);
+                ps.setDate(6, db.convertUtilToSql(fecha_vencimiento));
+                ps.setInt(7, menu.getIduser());
+                db.Insertar(ps, true);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(dcto_funcionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+
         }
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalcDcto;

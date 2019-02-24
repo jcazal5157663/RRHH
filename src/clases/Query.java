@@ -863,6 +863,12 @@ public class Query {
 
     }
 
+    public java.sql.Date convertUtilToSql(JDateChooser fecha) {
+        java.util.Date uDate = fecha.getDate();
+        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+        return sDate;
+    }
+
     public void transpasarFoco(JDateChooser fecha, Component componente) {
         ((JTextField) fecha.getDateEditor()).addKeyListener(new KeyListener() {
             @Override
@@ -1095,8 +1101,13 @@ public class Query {
         }
 
     }
-    
 
-    
+    public Double getParseString(String value) {
+        return Double.parseDouble(value.replace(".", "").replace(",", "."));
+    }
+
+    public Double getParseString(JTextField value) {
+        return Double.parseDouble(value.getText().replace(".", "").replace(",", "."));
+    }
 
 }
