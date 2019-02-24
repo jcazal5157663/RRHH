@@ -290,6 +290,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         jButton5.setBorderPainted(false);
         jButton5.setContentAreaFilled(false);
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton5.setFocusable(false);
         jButton5.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -736,8 +737,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
 
     private void btn_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevoActionPerformed
         operacion = 1;
-        modal.setLocationRelativeTo(null);
-        // nombre.requestFocus();
+        modal.setLocationRelativeTo(null);    
         modal.setVisible(true);
     }//GEN-LAST:event_btn_nuevoActionPerformed
 
@@ -1036,6 +1036,13 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         });
     }
 
+    private void spFormulario(){
+        if(cbFraccionar.getSelectedIndex() == 0){
+            sql = "";
+            
+        }
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalcDcto;
