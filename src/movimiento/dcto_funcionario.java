@@ -660,25 +660,29 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Id", "Funcionario", "Cuota", "Fecha de Venc.", "Deuda", "Pagado", "Saldo", "Estado"
+                "Id", "Funcionario", "Concepto", "Cuota", "Fecha de Venc.", "Deuda", "Pagado", "Saldo", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tbl_dcto.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane1.setViewportView(tbl_dcto);
         if (tbl_dcto.getColumnModel().getColumnCount() > 0) {
             tbl_dcto.getColumnModel().getColumn(0).setMinWidth(0);
             tbl_dcto.getColumnModel().getColumn(0).setPreferredWidth(0);
             tbl_dcto.getColumnModel().getColumn(0).setMaxWidth(0);
-            tbl_dcto.getColumnModel().getColumn(2).setMinWidth(100);
-            tbl_dcto.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tbl_dcto.getColumnModel().getColumn(2).setMaxWidth(100);
+            tbl_dcto.getColumnModel().getColumn(1).setMinWidth(250);
+            tbl_dcto.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tbl_dcto.getColumnModel().getColumn(1).setMaxWidth(250);
+            tbl_dcto.getColumnModel().getColumn(2).setMinWidth(150);
+            tbl_dcto.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tbl_dcto.getColumnModel().getColumn(2).setMaxWidth(150);
             tbl_dcto.getColumnModel().getColumn(3).setMinWidth(100);
             tbl_dcto.getColumnModel().getColumn(3).setPreferredWidth(100);
             tbl_dcto.getColumnModel().getColumn(3).setMaxWidth(100);
@@ -694,6 +698,9 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
             tbl_dcto.getColumnModel().getColumn(7).setMinWidth(100);
             tbl_dcto.getColumnModel().getColumn(7).setPreferredWidth(100);
             tbl_dcto.getColumnModel().getColumn(7).setMaxWidth(100);
+            tbl_dcto.getColumnModel().getColumn(8).setMinWidth(200);
+            tbl_dcto.getColumnModel().getColumn(8).setPreferredWidth(200);
+            tbl_dcto.getColumnModel().getColumn(8).setMaxWidth(200);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -869,20 +876,26 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
 
     private void CargarGrilla() {
         try {
-            sql = "select des.id, p.apellido || ' ' || p.nombre,\n"
+            sql = "select des.id, p.apellido || ' ' || p.nombre,td.descripcion,\n"
                     + "des.cuota, des.fecha_pago, des.monto, des.pagado, des.saldo,\n"
                     + "case\n"
-                    + "	des.estado\n"
-                    + "	when 1 then 'Pendiente de Pago'\n"
-                    + "	when 0 then 'Cancelado'\n"
+                    + "des.estado\n"
+                    + "when 1 then 'Pendiente de Pago'\n"
+                    + "when 0 then 'Cancelado'\n"
                     + "end,\n"
                     + "des.estado\n"
                     + "from descuento_fun des\n"
                     + "join funcionario f on des.funcionario = f.id\n"
+                    + "join tipo_descuentos td on td.id = des.tipo_descuentos\n"
                     + "join persona p on p.id = f.persona\n"
+                    + "where des.estado in (0,1)\n"
                     + "order by des.id";
             PreparedStatement ps = menu.getConexion().prepareStatement(sql);
             db.CargarTabla(ps, tbl_dcto, modelo, false);
+            
+            db.derecha(tbl_dcto, new int[]{5,6,7});
+            db.centrar(tbl_dcto, new int[]{3,4,8});
+            
         } catch (SQLException ex) {
             Logger.getLogger(dcto_funcionario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1022,14 +1035,14 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                     switch (db.getIdCombo(cbTipoDcto)) {
                         case 5:
                             db.getEnabledPanel(jpCalculo);
-                            
+
                             break;
                         case 3:
                             db.getEnabledPanel(jpCalculo);
-                            
+
                             break;
                         default:
-                            
+
                             db.getDisabledPanel(jpCalculo);
                             fecha_desde.setDate(null);
                             fecha_hasta.setDate(null);
@@ -1038,19 +1051,19 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                             txtDias.setText("0");
                             break;
                     }
-                    
+
                     sql = "select fraccionable from tipo_descuentos \n"
                             + "where id = ?";
                     PreparedStatement ps = menu.getConexion().prepareCall(sql);
                     ps.setInt(1, db.getIdCombo(cbTipoDcto));
                     res = db.QueryDinamico(ps);
-                   
-                    if(res[1].equals("t")){
+
+                    if (res[1].equals("t")) {
                         cbFraccionar.setEnabled(true);
-                    }else{
+                    } else {
                         cbFraccionar.setEnabled(false);
                     }
-                    
+
                 } catch (SQLException ex) {
                     Logger.getLogger(dcto_funcionario.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -1133,7 +1146,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_nuevo;
     private javax.swing.JComboBox<String> cbFraccionar;
-    private javax.swing.JComboBox<Tools> cbTipoDcto;
+    private javax.swing.JComboBox<clases.Tools> cbTipoDcto;
     private javax.swing.JCheckBox checkSabado;
     private javax.swing.JCheckBox chekDomingo;
     private com.toedter.calendar.JDateChooser fecha_desde;
