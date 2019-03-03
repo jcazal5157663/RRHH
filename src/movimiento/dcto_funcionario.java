@@ -47,6 +47,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         lb.CambiarColor(btn_modificar, entrada, Salida);
         lb.CambiarColor(btn_eliminar, entrada, Salida);
         lb.CambiarColor(btn_cerrar, entrada, Salida);
+        lb.CambiarColor(btn_informes, entrada, Salida);
         modelo = (DefaultTableModel) tbl_dcto.getModel();
         modeloCuota = (DefaultTableModel) tblCuota.getModel();
         CargarGrilla();
@@ -63,6 +64,8 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         addKeyEvent();
 
         db.Busqued(tbl_dcto, modelo, txtBusqueda);
+        
+        new Cerrar_Escape().addEscapeListener(this);
 
     }
 
@@ -113,6 +116,15 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         btnFuncionario = new javax.swing.JButton();
         btnGenCuotas = new javax.swing.JButton();
         modal_informes = new javax.swing.JDialog();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -303,6 +315,8 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         jLabel10.setText("Registro de descuentos del Funcionario");
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Delete_24px.png"))); // NOI18N
+        jButton5.setMnemonic('X');
+        jButton5.setToolTipText("Presione Alt+X para salir");
         jButton5.setBorderPainted(false);
         jButton5.setContentAreaFilled(false);
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -506,15 +520,123 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
             .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel8.setBackground(new java.awt.Color(56, 56, 56));
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 55, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel9.setBackground(new java.awt.Color(33, 150, 243));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Informes > Descuento Funcionario");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+        );
+
+        jPanel10.setBackground(new java.awt.Color(232, 232, 232));
+
+        jButton1.setBackground(new java.awt.Color(0, 77, 64));
+        jButton1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 10)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("ver Informe");
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setFocusable(false);
+        jButton1.setOpaque(true);
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(308, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap())
+        );
+
+        jScrollPane3.setBorder(null);
+
+        jList1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Descuentos por Resumen de Fecha", "Descuentos por Tipo de Descuentos", "Descuentos por Funcionarios", "Descuentos Activos", "Descuentos Pagados" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.setSelectionBackground(new java.awt.Color(232, 232, 232));
+        jList1.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jList1.setValueIsAdjusting(true);
+        jList1.setVisibleRowCount(20);
+        jScrollPane3.setViewportView(jList1);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, 0)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE))))
+        );
+
         javax.swing.GroupLayout modal_informesLayout = new javax.swing.GroupLayout(modal_informes.getContentPane());
         modal_informes.getContentPane().setLayout(modal_informesLayout);
         modal_informesLayout.setHorizontalGroup(
             modal_informesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         modal_informesLayout.setVerticalGroup(
             modal_informesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setBorder(null);
@@ -764,19 +886,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         operacion = 3;
-        //        int row = tabla.getSelectedRow();
-        //
-        //        if (row < 0) {
-        //            JOptionPane.showMessageDialog(this, "Debe de Seleccionar una Fila de la Tabla", "Error", JOptionPane.ERROR_MESSAGE);
-        //        } else {
-        //            id = Integer.parseInt(tabla.getValueAt(row, 0).toString());
-        //
-        //            int confirma = JOptionPane.showConfirmDialog(null, "Desea Eliminar: " + tabla.getValueAt(row, 1) + "?", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
-        //            if (confirma == 0) {
-        //                abm();
-        //
-        //            }
-        //        }
+        Eliminar();
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
@@ -799,6 +909,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_informesActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        limpiarModal();
         modal.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -1078,66 +1189,93 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     }
 
     private void spFormulario() {
-        sql = "INSERT INTO desc_cab\n"
-                + "(funcionario, tipo_descuentos, monto, saldo, usuario_input, fraccionar)\n"
-                + "VALUES(?, ?, ?, ? ,? ,?)"
-                + "RETURNING id";
 
-        try {
-            PreparedStatement ps = menu.getConexion().prepareStatement(sql);
-            ps.setInt(1, idFuncionario);
-            ps.setInt(2, db.getIdCombo(cbTipoDcto));
-            ps.setDouble(3, db.getParseString(txtMonto));
-            ps.setDouble(4, db.getParseString(txtMonto));
-            ps.setInt(5, menu.getIduser());
-            ps.setInt(6, cbFraccionar.getSelectedIndex());
-            res = db.QueryDinamico(ps);
-            iddescuento = Integer.parseInt(res[1]);
+        switch (operacion) {
+            case 1:
 
-            sql = "INSERT INTO desc_det_cuota\n"
-                    + "(desc_cab, cuota, monto, fecha_pagado)\n"
-                    + "VALUES(?, ?, ?, ?)";
+                sql = "INSERT INTO desc_cab\n"
+                        + "(funcionario, tipo_descuentos, monto, saldo, usuario_input, fraccionar)\n"
+                        + "VALUES(?, ?, ?, ? ,? ,?)"
+                        + "RETURNING id";
 
-            PreparedStatement psDetalle = menu.getConexion().prepareCall(sql);
-            //Tomamos solamente los Datos que estan en la Cabecera
-            if (cbFraccionar.getSelectedIndex() == 0) {
-                psDetalle.setInt(1, iddescuento);
-                psDetalle.setInt(2, db.getParseIntToString(txtCuota.getValue().toString()));
-                psDetalle.setDouble(3, db.getParseString(txtMonto));
-                psDetalle.setDate(4, db.convertUtilToSql(fecha_vencimiento));
-                db.Insertar(psDetalle, false);
-            } else {
+                try {
+                    PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+                    ps.setInt(1, idFuncionario);
+                    ps.setInt(2, db.getIdCombo(cbTipoDcto));
+                    ps.setDouble(3, db.getParseString(txtMonto));
+                    ps.setDouble(4, db.getParseString(txtMonto));
+                    ps.setInt(5, menu.getIduser());
+                    ps.setInt(6, cbFraccionar.getSelectedIndex());
+                    res = db.QueryDinamico(ps);
+                    iddescuento = Integer.parseInt(res[1]);
 
-                //Tomamos los Datos que estan en la Grilla
-                for (int i = 0; i < tblCuota.getRowCount(); i++) {
-                    psDetalle.setInt(1, iddescuento);
-                    psDetalle.setInt(2, db.getParseStringint(tblCuota, i, 0));
-                    psDetalle.setDouble(3, db.getParseStringint(tblCuota, i, 2));
-                    psDetalle.setDate(4, db.convertUtilToSql(tblCuota, i, 1));
-                    psDetalle.addBatch();
+                    sql = "INSERT INTO desc_det_cuota\n"
+                            + "(desc_cab, cuota, monto, fecha_pagado)\n"
+                            + "VALUES(?, ?, ?, ?)";
+
+                    PreparedStatement psDetalle = menu.getConexion().prepareCall(sql);
+                    //Tomamos solamente los Datos que estan en la Cabecera
+                    if (cbFraccionar.getSelectedIndex() == 0) {
+                        psDetalle.setInt(1, iddescuento);
+                        psDetalle.setInt(2, db.getParseIntToString(txtCuota.getValue().toString()));
+                        psDetalle.setDouble(3, db.getParseString(txtMonto));
+                        psDetalle.setDate(4, db.convertUtilToSql(fecha_vencimiento));
+                        db.Insertar(psDetalle, false);
+                    } else {
+
+                        //Tomamos los Datos que estan en la Grilla
+                        for (int i = 0; i < tblCuota.getRowCount(); i++) {
+                            psDetalle.setInt(1, iddescuento);
+                            psDetalle.setInt(2, db.getParseStringint(tblCuota, i, 0));
+                            psDetalle.setDouble(3, db.getParseStringint(tblCuota, i, 2));
+                            psDetalle.setDate(4, db.convertUtilToSql(tblCuota, i, 1));
+                            psDetalle.addBatch();
+                        }
+                        psDetalle.executeBatch();
+                    }
+                    //Le decimos que nos guarde un historico de Descuento de Funcionario
+                    if (db.getIdCombo(cbTipoDcto) == 5 || db.getIdCombo(cbTipoDcto) == 3) {
+                        iddescuento = Integer.parseInt(res[1]);
+                        sql = "INSERT INTO detdescausencia\n"
+                                + "(tipo_descuentos, descuento_fun, fecha_desde, fecha_hasta, dias_ausencias, usuario_input)\n"
+                                + "VALUES(?, ?, ? ,? ,? ,?);";
+                        PreparedStatement ps2 = menu.getConexion().prepareStatement(sql);
+                        ps2.setInt(1, db.getIdCombo(cbTipoDcto));
+                        ps2.setInt(2, iddescuento);
+                        ps2.setDate(3, db.convertUtilToSql(fecha_desde));
+                        ps2.setDate(4, db.convertUtilToSql(fecha_hasta));
+                        ps2.setInt(5, Integer.parseInt(txtDias.getText()));
+                        ps2.setInt(6, menu.getIduser());
+                        db.Insertar(ps2, false);
+                    }
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(dcto_funcionario.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                psDetalle.executeBatch();
-            }
-            //Le decimos que nos guarde un historico de Descuento de Funcionario
-            if (db.getIdCombo(cbTipoDcto) == 5 || db.getIdCombo(cbTipoDcto) == 3) {
-                iddescuento = Integer.parseInt(res[1]);
-                sql = "INSERT INTO detdescausencia\n"
-                        + "(tipo_descuentos, descuento_fun, fecha_desde, fecha_hasta, dias_ausencias, usuario_input)\n"
-                        + "VALUES(?, ?, ? ,? ,? ,?);";
-                PreparedStatement ps2 = menu.getConexion().prepareStatement(sql);
-                ps2.setInt(1, db.getIdCombo(cbTipoDcto));
-                ps2.setInt(2, iddescuento);
-                ps2.setDate(3, db.convertUtilToSql(fecha_desde));
-                ps2.setDate(4, db.convertUtilToSql(fecha_hasta));
-                ps2.setInt(5, Integer.parseInt(txtDias.getText()));
-                ps2.setInt(6, menu.getIduser());
-                db.Insertar(ps2, false);
-            }
+                break;
+            case 2:
+                break;
 
-        } catch (SQLException ex) {
-            Logger.getLogger(dcto_funcionario.class.getName()).log(Level.SEVERE, null, ex);
+            case 3:
+                sql = "update desc_cab set estado = ? where id = ?";
+                try {
+                    PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+                    ps.setInt(1, 2);
+                    ps.setInt(2, iddescuento);
+                    db.Actualizar(ps, false);
+                    
+                    
+                    sql = "update desc_det_cuota set estado = ? where id = ?";
+                    PreparedStatement psDet = menu.getConexion().prepareStatement(sql);
+                    psDet.setInt(1, 2);
+                    psDet.setInt(2, iddescuento);
+                    db.Actualizar(psDet, false);
+                } catch (SQLException ex) {
+                    Logger.getLogger(dcto_funcionario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                break;
         }
-
         db.getMessage(operacion);
     }
 
@@ -1172,6 +1310,53 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
 
     }
 
+    private Boolean Verificar(int id) {
+
+        try {
+            sql = "select count(*) from desc_det_cuota dc where dc.desc_cab = ?  and dc.estado = 0";
+            PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+            ps.setInt(1, id);
+            res = db.QueryDinamico(ps);
+           
+            if (!res[1].equals("0")) {
+                JOptionPane.showMessageDialog(null, "No se puede Modificar ni Eliminar un Dcto. con Cancelación", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(dcto_funcionario.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    private void Modificar() {
+        int select = tbl_dcto.getSelectedRow();
+        if (select < 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione una Fila para poder modificar", "Alerta", JOptionPane.WARNING_MESSAGE);
+        } else {
+            iddescuento = db.getParseStringint(tbl_dcto, select, 0);
+            if (Verificar(iddescuento)) {
+
+            }
+        }
+    }
+
+    private void Eliminar() {
+        int select = tbl_dcto.getSelectedRow();
+        if (select < 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione una Fila para poder modificar", "Alerta", JOptionPane.WARNING_MESSAGE);
+        } else {
+            iddescuento = db.getParseStringint(tbl_dcto, select, 0);
+            if (Verificar(iddescuento)) {
+                int confirma = JOptionPane.showConfirmDialog(null, "Desea Eliminar la Deuda Generada?", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
+                if (confirma == 0) {
+                    spFormulario();
+                }
+            }
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalcDcto;
@@ -1192,10 +1377,12 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser fecha_desde;
     private com.toedter.calendar.JDateChooser fecha_hasta;
     private com.toedter.calendar.JDateChooser fecha_vencimiento;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1204,14 +1391,21 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel jpCalculo;
     private javax.swing.JDialog modal;
     private javax.swing.JDialog modal_informes;
