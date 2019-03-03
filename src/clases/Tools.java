@@ -1110,6 +1110,10 @@ public class Tools {
     public Double getParseString(JTextField value) {
         return Double.parseDouble(value.getText().replace(".", "").replace(",", "."));
     }
+    
+    public int getParseIntToString(String value){
+        return Integer.parseInt(value.replace(".", "").replace(",", "."));
+    }
 
     public void getMessage(int operacion) {
         switch (operacion) {
