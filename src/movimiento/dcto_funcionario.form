@@ -596,7 +596,6 @@
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="fecha_vencimiento">
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="fecha_vencimiento.setDate(new Date());"/>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.toedter.calendar.JDateChooser(&quot;dd/MM/yyyy&quot;,&quot;##/##/####&quot;,&apos;_&apos;)"/>
               </AuxValues>
             </Component>
@@ -1193,7 +1192,7 @@
             <Component class="javax.swing.JTable" name="tbl_dcto">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="8" rowCount="0">
+                  <Table columnCount="10" rowCount="0">
                     <Column editable="false" title="Id" type="java.lang.Object"/>
                     <Column editable="false" title="Funcionario" type="java.lang.Object"/>
                     <Column editable="false" title="Concepto" type="java.lang.Object"/>
@@ -1202,8 +1201,11 @@
                     <Column editable="false" title="Pagado" type="java.lang.Object"/>
                     <Column editable="false" title="Saldo" type="java.lang.Object"/>
                     <Column editable="false" title="Estado" type="java.lang.Object"/>
+                    <Column editable="false" title="Fecha H Creaci&#xf3;n" type="java.lang.Object"/>
+                    <Column editable="false" title="Fecha H Actualizaci&#xf3;n" type="java.lang.Object"/>
                   </Table>
                 </Property>
+                <Property name="autoResizeMode" type="int" value="0"/>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="0" minWidth="0" prefWidth="0" resizable="true">
@@ -1211,7 +1213,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="250" minWidth="250" prefWidth="250" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -1242,6 +1244,16 @@
                       <Renderer/>
                     </Column>
                     <Column maxWidth="200" minWidth="200" prefWidth="200" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="150" minWidth="150" prefWidth="150" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="150" minWidth="150" prefWidth="150" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>

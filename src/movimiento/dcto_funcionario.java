@@ -13,12 +13,14 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 import objetos.Model_Cuota;
@@ -64,8 +66,25 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         addKeyEvent();
 
         db.Busqued(tbl_dcto, modelo, txtBusqueda);
-        
+
         new Cerrar_Escape().addEscapeListener(this);
+
+        sql = "select fraccionable from tipo_descuentos \n"
+                + "where id = ?";
+        PreparedStatement ps;
+        try {
+            ps = menu.getConexion().prepareCall(sql);
+            ps.setInt(1, db.getIdCombo(cbTipoDcto));
+            res = db.QueryDinamico(ps);
+        } catch (SQLException ex) {
+            Logger.getLogger(dcto_funcionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (res[1].equals("t")) {
+            cbFraccionar.setEnabled(true);
+        } else {
+            cbFraccionar.setEnabled(false);
+        }
 
     }
 
@@ -507,8 +526,6 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        fecha_vencimiento.setDate(new Date());
-
         javax.swing.GroupLayout modalLayout = new javax.swing.GroupLayout(modal.getContentPane());
         modal.getContentPane().setLayout(modalLayout);
         modalLayout.setHorizontalGroup(
@@ -796,22 +813,26 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Id", "Funcionario", "Concepto", "Cuota", "Deuda", "Pagado", "Saldo", "Estado"
+                "Id", "Funcionario", "Concepto", "Cuota", "Deuda", "Pagado", "Saldo", "Estado", "Fecha H Creación", "Fecha H Actualización"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tbl_dcto.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane1.setViewportView(tbl_dcto);
         if (tbl_dcto.getColumnModel().getColumnCount() > 0) {
             tbl_dcto.getColumnModel().getColumn(0).setMinWidth(0);
             tbl_dcto.getColumnModel().getColumn(0).setPreferredWidth(0);
             tbl_dcto.getColumnModel().getColumn(0).setMaxWidth(0);
+            tbl_dcto.getColumnModel().getColumn(1).setMinWidth(250);
+            tbl_dcto.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tbl_dcto.getColumnModel().getColumn(1).setMaxWidth(250);
             tbl_dcto.getColumnModel().getColumn(2).setMinWidth(150);
             tbl_dcto.getColumnModel().getColumn(2).setPreferredWidth(150);
             tbl_dcto.getColumnModel().getColumn(2).setMaxWidth(150);
@@ -830,6 +851,12 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
             tbl_dcto.getColumnModel().getColumn(7).setMinWidth(200);
             tbl_dcto.getColumnModel().getColumn(7).setPreferredWidth(200);
             tbl_dcto.getColumnModel().getColumn(7).setMaxWidth(200);
+            tbl_dcto.getColumnModel().getColumn(8).setMinWidth(150);
+            tbl_dcto.getColumnModel().getColumn(8).setPreferredWidth(150);
+            tbl_dcto.getColumnModel().getColumn(8).setMaxWidth(150);
+            tbl_dcto.getColumnModel().getColumn(9).setMinWidth(150);
+            tbl_dcto.getColumnModel().getColumn(9).setPreferredWidth(150);
+            tbl_dcto.getColumnModel().getColumn(9).setMaxWidth(150);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -881,7 +908,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         operacion = 2;
-        select();
+        Modificar();
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
@@ -986,6 +1013,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         if (ValidarModal()) {
             spFormulario();
             limpiarModal();
+            CargarGrilla();
             modal.dispose();
         }
     }//GEN-LAST:event_btnSaveActionPerformed
@@ -994,13 +1022,10 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         if (ValidarModal()) {
             spFormulario();
             limpiarModal();
+            CargarGrilla();
             btnFuncionario.requestFocus();
         }
     }//GEN-LAST:event_btnSaveAplicationActionPerformed
-
-    private void select() {
-
-    }
 
     private void CargarGrilla() {
         db.LimpiarBusqueda(txtBusqueda, tbl_dcto);
@@ -1178,6 +1203,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                         cbFraccionar.setEnabled(true);
                     } else {
                         cbFraccionar.setEnabled(false);
+                        cbFraccionar.setSelectedIndex(0);
                     }
 
                 } catch (SQLException ex) {
@@ -1210,7 +1236,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                     iddescuento = Integer.parseInt(res[1]);
 
                     sql = "INSERT INTO desc_det_cuota\n"
-                            + "(desc_cab, cuota, monto, fecha_pagado)\n"
+                            + "(desc_cab, cuota, monto, fecha_pago)\n"
                             + "VALUES(?, ?, ?, ?)";
 
                     PreparedStatement psDetalle = menu.getConexion().prepareCall(sql);
@@ -1237,7 +1263,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                     if (db.getIdCombo(cbTipoDcto) == 5 || db.getIdCombo(cbTipoDcto) == 3) {
                         iddescuento = Integer.parseInt(res[1]);
                         sql = "INSERT INTO detdescausencia\n"
-                                + "(tipo_descuentos, descuento_fun, fecha_desde, fecha_hasta, dias_ausencias, usuario_input)\n"
+                                + "(tipo_descuentos, descuento_fun, fecha_desde, fecha_hasta, dias_ausencias, usuario_input, sabado, domingo)\n"
                                 + "VALUES(?, ?, ? ,? ,? ,?);";
                         PreparedStatement ps2 = menu.getConexion().prepareStatement(sql);
                         ps2.setInt(1, db.getIdCombo(cbTipoDcto));
@@ -1246,6 +1272,8 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                         ps2.setDate(4, db.convertUtilToSql(fecha_hasta));
                         ps2.setInt(5, Integer.parseInt(txtDias.getText()));
                         ps2.setInt(6, menu.getIduser());
+                        ps2.setBoolean(7, checkSabado.isSelected());
+                        ps2.setBoolean(8, chekDomingo.isSelected());
                         db.Insertar(ps2, false);
                     }
 
@@ -1263,8 +1291,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                     ps.setInt(1, 2);
                     ps.setInt(2, iddescuento);
                     db.Actualizar(ps, false);
-                    
-                    
+
                     sql = "update desc_det_cuota set estado = ? where id = ?";
                     PreparedStatement psDet = menu.getConexion().prepareStatement(sql);
                     psDet.setInt(1, 2);
@@ -1292,15 +1319,15 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
     private void limpiarModal() {
         txtFuncionario.setText("");
         idFuncionario = 0;
-        cbTipoDcto.setSelectedIndex(1);
+        cbTipoDcto.setSelectedIndex(0);
         txtMonto.setText("0");
-        cbFraccionar.setSelectedIndex(1);
-        fecha_vencimiento.setDate(new Date());
+        cbFraccionar.setSelectedIndex(0);
+        fecha_vencimiento.setDate(null);
         txtSalario.setText("0");
         txtSueldoporDia.setText("0");
         txtCuota.setValue(1);
-        fecha_desde.setDate(new Date());
-        fecha_hasta.setDate(new Date());
+        fecha_desde.setDate(null);
+        fecha_hasta.setDate(null);
         checkSabado.setSelected(false);
         chekDomingo.setSelected(false);
         txtDias.setText("0");
@@ -1317,7 +1344,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
             PreparedStatement ps = menu.getConexion().prepareStatement(sql);
             ps.setInt(1, id);
             res = db.QueryDinamico(ps);
-           
+
             if (!res[1].equals("0")) {
                 JOptionPane.showMessageDialog(null, "No se puede Modificar ni Eliminar un Dcto. con Cancelación", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
@@ -1337,7 +1364,70 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
         } else {
             iddescuento = db.getParseStringint(tbl_dcto, select, 0);
             if (Verificar(iddescuento)) {
+                try {
+                    sql = "select f.id, p.apellido || ', ' || p.nombre,\n"
+                            + "dc.tipo_descuentos, fsa.salario, fsa.\"Salario por Dia\",\n"
+                            + "dc.monto, dc.fraccionar \n"
+                            + "from desc_cab dc \n"
+                            + "join funcionario f on dc.funcionario = f.id\n"
+                            + "join persona p on p.id = f.persona\n"
+                            + "join view_salariofun fsa on fsa.id = f.id\n"
+                            + "where dc.id = ?";
+                    PreparedStatement psCabecera = menu.getConexion().prepareStatement(sql);
+                    psCabecera.setInt(1, iddescuento);
+                    res = db.QueryDinamico(psCabecera);
+                    //Cargamos la Cabecera
+                    idFuncionario = db.getParseIntToString(res[1]);
+                    txtFuncionario.setText(res[2]);
+                    txtSalario.setText(res[4]);
+                    txtSueldoporDia.setText(res[5]);
+                    txtMonto.setText(res[6]);
+                    cbFraccionar.setSelectedIndex(Integer.parseInt(res[7]));
+                    String frac = res[7];
+                    db.SelectIdCombo(cbTipoDcto, db.getParseIntToString(res[3]));
 
+                    //Consultamos el Detalle
+                    if (frac.equals("0")) {
+                        sql = "select  dt.fecha_pago from desc_det_cuota dt\n"
+                                + "where dt.desc_cab = ?";
+                        PreparedStatement psDetalle = menu.getConexion().prepareStatement(sql);
+                        psDetalle.setInt(1, iddescuento);
+                        res = db.QueryDinamico(psDetalle);
+                        ((JTextField) fecha_vencimiento.getDateEditor()).setText(res[1]);
+                        txtCuota.setValue(1);
+
+                    } else {
+                        sql = "select dt.cuota, dt.fecha_pago, dt.monto from desc_det_cuota dt\n"
+                                + "where dt.desc_cab = ?";
+                        PreparedStatement psDetalle = menu.getConexion().prepareStatement(sql);
+                        psDetalle.setInt(1, iddescuento);
+                        db.CargarTabla(psDetalle, tblCuota, modeloCuota, false);
+                        db.centrar(tblCuota, new int[]{0, 1});
+                        db.derecha(tblCuota, new int[]{2});
+                        txtCuota.setValue(tblCuota.getRowCount());
+
+                    }
+
+                    //Traemos los Detalles de los Dias De Dcto.
+                    sql = "select da.dias_ausencias, da.fecha_desde, da.fecha_hasta, da.sabado, da.domingo from detdescausencia da\n"
+                            + "where da.descuento_fun = ?";
+                    PreparedStatement psDcto = menu.getConexion().prepareStatement(sql);
+                    psDcto.setInt(1, iddescuento);
+                    res = db.QueryDinamico(psDcto);
+                    
+                    if(res != null){
+                        txtDias.setText(res[1]);
+                        ((JTextField) fecha_desde.getDateEditor()).setText(res[2]);
+                        ((JTextField) fecha_hasta.getDateEditor()).setText(res[3]);
+                        checkSabado.setSelected((res[4].equals("t") ));
+                        chekDomingo.setSelected((res[5].equals("t") ));
+                    }
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(dcto_funcionario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                modal.setLocationRelativeTo(null);
+                modal.setVisible(true);
             }
         }
     }

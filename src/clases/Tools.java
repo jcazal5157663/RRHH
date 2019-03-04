@@ -401,7 +401,7 @@ public class Tools {
                             fila[i] = resultado.getString(i + 1) != null ? formato_decimal.format(resultado.getDouble(i + 1)) : 0;
                             break;
                         case 91:
-                            fila[i] = formato_fecha.format(resultado.getDate(i + 1));
+                            fila[i] =  resultado.getString(i + 1) != null ? formato_fecha.format(resultado.getDate(i + 1)) : "";
                             break;
                         default:
                             fila[i] = resultado.getObject(i + 1);
