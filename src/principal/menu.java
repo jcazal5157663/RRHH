@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import movimiento.contratos;
 import movimiento.dcto_funcionario;
 import movimiento.reg_persona_funcionario;
+import movimiento.sol_anticipo;
 import referenciales.bancos;
 import referenciales.barrios;
 import referenciales.cargo;
@@ -101,7 +102,6 @@ public class menu extends javax.swing.JFrame implements Runnable {
         menu.conexion = conexion;
         initComponents();
         botones();
-        
 
         h1 = new Thread(this);
         h1.start();
@@ -160,6 +160,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
         btn_cargo1 = new javax.swing.JButton();
         btn_cargo2 = new javax.swing.JButton();
         btn_cargo3 = new javax.swing.JButton();
+        btn_cargo4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -760,26 +761,47 @@ public class menu extends javax.swing.JFrame implements Runnable {
             }
         });
 
+        btn_cargo4.setBackground(new java.awt.Color(255, 255, 255));
+        btn_cargo4.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btn_cargo4.setForeground(new java.awt.Color(102, 102, 102));
+        btn_cargo4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Bill_14px.png"))); // NOI18N
+        btn_cargo4.setText("Solicitud de Anticipos Manual");
+        btn_cargo4.setBorderPainted(false);
+        btn_cargo4.setContentAreaFilled(false);
+        btn_cargo4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_cargo4.setFocusPainted(false);
+        btn_cargo4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btn_cargo4.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        btn_cargo4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cargo4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout p_movimientoLayout = new javax.swing.GroupLayout(p_movimiento);
         p_movimiento.setLayout(p_movimientoLayout);
         p_movimientoLayout.setHorizontalGroup(
             p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_movimientoLayout.createSequentialGroup()
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 976, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(p_movimientoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_cargo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_cargo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_cargo3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_cargo4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(938, 938, 938))
         );
         p_movimientoLayout.setVerticalGroup(
             p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_movimientoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btn_cargo1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_cargo1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cargo4, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_cargo2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1157,6 +1179,11 @@ public class menu extends javax.swing.JFrame implements Runnable {
         vn.Abrir_ventana(escritorio, desc, true);
     }//GEN-LAST:event_btn_cargo3ActionPerformed
 
+    private void btn_cargo4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargo4ActionPerformed
+        sol_anticipo desc = new sol_anticipo();
+        vn.Abrir_ventana(escritorio, desc, true);
+    }//GEN-LAST:event_btn_cargo4ActionPerformed
+
     private static int iduser;
     private String nombre;
     private static Connection conexion;
@@ -1207,6 +1234,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton btn_cargo1;
     private javax.swing.JButton btn_cargo2;
     private javax.swing.JButton btn_cargo3;
+    private javax.swing.JButton btn_cargo4;
     private javax.swing.JButton btn_ciudades;
     private javax.swing.JButton btn_concepto;
     private javax.swing.JButton btn_departamento;
