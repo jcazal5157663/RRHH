@@ -157,8 +157,9 @@
                           <Component id="jLabel7" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                           <Component id="jLabel8" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel2" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -194,9 +195,9 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                           <Component id="btn_direccion" alignment="0" max="32767" attributes="0"/>
                                           <Component id="btn_departamento" alignment="0" max="32767" attributes="0"/>
@@ -209,7 +210,7 @@
                                           <Component id="btn_tipo_documentó" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="jLabel4" max="32767" attributes="0"/>
+                                  <Component id="jLabel4" alignment="1" min="-2" pref="246" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
@@ -253,7 +254,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btn_pais4" pref="220" max="32767" attributes="0"/>
+                                  <Component id="btn_pais4" pref="212" max="32767" attributes="0"/>
                                   <Component id="btn_pais5" max="32767" attributes="0"/>
                                   <Component id="btn_pais6" alignment="0" max="32767" attributes="0"/>
                               </Group>
@@ -264,10 +265,11 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jSeparator1" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jSeparator2" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="btn_pais" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                                           <Component id="btn_pais1" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
@@ -285,57 +287,51 @@
                                           <Component id="btn_pais3" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                                           <Component id="btn_pais6" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="btn_cargo" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
-                                                      <Component id="btn_sector" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="btn_departamento" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
-                                                      <Component id="btn_sucursales" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="btn_bancos" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
-                                                      <Component id="btn_descuento" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="btn_concepto" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
-                                                      <Component id="btn_moneda" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="btn_direccion" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
-                                                  <Component id="btn_tipo_documentó" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                                                  <Component id="btn_bancos" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                                                  <Component id="btn_descuento" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                                               </Group>
-                                              <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="btn_concepto" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                                                  <Component id="btn_moneda" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="btn_forma_cobro" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                                                   <Component id="btn_moneda1" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="btn_cargo" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                                                  <Component id="btn_sector" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="btn_departamento" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                                                  <Component id="btn_sucursales" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="btn_direccion" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                                                  <Component id="btn_tipo_documentó" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
-                                      <Component id="jSeparator2" max="32767" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel9" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1048,7 +1044,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btn_cargo3" min="-2" pref="15" max="-2" attributes="0"/>
-                              <EmptySpace pref="17" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1246,7 +1242,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btn_cargo5" min="-2" pref="15" max="-2" attributes="0"/>
-                              <EmptySpace pref="74" max="32767" attributes="0"/>
+                              <EmptySpace pref="63" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1448,7 +1444,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="311" max="32767" attributes="0"/>
+                      <EmptySpace pref="305" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
