@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 import principal.menu;
@@ -33,7 +34,8 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
     int idFuncionario = 0;
     String res[];
     int dias = 0;
-    int iddescuento = 0;
+    int idAnticipo = 0;
+    Verificar_Anticipo va = new Verificar_Anticipo();
 
     public sol_anticipo() {
         initComponents();
@@ -43,25 +45,17 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
         lb.CambiarColor(btn_cerrar, entrada, Salida);
         lb.CambiarColor(btn_informes, entrada, Salida);
         modelo = (DefaultTableModel) tbl_dcto.getModel();
-      
+
         CargarGrilla();
-      
+
         validarCaracteres();
 
-        
 
-        fecha_vencimiento.setEnabled(true);
-      
-     
-       
         addKeyEvent();
 
         db.Busqued(tbl_dcto, modelo, txtBusqueda);
 
         new Cerrar_Escape().addEscapeListener(this);
-
-
-    
 
     }
 
@@ -80,20 +74,10 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtMonto = new javax.swing.JTextField();
-        fecha_vencimiento = new com.toedter.calendar.JDateChooser("dd/MM/yyyy","##/##/####",'_');
+        fechaSolicitud = new com.toedter.calendar.JDateChooser("dd/MM/yyyy","##/##/####",'_');
         jLabel6 = new javax.swing.JLabel();
         btnFuncionario = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        modal_informes = new javax.swing.JDialog();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -111,7 +95,7 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
         modal.setModal(true);
         modal.setUndecorated(true);
         modal.setResizable(false);
-        modal.setSize(new java.awt.Dimension(563, 184));
+        modal.setSize(new java.awt.Dimension(416, 184));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
@@ -199,8 +183,8 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
         txtMonto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtMonto.setText("0");
 
-        fecha_vencimiento.setBackground(new java.awt.Color(255, 255, 255));
-        fecha_vencimiento.setEnabled(false);
+        fechaSolicitud.setBackground(new java.awt.Color(255, 255, 255));
+        fechaSolicitud.setEnabled(false);
 
         jLabel6.setText("Fecha de Solicitud:");
 
@@ -232,13 +216,13 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtMonto)
-                                    .addComponent(fecha_vencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(fechaSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 110, Short.MAX_VALUE))
                             .addComponent(txtFuncionario))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnFuncionario))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addContainerGap(253, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSaveAplication, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -261,7 +245,7 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
                     .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(fecha_vencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(fechaSolicitud, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -272,7 +256,9 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        fecha_vencimiento.setDate(new Date());
+        fechaSolicitud.setDate(new Date());
+
+        ((JTextField) fechaSolicitud.getDateEditor()).setEnabled(false);
 
         javax.swing.GroupLayout modalLayout = new javax.swing.GroupLayout(modal.getContentPane());
         modal.getContentPane().setLayout(modalLayout);
@@ -283,123 +269,6 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
         modalLayout.setVerticalGroup(
             modalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-
-        jPanel8.setBackground(new java.awt.Color(56, 56, 56));
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 55, Short.MAX_VALUE)
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jPanel9.setBackground(new java.awt.Color(33, 150, 243));
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Informes > Descuento Funcionario");
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-        );
-
-        jPanel10.setBackground(new java.awt.Color(232, 232, 232));
-
-        jButton1.setBackground(new java.awt.Color(0, 77, 64));
-        jButton1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 10)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("ver Informe");
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setFocusable(false);
-        jButton1.setOpaque(true);
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap(308, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap())
-        );
-
-        jScrollPane3.setBorder(null);
-
-        jList1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Descuentos por Resumen de Fecha", "Descuentos por Tipo de Descuentos", "Descuentos por Funcionarios", "Descuentos Activos", "Descuentos Pagados" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jList1.setSelectionBackground(new java.awt.Color(232, 232, 232));
-        jList1.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        jList1.setValueIsAdjusting(true);
-        jList1.setVisibleRowCount(20);
-        jScrollPane3.setViewportView(jList1);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)))
-        );
-
-        javax.swing.GroupLayout modal_informesLayout = new javax.swing.GroupLayout(modal_informes.getContentPane());
-        modal_informes.getContentPane().setLayout(modal_informesLayout);
-        modal_informesLayout.setHorizontalGroup(
-            modal_informesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        modal_informesLayout.setVerticalGroup(
-            modal_informesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setBorder(null);
@@ -559,50 +428,43 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Id", "Funcionario", "Concepto", "Cuota", "Deuda", "Pagado", "Saldo", "Estado", "Fecha H Creación", "Fecha H Actualización"
+                "Id", "Funcionario", "Nro. de C.I", "Fecha de Solicitud", "Monto", "Estado", "Fecha H Creación", "Fecha H Actualización", "esta"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tbl_dcto.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane1.setViewportView(tbl_dcto);
         if (tbl_dcto.getColumnModel().getColumnCount() > 0) {
             tbl_dcto.getColumnModel().getColumn(0).setMinWidth(0);
             tbl_dcto.getColumnModel().getColumn(0).setPreferredWidth(0);
             tbl_dcto.getColumnModel().getColumn(0).setMaxWidth(0);
-            tbl_dcto.getColumnModel().getColumn(1).setMinWidth(250);
-            tbl_dcto.getColumnModel().getColumn(1).setPreferredWidth(250);
-            tbl_dcto.getColumnModel().getColumn(1).setMaxWidth(250);
-            tbl_dcto.getColumnModel().getColumn(2).setMinWidth(150);
-            tbl_dcto.getColumnModel().getColumn(2).setPreferredWidth(150);
-            tbl_dcto.getColumnModel().getColumn(2).setMaxWidth(150);
+            tbl_dcto.getColumnModel().getColumn(2).setMinWidth(75);
+            tbl_dcto.getColumnModel().getColumn(2).setPreferredWidth(75);
+            tbl_dcto.getColumnModel().getColumn(2).setMaxWidth(75);
             tbl_dcto.getColumnModel().getColumn(3).setMinWidth(100);
             tbl_dcto.getColumnModel().getColumn(3).setPreferredWidth(100);
             tbl_dcto.getColumnModel().getColumn(3).setMaxWidth(100);
             tbl_dcto.getColumnModel().getColumn(4).setMinWidth(100);
             tbl_dcto.getColumnModel().getColumn(4).setPreferredWidth(100);
             tbl_dcto.getColumnModel().getColumn(4).setMaxWidth(100);
-            tbl_dcto.getColumnModel().getColumn(5).setMinWidth(100);
-            tbl_dcto.getColumnModel().getColumn(5).setPreferredWidth(100);
-            tbl_dcto.getColumnModel().getColumn(5).setMaxWidth(100);
-            tbl_dcto.getColumnModel().getColumn(6).setMinWidth(100);
-            tbl_dcto.getColumnModel().getColumn(6).setPreferredWidth(100);
-            tbl_dcto.getColumnModel().getColumn(6).setMaxWidth(100);
-            tbl_dcto.getColumnModel().getColumn(7).setMinWidth(200);
-            tbl_dcto.getColumnModel().getColumn(7).setPreferredWidth(200);
-            tbl_dcto.getColumnModel().getColumn(7).setMaxWidth(200);
-            tbl_dcto.getColumnModel().getColumn(8).setMinWidth(150);
-            tbl_dcto.getColumnModel().getColumn(8).setPreferredWidth(150);
-            tbl_dcto.getColumnModel().getColumn(8).setMaxWidth(150);
-            tbl_dcto.getColumnModel().getColumn(9).setMinWidth(150);
-            tbl_dcto.getColumnModel().getColumn(9).setPreferredWidth(150);
-            tbl_dcto.getColumnModel().getColumn(9).setMaxWidth(150);
+            tbl_dcto.getColumnModel().getColumn(5).setMinWidth(200);
+            tbl_dcto.getColumnModel().getColumn(5).setPreferredWidth(200);
+            tbl_dcto.getColumnModel().getColumn(5).setMaxWidth(200);
+            tbl_dcto.getColumnModel().getColumn(6).setMinWidth(150);
+            tbl_dcto.getColumnModel().getColumn(6).setPreferredWidth(150);
+            tbl_dcto.getColumnModel().getColumn(6).setMaxWidth(150);
+            tbl_dcto.getColumnModel().getColumn(7).setMinWidth(150);
+            tbl_dcto.getColumnModel().getColumn(7).setPreferredWidth(150);
+            tbl_dcto.getColumnModel().getColumn(7).setMaxWidth(150);
+            tbl_dcto.getColumnModel().getColumn(8).setMinWidth(0);
+            tbl_dcto.getColumnModel().getColumn(8).setPreferredWidth(0);
+            tbl_dcto.getColumnModel().getColumn(8).setMaxWidth(0);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -692,9 +554,8 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
         bp.setVisible(true);
         idFuncionario = bp.getIdbarrio();
         txtFuncionario.setText(bp.getDescBarrio());
-     
 
-
+        System.out.println(""+bp.getIdbarrio());
     }//GEN-LAST:event_btnFuncionarioActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -718,12 +579,12 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
     private void CargarGrilla() {
         db.LimpiarBusqueda(txtBusqueda, tbl_dcto);
         try {
-            sql = "select * from sp_view_descuentos();";
+            sql = "select * from view_anticipos";
             PreparedStatement ps = menu.getConexion().prepareStatement(sql);
             db.CargarTabla(ps, tbl_dcto, modelo, false);
 
-            db.derecha(tbl_dcto, new int[]{4, 5, 6});
-            db.centrar(tbl_dcto, new int[]{2, 3, 7});
+            db.derecha(tbl_dcto, new int[]{4});
+            db.centrar(tbl_dcto, new int[]{2, 3, 5});
 
         } catch (SQLException ex) {
             Logger.getLogger(sol_anticipo.class.getName()).log(Level.SEVERE, null, ex);
@@ -750,37 +611,65 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
             txtMonto.requestFocus();
             return false;
         }
-       
 
-       
-
+        if(!va.Verifica(idFuncionario, txtMonto)){
+            return false;
+        }
+        
         return true;
     }
 
-   
-
- 
-
- 
-
-
     private void spFormulario() {
 
-        switch (operacion) {
-            case 1:
+        try {
+            switch (operacion) {
+                case 1:
+                    sql = "INSERT INTO anticipo\n"
+                            + "(funcionario, monto, fecha_solicitud, usuario_input, origen)\n"
+                            + "VALUES(?, ?, ?, ?, ?)";
+                    PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+                    ps.setInt(1, idFuncionario);
+                    ps.setDouble(2, db.getParseString(txtMonto));
+                    ps.setDate(3, db.convertUtilToSql(fechaSolicitud));
+                    ps.setInt(4, menu.getIduser());
+                    ps.setInt(5, 0);
+                    db.Insertar(ps, true);
+                    break;
+                case 2:
+                    sql = "UPDATE anticipo\n"
+                            + "	SET funcionario = ?, \n"
+                            + "	monto = ?, \n"
+                            + "	fecha_solicitud = ?, \n"
+                            + "	usuario_update = ?, \n"
+                            + " fecha_update = ?, \n"
+                            + " origen = ?\n"
+                            + "WHERE id = ?;";
+                    PreparedStatement psUpdate = menu.getConexion().prepareStatement(sql);
+                    psUpdate.setInt(1, idFuncionario);
+                    psUpdate.setDouble(2, db.getParseString(txtMonto));
+                    psUpdate.setDate(3, db.convertUtilToSql(fechaSolicitud));
+                    psUpdate.setInt(4, menu.getIduser());
+                    psUpdate.setTimestamp(5, db.getCurrentTimeStamp());
+                    psUpdate.setInt(6, 0);
+                    psUpdate.setInt(7, idAnticipo);
+                    db.Actualizar(psUpdate, true);
 
-               
-                break;
-            case 2:
-               
-                break;
+                    break;
 
-            case 3:
-               
+                case 3:
 
-                break;
+                    sql = "UPDATE anticipo set estado = ? where id = ?";
+                    PreparedStatement psCancelar = menu.getConexion().prepareStatement(sql);
+                    psCancelar.setInt(1, 2);
+                    psCancelar.setInt(2, idAnticipo);
+                    db.Actualizar(psCancelar, false);
+                    JOptionPane.showMessageDialog(this, "Anticipo Cancelado Exitosamente", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(sol_anticipo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        db.getMessage(operacion);
     }
 
     private void addKeyEvent() {
@@ -795,21 +684,21 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
 
     private void limpiarModal() {
         txtFuncionario.setText("");
+        txtMonto.setText("0");
         idFuncionario = 0;
- 
 
     }
 
     private Boolean Verificar(int id) {
 
         try {
-            sql = "select count(*) from desc_det_cuota dc where dc.desc_cab = ?  and dc.estado = 0";
+            sql = "select estado from anticipo where id = ? ";
             PreparedStatement ps = menu.getConexion().prepareStatement(sql);
             ps.setInt(1, id);
             res = db.QueryDinamico(ps);
 
             if (!res[1].equals("0")) {
-                JOptionPane.showMessageDialog(null, "No se puede Modificar ni Eliminar un Dcto. con Cancelación", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No se puede Modificar ni Eliminar un Anticipo Pagado o Cancelado", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
 
@@ -825,11 +714,26 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
         if (select < 0) {
             JOptionPane.showMessageDialog(null, "Seleccione una Fila para poder modificar", "Alerta", JOptionPane.WARNING_MESSAGE);
         } else {
-            iddescuento = db.getParseStringint(tbl_dcto, select, 0);
-            if (Verificar(iddescuento)) {
-               
-                modal.setLocationRelativeTo(null);
-                modal.setVisible(true);
+            idAnticipo = db.getParseStringint(tbl_dcto, select, 0);
+            if (Verificar(idAnticipo)) {
+
+                try {
+                    sql = "select f.id, nom.apenomb, a.monto, a.fecha_solicitud from anticipo a\n" +
+                            "join funcionario f on f.id = a.funcionario\n" +
+                            "join view_nompersona nom on nom.id = f.persona\n" +
+                            "where a.id = ?";
+                    PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+                    ps.setInt(1, idAnticipo);
+                    res = db.QueryDinamico(ps);
+                    idFuncionario = Integer.parseInt(res[1]);
+                    txtFuncionario.setText(res[2]);
+                    txtMonto.setText(res[3]);
+                    ((JTextField) fechaSolicitud.getDateEditor()).setText(res[4]);
+                    modal.setLocationRelativeTo(null);
+                    modal.setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(sol_anticipo.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
@@ -839,9 +743,9 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
         if (select < 0) {
             JOptionPane.showMessageDialog(null, "Seleccione una Fila para poder modificar", "Alerta", JOptionPane.WARNING_MESSAGE);
         } else {
-            iddescuento = db.getParseStringint(tbl_dcto, select, 0);
-            if (Verificar(iddescuento)) {
-                int confirma = JOptionPane.showConfirmDialog(null, "Desea Eliminar la Deuda Generada?", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
+            idAnticipo = db.getParseStringint(tbl_dcto, select, 0);
+            if (Verificar(idAnticipo)) {
+                int confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el Anticipo Generado?", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
                 if (confirma == 0) {
                     spFormulario();
                 }
@@ -859,31 +763,21 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_informes;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_nuevo;
-    private com.toedter.calendar.JDateChooser fecha_vencimiento;
-    private javax.swing.JButton jButton1;
+    private com.toedter.calendar.JDateChooser fechaSolicitud;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JDialog modal;
-    private javax.swing.JDialog modal_informes;
     private javax.swing.JTable tbl_dcto;
     private javax.swing.JTextField txtBusqueda;
     private javax.swing.JTextField txtFuncionario;
