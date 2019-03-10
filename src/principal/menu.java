@@ -42,7 +42,7 @@ import referenciales.tipo_empleado;
 import referenciales.titulos;
 
 public class menu extends javax.swing.JFrame implements Runnable {
-
+    
     Ventanas vn = new Ventanas();
     Color entrada = new Color(240, 240, 240);
     Color Salida = new Color(255, 255, 255);
@@ -51,11 +51,11 @@ public class menu extends javax.swing.JFrame implements Runnable {
     String hora, minutos, segundos, ampm;
     Calendar calendario;
     Thread h1;
-
+    
     public menu() {
         initComponents();
     }
-
+    
     @Override
     public void run() {
         Thread ct = Thread.currentThread();
@@ -72,21 +72,21 @@ public class menu extends javax.swing.JFrame implements Runnable {
             }
         }
     }
-
+    
     public void calcula() {
         Calendar cal = new GregorianCalendar();
         Date fechaHoraActual = new Date();
-
+        
         cal.setTime(fechaHoraActual);
         ampm = cal.get(Calendar.AM_PM) == Calendar.AM ? "AM" : "PM";
-
+        
         if (ampm.equals("PM")) {
             int h = cal.get(Calendar.HOUR_OF_DAY) - 12;
-
+            
             if (h == 0) {
                 h = 12;
             }
-
+            
             hora = h > 9 ? "" + h : "0" + h;
         } else {
             hora = cal.get(Calendar.HOUR_OF_DAY) > 9 ? "" + cal.get(Calendar.HOUR_OF_DAY) : "0" + cal.get(Calendar.HOUR_OF_DAY);
@@ -95,18 +95,18 @@ public class menu extends javax.swing.JFrame implements Runnable {
         segundos = cal.get(Calendar.SECOND) > 9 ? "" + cal.get(Calendar.SECOND) : "0" + cal.get(Calendar.SECOND);
         lblFecha.setText(ucFirst(fHora.format(new Date())));
     }
-
+    
     public menu(int iduser, String nombre, Connection conexion) {
         menu.iduser = iduser;
         this.nombre = nombre;
         menu.conexion = conexion;
         initComponents();
         botones();
-
+        
         h1 = new Thread(this);
         h1.start();
     }
-
+    
     public static String ucFirst(String str) {
         if (str == null || str.isEmpty()) {
             return "";
@@ -114,7 +114,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
             return Character.toUpperCase(str.charAt(0)) + str.substring(1, str.length()).toLowerCase();
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -161,6 +161,9 @@ public class menu extends javax.swing.JFrame implements Runnable {
         btn_cargo2 = new javax.swing.JButton();
         btn_cargo3 = new javax.swing.JButton();
         btn_cargo4 = new javax.swing.JButton();
+        btn_cargo6 = new javax.swing.JButton();
+        p_configuración = new javax.swing.JPanel();
+        btn_cargo5 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -637,7 +640,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(p_referencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_pais4, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                    .addComponent(btn_pais4, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
                     .addComponent(btn_pais5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_pais6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(299, 299, 299))
@@ -698,7 +701,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
                                 .addComponent(jLabel4)
                                 .addComponent(jLabel9)))
                         .addComponent(jSeparator2)))
-                .addGap(0, 5, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel2.add(p_referenciales, "card2");
@@ -778,6 +781,23 @@ public class menu extends javax.swing.JFrame implements Runnable {
             }
         });
 
+        btn_cargo6.setBackground(new java.awt.Color(255, 255, 255));
+        btn_cargo6.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btn_cargo6.setForeground(new java.awt.Color(102, 102, 102));
+        btn_cargo6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Bill_14px.png"))); // NOI18N
+        btn_cargo6.setText("Aporte Funcionario");
+        btn_cargo6.setBorderPainted(false);
+        btn_cargo6.setContentAreaFilled(false);
+        btn_cargo6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_cargo6.setFocusPainted(false);
+        btn_cargo6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btn_cargo6.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        btn_cargo6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cargo6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout p_movimientoLayout = new javax.swing.GroupLayout(p_movimiento);
         p_movimiento.setLayout(p_movimientoLayout);
         p_movimientoLayout.setHorizontalGroup(
@@ -792,7 +812,9 @@ public class menu extends javax.swing.JFrame implements Runnable {
                     .addComponent(btn_cargo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_cargo3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_cargo4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_cargo4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_cargo6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(938, 938, 938))
         );
         p_movimientoLayout.setVerticalGroup(
@@ -803,14 +825,54 @@ public class menu extends javax.swing.JFrame implements Runnable {
                     .addComponent(btn_cargo1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_cargo4, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_cargo2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_cargo2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cargo6, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_cargo3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jLabel11))
         );
 
         jPanel2.add(p_movimiento, "card3");
+
+        p_configuración.setBackground(new java.awt.Color(255, 255, 255));
+
+        btn_cargo5.setBackground(new java.awt.Color(255, 255, 255));
+        btn_cargo5.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btn_cargo5.setForeground(new java.awt.Color(102, 102, 102));
+        btn_cargo5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Bill_14px.png"))); // NOI18N
+        btn_cargo5.setText("Solicitud de Anticipos Manual");
+        btn_cargo5.setBorderPainted(false);
+        btn_cargo5.setContentAreaFilled(false);
+        btn_cargo5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_cargo5.setFocusPainted(false);
+        btn_cargo5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btn_cargo5.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        btn_cargo5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cargo5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout p_configuraciónLayout = new javax.swing.GroupLayout(p_configuración);
+        p_configuración.setLayout(p_configuraciónLayout);
+        p_configuraciónLayout.setHorizontalGroup(
+            p_configuraciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(p_configuraciónLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_cargo5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(1073, 1073, 1073))
+        );
+        p_configuraciónLayout.setVerticalGroup(
+            p_configuraciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(p_configuraciónLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_cargo5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(74, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(p_configuración, "card4");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 255));
@@ -863,9 +925,14 @@ public class menu extends javax.swing.JFrame implements Runnable {
         jLabel7.setFont(new java.awt.Font("Segoe UI Emoji", 0, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(102, 102, 102));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("ADMINISTRACIÓN");
+        jLabel7.setText("CONFIGURACIÓN");
         jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel7.setOpaque(true);
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel7MouseReleased(evt);
+            }
+        });
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setFont(new java.awt.Font("Segoe UI Emoji", 0, 13)); // NOI18N
@@ -1013,7 +1080,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(317, Short.MAX_VALUE))
+                .addContainerGap(311, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -1097,7 +1164,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
 
     private void btn_paisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_paisActionPerformed
         pais dir = new pais();
-
+        
         vn.Abrir_ventana(escritorio, dir, true);
 
     }//GEN-LAST:event_btn_paisActionPerformed
@@ -1184,34 +1251,49 @@ public class menu extends javax.swing.JFrame implements Runnable {
         vn.Abrir_ventana(escritorio, desc, true);
     }//GEN-LAST:event_btn_cargo4ActionPerformed
 
+    private void btn_cargo5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargo5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_cargo5ActionPerformed
+
+    private void jLabel7MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseReleased
+        p_movimiento.setVisible(false);
+        p_referenciales.setVisible(false);
+        p_configuración.setVisible(true);
+        
+    }//GEN-LAST:event_jLabel7MouseReleased
+
+    private void btn_cargo6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargo6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_cargo6ActionPerformed
+    
     private static int iduser;
     private String nombre;
     private static Connection conexion;
-
+    
     public static int getIduser() {
         return iduser;
     }
-
+    
     public static void setIduser(int iduser) {
         menu.iduser = iduser;
     }
-
+    
     public String getNombre() {
         return nombre;
     }
-
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+    
     public static Connection getConexion() {
         return conexion;
     }
-
+    
     public void setConexion(Connection conexion) {
         menu.conexion = conexion;
     }
-
+    
     private void botones() {
         lb.CambiarColor(btn_cargo, entrada, Salida);
         lb.CambiarColor(btn_departamento, entrada, Salida);
@@ -1235,6 +1317,8 @@ public class menu extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton btn_cargo2;
     private javax.swing.JButton btn_cargo3;
     private javax.swing.JButton btn_cargo4;
+    private javax.swing.JButton btn_cargo5;
+    private javax.swing.JButton btn_cargo6;
     private javax.swing.JButton btn_ciudades;
     private javax.swing.JButton btn_concepto;
     private javax.swing.JButton btn_departamento;
@@ -1283,6 +1367,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lblpm;
     private javax.swing.JPopupMenu menuUser;
     private javax.swing.JMenuItem opciones;
+    private javax.swing.JPanel p_configuración;
     private javax.swing.JPanel p_movimiento;
     private javax.swing.JPanel p_referenciales;
     // End of variables declaration//GEN-END:variables
