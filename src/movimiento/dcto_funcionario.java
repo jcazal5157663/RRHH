@@ -632,9 +632,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout modal_informesLayout = new javax.swing.GroupLayout(modal_informes.getContentPane());
@@ -782,7 +780,7 @@ public class dcto_funcionario extends javax.swing.JInternalFrame {
                 .addComponent(btn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btn_informes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 209, Short.MAX_VALUE))
+                .addGap(0, 218, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(64, 142, 186));

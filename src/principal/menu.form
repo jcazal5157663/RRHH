@@ -129,15 +129,15 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="jLabel2" min="-2" pref="107" max="-2" attributes="0"/>
+                      <Component id="btn_reg" min="-2" pref="107" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" pref="107" max="-2" attributes="0"/>
+                      <Component id="btn_mov" min="-2" pref="107" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="jLabel5" min="-2" pref="107" max="-2" attributes="0"/>
+                      <Component id="btn_utilitarios" min="-2" pref="107" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="jLabel6" min="-2" pref="107" max="-2" attributes="0"/>
+                      <Component id="btn_informes" min="-2" pref="107" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="jLabel7" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="btn_configuracion" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel8" min="-2" pref="150" max="-2" attributes="0"/>
                   </Group>
@@ -150,14 +150,14 @@
                       <Component id="jLabel1" min="-2" pref="26" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel2" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="jLabel6" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="jLabel7" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="btn_reg" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="btn_mov" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="btn_utilitarios" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="btn_informes" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="btn_configuracion" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                           <Component id="jLabel8" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="jPanel2" max="32767" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   </Group>
@@ -1294,7 +1294,7 @@
                 <Property name="text" type="java.lang.String" value="SISTEMA DE RECURSOS HUMANOS &quot;Mapachesys&quot;"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel2">
+            <Component class="javax.swing.JLabel" name="btn_reg">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cc" green="66" red="0" type="rgb"/>
@@ -1313,10 +1313,10 @@
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel2MouseReleased"/>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_regMouseReleased"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
+            <Component class="javax.swing.JLabel" name="btn_mov">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -1335,10 +1335,10 @@
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel3MouseReleased"/>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_movMouseReleased"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel5">
+            <Component class="javax.swing.JLabel" name="btn_utilitarios">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -1357,7 +1357,7 @@
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel6">
+            <Component class="javax.swing.JLabel" name="btn_informes">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -1376,7 +1376,7 @@
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel7">
+            <Component class="javax.swing.JLabel" name="btn_configuracion">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -1395,7 +1395,7 @@
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel7MouseReleased"/>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_configuracionMouseReleased"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
