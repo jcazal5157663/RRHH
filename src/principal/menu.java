@@ -36,6 +36,7 @@ import referenciales.pais;
 import referenciales.profesiones;
 import referenciales.seccion;
 import referenciales.sucursales;
+import referenciales.tipo_amonestaciones;
 import referenciales.tipo_contrato;
 import referenciales.tipo_descuento;
 import referenciales.tipo_documento;
@@ -154,8 +155,10 @@ public class menu extends javax.swing.JFrame implements Runnable {
         btn_pais3 = new javax.swing.JButton();
         btn_pais4 = new javax.swing.JButton();
         btn_moneda1 = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JSeparator();
         btn_pais5 = new javax.swing.JButton();
         btn_pais6 = new javax.swing.JButton();
+        btn_pais7 = new javax.swing.JButton();
         p_movimiento = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         btn_cargo1 = new javax.swing.JButton();
@@ -557,6 +560,9 @@ public class menu extends javax.swing.JFrame implements Runnable {
             }
         });
 
+        jSeparator4.setForeground(new java.awt.Color(204, 204, 204));
+        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
         btn_pais5.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btn_pais5.setForeground(new java.awt.Color(102, 102, 102));
         btn_pais5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Tax_14px.png"))); // NOI18N
@@ -586,6 +592,22 @@ public class menu extends javax.swing.JFrame implements Runnable {
         btn_pais6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_pais6ActionPerformed(evt);
+            }
+        });
+
+        btn_pais7.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btn_pais7.setForeground(new java.awt.Color(102, 102, 102));
+        btn_pais7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Tax_14px.png"))); // NOI18N
+        btn_pais7.setText("Tipo de Amonestaciones");
+        btn_pais7.setBorderPainted(false);
+        btn_pais7.setContentAreaFilled(false);
+        btn_pais7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_pais7.setFocusPainted(false);
+        btn_pais7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btn_pais7.setMargin(new java.awt.Insets(2, 0, 0, 0));
+        btn_pais7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pais7ActionPerformed(evt);
             }
         });
 
@@ -623,13 +645,13 @@ public class menu extends javax.swing.JFrame implements Runnable {
                             .addComponent(btn_moneda, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                             .addComponent(btn_moneda1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(p_referencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(p_referencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(p_referencialesLayout.createSequentialGroup()
                         .addComponent(btn_pais, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_pais1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btn_pais1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(p_referencialesLayout.createSequentialGroup()
                         .addComponent(btn_ciudades, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -637,19 +659,22 @@ public class menu extends javax.swing.JFrame implements Runnable {
                     .addGroup(p_referencialesLayout.createSequentialGroup()
                         .addComponent(btn_barrios, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_pais3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btn_pais3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(p_referencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_pais4, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(p_referencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_pais5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_pais6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(299, 299, 299))
+                    .addComponent(btn_pais6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_pais4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_pais7)
+                .addGap(228, 228, 228))
         );
         p_referencialesLayout.setVerticalGroup(
             p_referencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
-            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(p_referencialesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(p_referencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -657,7 +682,8 @@ public class menu extends javax.swing.JFrame implements Runnable {
                         .addGroup(p_referencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_pais, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_pais1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_pais4, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_pais4, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_pais7, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(p_referencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_ciudades, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -700,6 +726,8 @@ public class menu extends javax.swing.JFrame implements Runnable {
                         .addGroup(p_referencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)))))
+            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         jPanel2.add(p_referenciales, "card2");
@@ -945,7 +973,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1263, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(btn_reg, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -1266,6 +1294,11 @@ public class menu extends javax.swing.JFrame implements Runnable {
         vn.Abrir_ventana(escritorio, ap, true);
     }//GEN-LAST:event_btn_cargo6ActionPerformed
 
+    private void btn_pais7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pais7ActionPerformed
+        tipo_amonestaciones ap = new tipo_amonestaciones();
+        vn.Abrir_ventana(escritorio, ap, true);
+    }//GEN-LAST:event_btn_pais7ActionPerformed
+
     private static int iduser;
     private String nombre;
     private static Connection conexion;
@@ -1337,6 +1370,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton btn_pais4;
     private javax.swing.JButton btn_pais5;
     private javax.swing.JButton btn_pais6;
+    private javax.swing.JButton btn_pais7;
     private javax.swing.JLabel btn_reg;
     private javax.swing.JButton btn_sector;
     private javax.swing.JButton btn_sucursales;
@@ -1359,6 +1393,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblHora;
     private javax.swing.JLabel lblMinutos;
