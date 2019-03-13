@@ -18,6 +18,7 @@
             <file>file:/C:/RRHH/src/movimiento/sol_anticipo.java</file>
             <file>file:/C:/RRHH/src/movimiento/reg_persona_funcionario.java</file>
             <file>file:/C:/RRHH/src/configuracion/config.java</file>
+            <file>file:/C:/RRHH/src/referenciales/tipo_amonestaciones.java</file>
             <file>file:/C:/RRHH/src/buscadores/buscador_Funcionario.java</file>
             <file>file:/C:/RRHH/src/referenciales/tipo_documento.java</file>
             <file>file:/C:/RRHH/src/clases/Ventanas.java</file>
@@ -32,6 +33,7 @@
             <file>file:/C:/RRHH/src/movimiento/contratos.java</file>
             <file>file:/C:/RRHH/src/referenciales/bancos.java</file>
             <file>file:/C:/RRHH/src/principal/acceso.java</file>
+            <file>file:/C:/RRHH/src/referenciales/titulos.java</file>
         </group>
     </open-files>
 </project-private>
