@@ -6,6 +6,7 @@ import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -19,6 +20,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -37,6 +39,8 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import net.sf.jasperreports.engine.JRException;
@@ -401,7 +405,7 @@ public class Tools {
                             fila[i] = resultado.getString(i + 1) != null ? formato_decimal.format(resultado.getDouble(i + 1)) : 0;
                             break;
                         case 91:
-                            fila[i] =  resultado.getString(i + 1) != null ? formato_fecha.format(resultado.getDate(i + 1)) : "";
+                            fila[i] = resultado.getString(i + 1) != null ? formato_fecha.format(resultado.getDate(i + 1)) : "";
                             break;
                         default:
                             fila[i] = resultado.getObject(i + 1);
@@ -1110,8 +1114,8 @@ public class Tools {
     public Double getParseString(JTextField value) {
         return Double.parseDouble(value.getText().replace(".", "").replace(",", "."));
     }
-    
-    public int getParseIntToString(String value){
+
+    public int getParseIntToString(String value) {
         return Integer.parseInt(value.replace(".", "").replace(",", "."));
     }
 
@@ -1149,8 +1153,34 @@ public class Tools {
         }
         return null;
     }
-    
-    
-    
+
+    public void AsignarCuadroTexto(JTextField cuadro, JTable tabla, int position) {
+        TableCellEditor cell = new DefaultCellEditor(cuadro);
+        tabla.getColumnModel().getColumn(position).setCellEditor(cell);
+    }
+
+    public void AsignarCombo(JComboBox combo, JTable tabla, int position) {
+        TableColumn sportColumn = tabla.getColumnModel().getColumn(position);
+        sportColumn.setCellEditor(new DefaultCellEditor(combo));
+    }
+
+    public void UltFila(JTable tabla) {
+
+        int row = tabla.getRowCount() - 1;
+        Rectangle rect = tabla.getCellRect(row, 0, true);
+        tabla.scrollRectToVisible(rect);
+        tabla.clearSelection();
+        tabla.setRowSelectionInterval(row, row);
+        tabla.scrollRectToVisible(new Rectangle(tabla.getCellRect(row, 0, true)));
+
+    }
+
+    public void removeSelectedRows(JTable table) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int[] rows = table.getSelectedRows();
+        for (int i = 0; i < rows.length; i++) {
+            model.removeRow(rows[i] - i);
+        }
+    }
 
 }
