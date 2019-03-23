@@ -1,3 +1,4 @@
+
 package clases;
 
 import java.text.SimpleDateFormat;
@@ -5,15 +6,14 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 import principal.menu;
+
 
 public class Verificar_Anticipo {
 
     public Verificar_Anticipo() {
     }
-
-    public Boolean Verifica(int idfun, JTextField monto) {
+  public Boolean Verifica(int idfun, JTextField monto) {
 
         Calendar c = Calendar.getInstance();
         Tools tools = new Tools();
@@ -86,5 +86,5 @@ public class Verificar_Anticipo {
 
         return true;
     }
-
+    
 }

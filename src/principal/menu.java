@@ -38,6 +38,7 @@ import referenciales.seccion;
 import referenciales.sucursales;
 import referenciales.tipo_amonestaciones;
 import referenciales.tipo_contrato;
+import referenciales.tipo_cortesia;
 import referenciales.tipo_descuento;
 import referenciales.tipo_documento;
 import referenciales.tipo_empleado;
@@ -159,6 +160,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
         btn_pais5 = new javax.swing.JButton();
         btn_pais6 = new javax.swing.JButton();
         btn_pais7 = new javax.swing.JButton();
+        btn_pais8 = new javax.swing.JButton();
         p_movimiento = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         btn_cargo1 = new javax.swing.JButton();
@@ -614,6 +616,22 @@ public class menu extends javax.swing.JFrame implements Runnable {
             }
         });
 
+        btn_pais8.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btn_pais8.setForeground(new java.awt.Color(102, 102, 102));
+        btn_pais8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Tax_14px.png"))); // NOI18N
+        btn_pais8.setText("Tipo de Cortesía");
+        btn_pais8.setBorderPainted(false);
+        btn_pais8.setContentAreaFilled(false);
+        btn_pais8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_pais8.setFocusPainted(false);
+        btn_pais8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btn_pais8.setMargin(new java.awt.Insets(2, 0, 0, 0));
+        btn_pais8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pais8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout p_referencialesLayout = new javax.swing.GroupLayout(p_referenciales);
         p_referenciales.setLayout(p_referencialesLayout);
         p_referencialesLayout.setHorizontalGroup(
@@ -672,7 +690,9 @@ public class menu extends javax.swing.JFrame implements Runnable {
                     .addComponent(btn_pais6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_pais4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_pais7)
+                .addGroup(p_referencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_pais7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_pais8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(228, 228, 228))
         );
         p_referencialesLayout.setVerticalGroup(
@@ -691,7 +711,8 @@ public class menu extends javax.swing.JFrame implements Runnable {
                         .addGroup(p_referencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_ciudades, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_pais2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_pais5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_pais5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_pais8, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(p_referencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_barrios, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1343,6 +1364,11 @@ public class menu extends javax.swing.JFrame implements Runnable {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_cargo7ActionPerformed
 
+    private void btn_pais8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pais8ActionPerformed
+        tipo_cortesia ap = new tipo_cortesia();
+        vn.Abrir_ventana(escritorio, ap, true);
+    }//GEN-LAST:event_btn_pais8ActionPerformed
+
     private static int iduser;
     private String nombre;
     private static Connection conexion;
@@ -1416,6 +1442,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton btn_pais5;
     private javax.swing.JButton btn_pais6;
     private javax.swing.JButton btn_pais7;
+    private javax.swing.JButton btn_pais8;
     private javax.swing.JLabel btn_reg;
     private javax.swing.JButton btn_sector;
     private javax.swing.JButton btn_sucursales;

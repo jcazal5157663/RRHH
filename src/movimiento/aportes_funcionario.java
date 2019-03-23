@@ -1,9 +1,16 @@
 package movimiento;
 
+import AppContext.appContext;
 import buscadores.buscador_Funcionario;
 import clases.EstilosLabel;
 import clases.Tools;
+
 import java.awt.Color;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -11,7 +18,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
+
 import principal.menu;
 
 public class aportes_funcionario extends javax.swing.JInternalFrame {
@@ -29,6 +36,7 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
     private int xy;
     private int idFuncionario;
     private int idbeneficiario;
+    private int idAporte;
     private final JTextField montoDetalle = new JTextField("0");
     private final JComboBox<String> combo = new JComboBox<>();
 
@@ -47,8 +55,9 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
         agregarElementos();
         addEventoTable();
         tools.CentrarCabeceraTabla(tblDetalle);
-        // tblDetalle.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+        montoDetalle.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tblDetalle.editingStopped(new ChangeEvent(tblDetalle));
+        CargarCombo();
 
     }
 
@@ -58,7 +67,6 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
 
         modal = new javax.swing.JDialog();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         btnEliminarFilas = new javax.swing.JButton();
         beneficiario = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -81,6 +89,29 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
         jSeparator3 = new javax.swing.JSeparator();
         btnFuncionario = new javax.swing.JButton();
         btnFuncionario1 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        modalDesembolso = new javax.swing.JDialog();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jButton6 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        idport = new javax.swing.JTextField();
+        funcio = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        mont = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        cbConcepto = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JSeparator();
+        modalImprimir = new javax.swing.JDialog();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        cbFiltro = new javax.swing.JComboBox<>();
+        jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -89,6 +120,7 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
         btn_eliminar = new javax.swing.JButton();
         btn_cerrar = new javax.swing.JButton();
         btn_pagar = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -98,14 +130,16 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
         modal.setModal(true);
         modal.setUndecorated(true);
         modal.setResizable(false);
-        modal.setSize(new java.awt.Dimension(591, 600));
+        modal.setSize(new java.awt.Dimension(603, 594));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
-        jButton1.setText("jButton1");
-
+        btnEliminarFilas.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btnEliminarFilas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Erase_24px.png"))); // NOI18N
         btnEliminarFilas.setText("Eliminar Fila");
+        btnEliminarFilas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnEliminarFilas.setContentAreaFilled(false);
         btnEliminarFilas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarFilasActionPerformed(evt);
@@ -126,6 +160,8 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
         modoDcto.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         modoDcto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Efectivo", "Descuento" }));
 
+        txtFuncionario.setEditable(false);
+        txtFuncionario.setBackground(new java.awt.Color(255, 255, 255));
         txtFuncionario.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         txtFuncionario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Funcionario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 11))); // NOI18N
 
@@ -138,7 +174,10 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
         jLabel4.setText("Modo de Aporte:");
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Add_Subnode_32px.png"))); // NOI18N
         jButton3.setText("Agregar");
+        jButton3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jButton3.setContentAreaFilled(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -273,6 +312,17 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
             }
         });
 
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Save_32px.png"))); // NOI18N
+        btnGuardar.setMnemonic('G');
+        btnGuardar.setText("Grabar ALT+G");
+        btnGuardar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnGuardar.setContentAreaFilled(false);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -280,6 +330,7 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
             .addComponent(jSeparator2)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jSeparator3)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,8 +339,13 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
                         .addComponent(txtTotalEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTotalDcto, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEliminarFilas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -309,15 +365,9 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
                                     .addComponent(modoDcto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton3)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnEliminarFilas, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addComponent(jSeparator3)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,7 +376,7 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(beneficiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFuncionario1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(btnFuncionario1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -337,30 +387,26 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
                         .addComponent(jLabel4)
                         .addGap(0, 0, 0)
                         .addComponent(modoDcto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(txtFuncionario)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(monto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(txtFuncionario))
+                    .addComponent(monto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEliminarFilas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTotalEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTotalDcto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -373,6 +419,252 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
         modalLayout.setVerticalGroup(
             modalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        modalDesembolso.setModal(true);
+        modalDesembolso.setUndecorated(true);
+        modalDesembolso.setResizable(false);
+        modalDesembolso.setSize(new java.awt.Dimension(492, 182));
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+
+        jPanel7.setBackground(new java.awt.Color(51, 51, 51));
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Delete_24px.png"))); // NOI18N
+        jButton6.setMnemonic('X');
+        jButton6.setToolTipText("Presione Alt+X para salir");
+        jButton6.setBorderPainted(false);
+        jButton6.setContentAreaFilled(false);
+        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton6.setFocusable(false);
+        jButton6.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Desembolsar Aporte Funcionario");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton6))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jLabel3.setText("Aporte Nro:");
+
+        idport.setEditable(false);
+        idport.setBackground(new java.awt.Color(255, 255, 255));
+        idport.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        idport.setForeground(new java.awt.Color(0, 153, 255));
+
+        funcio.setEditable(false);
+        funcio.setBackground(new java.awt.Color(255, 255, 255));
+        funcio.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        funcio.setForeground(new java.awt.Color(0, 153, 255));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jLabel6.setText("Monto Total a Descontar Fin de Mes:");
+
+        mont.setEditable(false);
+        mont.setBackground(new java.awt.Color(255, 255, 255));
+        mont.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        mont.setForeground(new java.awt.Color(0, 153, 255));
+        mont.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jLabel7.setText("Seleccione el Concepto:");
+
+        cbConcepto.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jButton1.setText("Ejecutar Acción");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(idport, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(funcio))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mont, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 189, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbConcepto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
+                .addContainerGap())
+            .addComponent(jSeparator4)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(idport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(funcio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(mont, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(cbConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout modalDesembolsoLayout = new javax.swing.GroupLayout(modalDesembolso.getContentPane());
+        modalDesembolso.getContentPane().setLayout(modalDesembolsoLayout);
+        modalDesembolsoLayout.setHorizontalGroup(
+            modalDesembolsoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        modalDesembolsoLayout.setVerticalGroup(
+            modalDesembolsoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        modalImprimir.setModal(true);
+        modalImprimir.setUndecorated(true);
+        modalImprimir.setResizable(false);
+        modalImprimir.setSize(new java.awt.Dimension(400, 206));
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+
+        jPanel9.setBackground(new java.awt.Color(51, 153, 255));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Informe Aportes");
+
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Delete_24px.png"))); // NOI18N
+        jButton7.setMnemonic('X');
+        jButton7.setToolTipText("Presione Alt+X para salir");
+        jButton7.setBorderPainted(false);
+        jButton7.setContentAreaFilled(false);
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton7.setFocusable(false);
+        jButton7.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(jButton7))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel8)
+                .addContainerGap(36, Short.MAX_VALUE))
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(jButton7)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jLabel9.setText("Agrupar por:");
+
+        cbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Efectivo", "Descuento Directo", "Todos" }));
+
+        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Print_32px_1.png"))); // NOI18N
+        jButton4.setText("Ver Informe");
+        jButton4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jButton4.setContentAreaFilled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(cbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout modalImprimirLayout = new javax.swing.GroupLayout(modalImprimir.getContentPane());
+        modalImprimir.getContentPane().setLayout(modalImprimirLayout);
+        modalImprimirLayout.setHorizontalGroup(
+            modalImprimirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        modalImprimirLayout.setVerticalGroup(
+            modalImprimirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setBorder(null);
@@ -468,7 +760,7 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
         btn_pagar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_pagar.setForeground(new java.awt.Color(204, 204, 204));
         btn_pagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Money_32px.png"))); // NOI18N
-        btn_pagar.setText("Desenvolzar Aportes");
+        btn_pagar.setText("Desembolsar Aportes");
         btn_pagar.setBorderPainted(false);
         btn_pagar.setContentAreaFilled(false);
         btn_pagar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -482,6 +774,24 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
             }
         });
 
+        btnImprimir.setBackground(new java.awt.Color(34, 45, 50));
+        btnImprimir.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnImprimir.setForeground(new java.awt.Color(204, 204, 204));
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Print_32px.png"))); // NOI18N
+        btnImprimir.setText("Imprimir");
+        btnImprimir.setBorderPainted(false);
+        btnImprimir.setContentAreaFilled(false);
+        btnImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnImprimir.setFocusPainted(false);
+        btnImprimir.setFocusable(false);
+        btnImprimir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnImprimir.setOpaque(true);
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -492,6 +802,7 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
             .addComponent(btn_eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_pagar, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+            .addComponent(btnImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -507,7 +818,9 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
                 .addComponent(btn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btn_pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 258, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 216, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(64, 142, 186));
@@ -610,12 +923,12 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         operacion = 2;
-        Modificar();
+        Seleccionar();
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         operacion = 3;
-        Eliminar();
+        Seleccionar();
         CargarGrilla();
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
@@ -624,7 +937,8 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_cerrarActionPerformed
 
     private void btn_pagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pagarActionPerformed
-        // TODO add your handling code here:
+        operacion = 4;
+        Seleccionar();
     }//GEN-LAST:event_btn_pagarActionPerformed
 
     private void btnFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionarioActionPerformed
@@ -642,12 +956,12 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
         while (!swt) {
             buscador_Funcionario bp = new buscador_Funcionario(modal, true);
             bp.setVisible(true);
-             idbeneficiario = bp.getIdbarrio();
+            idbeneficiario = bp.getIdbarrio();
             if (validarCab()) {
-                swt = true;               
+                swt = true;
                 beneficiario.setText(bp.getDescBarrio());
                 motivoAporte.requestFocus();
-                
+
             }
         }
 
@@ -655,7 +969,7 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnFuncionario1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
+        Limpiar();
         modal.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -675,6 +989,7 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
             modeloDetalle.addRow(new Object[]{idFuncionario, txtFuncionario.getText(), monto.getText(), modoDcto.getSelectedIndex(), modoDcto.getSelectedItem()});
             SumarTabla();
             tools.UltFila(tblDetalle);
+            tools.derecha(tblDetalle, new int[]{2});
         }
 
 
@@ -699,17 +1014,183 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_tblDetalleFocusLost
 
-    private void Eliminar() {
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        if (validarABM()) {
+            abm_aporte();
+            Limpiar();
+            CargarGrilla();
+            modal.dispose();
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
-    }
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        modalDesembolso.dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void Modificar() {
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            sql = "SELECT * from sp_gen_ctafun_aporte(\n"
+                    + "	?,\n"
+                    + "	?,\n"
+                    + "	?\n"
+                    + ")";
+
+            PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+            ps.setInt(1, idAporte);
+            ps.setInt(2, menu.getIduser());
+            ps.setInt(3, tools.getIdCombo(cbConcepto));
+
+            res = tools.QueryDinamico(ps);
+
+            JOptionPane.showMessageDialog(null, res[1], "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            modalDesembolso.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(aportes_funcionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        int row = tblIndex.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione Fila", "Alerta!", JOptionPane.WARNING_MESSAGE);
+        } else {
+            idAporte = tools.getParseStringint(tblIndex, row, 0);
+            modalImprimir.setLocationRelativeTo(null);
+            modalImprimir.setVisible(true);
+        }
+
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int desde = 0;
+        int hasta = 0;
+
+        switch (cbFiltro.getSelectedIndex()) {
+            case 0:
+
+                desde = 0;
+                hasta = 0;
+                break;
+            case 1:
+                desde = 1;
+                hasta = 1;
+
+                break;
+            case 2:
+
+                desde = 0;
+                hasta = 1;
+
+                break;
+
+        }
+
+        HashMap hashMap = new HashMap();
+        hashMap.put("desde", desde);
+        hashMap.put("hasta", hasta);
+        hashMap.put("id", idAporte);
+        hashMap.put("empresa", "Prueba");
+
+        tools.reporte("reporte/aportes.jasper", hashMap, "Aporte de Funcionario", menu.getConexion());
+
+      //  tools.reporte("reporte/paises.jasper", null, "Paises", menu.getConexion());
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        modalImprimir.dispose();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void abm_aporte() {
+        try {
+            PreparedStatement ps = null;
+
+            switch (operacion) {
+                case 1:
+
+                    sql = "INSERT INTO aporte_fun_cab\n"
+                            + "(beneficiario, obs, estado, usuario_input)\n"
+                            + "VALUES(?, ?, ?, ?)\n"
+                            + "returning id";
+                    ps = menu.getConexion().prepareStatement(sql);
+                    ps.setInt(1, idbeneficiario);
+                    ps.setString(2, motivoAporte.getText());
+                    ps.setInt(3, 1);
+                    ps.setInt(4, menu.getIduser());
+                    res = tools.QueryDinamico(ps);
+                    idAporte = Integer.parseInt(res[1]);
+                    //Recorremos la Tabla e insertamos el Detalle de la misma.
+                    sql = "INSERT INTO aporte_fun_det\n"
+                            + "(aporte_fun_cab, funcionario_donador, monto, tipo_pago)\n"
+                            + "VALUES(?, ?, ?, ?)";
+                    ps = menu.getConexion().prepareStatement(sql);
+                    for (int row = 0; row < tblDetalle.getRowCount(); row++) {
+                        ps.setInt(1, idAporte);
+                        ps.setInt(2, tools.getParseStringint(tblDetalle, row, 0));
+                        ps.setDouble(3, tools.getParseString(tblDetalle, row, 2));
+                        ps.setInt(4, tools.getParseStringint(tblDetalle, row, 3));
+                        ps.addBatch();
+                    }
+                    ps.executeBatch();
+                    break;
+
+                case 2:
+                    sql = "UPDATE aporte_fun_cab\n"
+                            + "SET beneficiario=? , \n"
+                            + "obs= ?, \n"
+                            + "usuario_update= ?, \n"
+                            + "fecha_update= ?\n"
+                            + "WHERE id= ?";
+                    ps = menu.getConexion().prepareStatement(sql);
+                    ps.setInt(1, idbeneficiario);
+                    ps.setString(2, motivoAporte.getText());
+                    ps.setInt(3, menu.getIduser());
+                    ps.setTimestamp(4, tools.getCurrentTimeStamp());
+                    ps.setInt(5, idAporte);
+                    tools.Actualizar(ps, false);
+                    //Borramos todo el Detalle de la Grilla.......                    
+                    sql = "DELETE FROM aporte_fun_det where aporte_fun_cab = ?";
+                    ps = menu.getConexion().prepareStatement(sql);
+                    ps.setInt(1, idAporte);
+                    tools.eliminar(ps, false);
+
+                    //Reinsertamos el Detalle de Todo
+                    sql = "INSERT INTO aporte_fun_det\n"
+                            + "(aporte_fun_cab, funcionario_donador, monto, tipo_pago)\n"
+                            + "VALUES(?, ?, ?, ?)";
+                    ps = menu.getConexion().prepareStatement(sql);
+                    for (int row = 0; row < tblDetalle.getRowCount(); row++) {
+                        ps.setInt(1, idAporte);
+                        ps.setInt(2, tools.getParseStringint(tblDetalle, row, 0));
+                        ps.setDouble(3, tools.getParseString(tblDetalle, row, 2));
+                        ps.setInt(4, tools.getParseStringint(tblDetalle, row, 3));
+                        ps.addBatch();
+                    }
+                    ps.executeBatch();
+
+                    break;
+                case 3:
+                    sql = "UPDATE aporte_fun_cab\n"
+                            + "SET estado = ?\n"
+                            + "WHERE id= ?";
+
+                    ps = menu.getConexion().prepareStatement(sql);
+                    ps.setInt(1, 2);
+                    ps.setInt(2, idAporte);
+                    tools.Actualizar(ps, false);
+                    break;
+            }
+            tools.getMessage(operacion);
+        } catch (SQLException ex) {
+            Logger.getLogger(aportes_funcionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
     private void CargarGrilla() {
         sql = "select * from sp_view_aporte()";
         tools.CargarTabla(sql, tblIndex, modelo, false, menu.getConexion());
+        tools.centrar(tblIndex, new int[]{0, 3, 4, 5});
+        tools.derecha(tblIndex, new int[]{2});
     }
 
     private void ValidarCampos() {
@@ -818,37 +1299,216 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
         return true;
     }
 
+    private Boolean selectEstado(int id) {
+        try {
+            sql = "select estado from aporte_fun_cab where id = ?";
+            PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+            ps.setInt(1, id);
+            res = tools.QueryDinamico(ps);
+
+            if (res[1].equals("1")) {
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(null, "No se puede modificar ni eliminar un aporte ya procesado", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } catch (SQLException ex) {
+
+            Logger.getLogger(aportes_funcionario.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
+
+    private void Seleccionar() {
+        int row = tblIndex.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione Fila para Modificar o Eliminar Datos", "Alerta!", JOptionPane.WARNING_MESSAGE);
+        } else {
+            idAporte = tools.getParseStringint(tblIndex, row, 0);
+            if (selectEstado(idAporte)) {
+                switch (operacion) {
+                    case 2:
+                        sql = "select ac.beneficiario, per.apenomb, ac.obs from aporte_fun_cab ac\n"
+                                + "join funcionario f on f.id = ac.beneficiario\n"
+                                + "join view_nompersona per on per.id = f.persona\n"
+                                + "where ac.id = ?";
+                         {
+                            try {
+                                PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+                                ps.setInt(1, idAporte);
+                                res = tools.QueryDinamico(ps);
+                                idbeneficiario = tools.getParseIntToString(res[1]);
+                                beneficiario.setText(res[2]);
+                                motivoAporte.setText(res[3]);
+                                //traemos el Detalle
+
+                                sql = "select adet.funcionario_donador, v.apenomb, adet.monto, adet.tipo_pago, \n"
+                                        + "case \n"
+                                        + "	adet.tipo_pago\n"
+                                        + "	when 1 then\n"
+                                        + "		'Descuento'\n"
+                                        + "	when 0 then\n"
+                                        + "		'Efectivo'\n"
+                                        + "end	\n"
+                                        + "from aporte_fun_det adet\n"
+                                        + "join funcionario f on f.id = adet.funcionario_donador\n"
+                                        + "join view_nompersona v on v.id = f.persona\n"
+                                        + "where adet.aporte_fun_cab = ? "
+                                        + "order by adet.id";
+                                PreparedStatement ps2 = menu.getConexion().prepareStatement(sql);
+                                ps2.setInt(1, idAporte);
+                                tools.CargarTabla(ps2, tblDetalle, modeloDetalle, false);
+                                tools.UltFila(tblDetalle);
+                                tools.derecha(tblDetalle, new int[]{2});
+                                SumarTabla();
+                                modal.setLocationRelativeTo(null);
+                                modal.setVisible(true);
+
+                            } catch (SQLException ex) {
+                                Logger.getLogger(aportes_funcionario.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+
+                        break;
+                    case 3:
+                        int result = JOptionPane.showConfirmDialog(null, "Desea Eliminar el Aporte Nº: " + idAporte + " Generado", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
+                        if (result == 0) {
+                            abm_aporte();
+                        }
+                        break;
+
+                    case 4:
+                        idport.setText(String.valueOf(idAporte));
+                        funcio.setText(tblIndex.getValueAt(row, 1).toString());
+
+                        sql = "select sum(ad.monto) from aporte_fun_det ad\n"
+                                + "where ad.tipo_pago = 1 and ad.aporte_fun_cab = ?";
+                         {
+                            try {
+                                PreparedStatement ps2 = menu.getConexion().prepareStatement(sql);
+                                ps2.setInt(1, idAporte);
+                                res = tools.QueryDinamico(ps2);
+                                mont.setText(res[1]);
+
+                            } catch (SQLException ex) {
+                                Logger.getLogger(aportes_funcionario.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        if (!res[1].equals("0")) {
+                            modalDesembolso.setLocationRelativeTo(null);
+                            modalDesembolso.setVisible(true);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No Existe Monto para hacer Dcto. Directo", "Alerta", JOptionPane.WARNING_MESSAGE);
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
+    private void Limpiar() {
+        idAporte = 0;
+        idFuncionario = 0;
+        idbeneficiario = 0;
+        beneficiario.setText("");
+        motivoAporte.setText("");
+        txtFuncionario.setText("");
+        monto.setText("0");
+        modoDcto.setSelectedIndex(0);
+        txtTotalEfectivo.setText("0");
+        txtTotalDcto.setText("0");
+        txtTotal.setText("0");
+        tools.LimpiarTabla(tblDetalle, modeloDetalle);
+    }
+
+    private Boolean validarABM() {
+
+        if (beneficiario.getText().isEmpty()) {
+            JOptionPane.showConfirmDialog(null, "No puede Dejar Vacio el Funcionario", "Error", JOptionPane.ERROR_MESSAGE);
+            beneficiario.requestFocus();
+            return false;
+        }
+
+        if (motivoAporte.getText().isEmpty()) {
+            JOptionPane.showConfirmDialog(null, "Debe de Cargar un Motivo", "Error", JOptionPane.ERROR_MESSAGE);
+            beneficiario.requestFocus();
+            return false;
+        }
+
+        if (tblDetalle.getRowCount() < 0) {
+            JOptionPane.showConfirmDialog(null, "Debe de Cargar el Listado de Aportadores", "Error", JOptionPane.ERROR_MESSAGE);
+            btnFuncionario.requestFocus();
+            return false;
+        }
+
+        if (txtTotal.getText().equals("0") || txtTotal.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(modal, "No puede Dejar Monto en Cero", "Alerta", JOptionPane.WARNING_MESSAGE);
+            monto.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+    private void CargarCombo() {
+        sql = "select id, descripcion from concepto where estado = 1";
+        tools.CargarCombo(cbConcepto, sql, menu.getConexion());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField beneficiario;
     private javax.swing.JButton btnEliminarFilas;
     private javax.swing.JButton btnFuncionario;
     private javax.swing.JButton btnFuncionario1;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btn_cerrar;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_nuevo;
     private javax.swing.JButton btn_pagar;
+    private javax.swing.JComboBox<Tools> cbConcepto;
+    private javax.swing.JComboBox<String> cbFiltro;
+    private javax.swing.JTextField funcio;
+    private javax.swing.JTextField idport;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JDialog modal;
+    private javax.swing.JDialog modalDesembolso;
+    private javax.swing.JDialog modalImprimir;
     private javax.swing.JComboBox<String> modoDcto;
+    private javax.swing.JTextField mont;
     private javax.swing.JTextField monto;
     private javax.swing.JTextPane motivoAporte;
     private javax.swing.JTable tblDetalle;

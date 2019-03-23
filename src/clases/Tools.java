@@ -1,7 +1,6 @@
 package clases;
 
 import com.toedter.calendar.JDateChooser;
-import java.awt.Checkbox;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -48,14 +47,16 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
 import objetos.Model_Cuota;
+import reporteador.ViewReport;
+import reporteador.progressDialog;
 
 public class Tools {
 
     private int id;
     private String idDescri;
     private String descripcion;
+    private progressDialog proDialog = new progressDialog(null, true);
 
     public Tools() {
     }
@@ -299,7 +300,7 @@ public class Tools {
                 Object[] fila = new Object[cantidadColumnas];
 
                 for (int i = 0; i < cantidadColumnas; i++) {
-                    //System.out.println(resultado.getMetaData().getColumnType(i + 1) + resultado.getMetaData().getColumnTypeName(i + 1));
+                    // System.out.println(resultado.getMetaData().getColumnType(i + 1) + resultado.getMetaData().getColumnTypeName(i + 1));
 
                     switch (resultado.getMetaData().getColumnType(i + 1)) {
                         case 12:
@@ -309,13 +310,17 @@ public class Tools {
                             fila[i] = resultado.getTimestamp(i + 1) != null ? formato_fechaH.format(resultado.getTimestamp(i + 1)) : "";
                             break;
                         case 4:
-                            fila[i] = resultado.getInt(i + 1);
+                            fila[i] = resultado.getString(i + 1) != null ? resultado.getInt(i + 1) : "";
                             break;
                         case 2:
-                            fila[i] = formato_decimal.format(resultado.getFloat(i + 1));
+                            fila[i] = resultado.getString(i + 1) != null ? formato_decimal.format(resultado.getFloat(i + 1)) : "0";
+                            break;
+
+                        case 8:
+                            fila[i] = resultado.getString(i + 1) != null ? formato_decimal.format(resultado.getDouble(i + 1)) : "0";
                             break;
                         case 91:
-                            fila[i] = formato_fecha.format(resultado.getDate(i + 1));
+                            fila[i] = resultado.getString(i + 1) != null ? formato_fecha.format(resultado.getDate(i + 1)) : "";
                             break;
                         default:
                             fila[i] = resultado.getObject(i + 1);
@@ -919,19 +924,49 @@ public class Tools {
     }
 
     public void reporte(String url, HashMap parameters, String titulo_informe, Connection cn) {
-        try {
+        Hilo2 h2 = new Hilo2(url, parameters, titulo_informe, cn);
+        Thread tarea = new Thread(h2);
+        tarea.start();
+        proDialog.setLocationRelativeTo(null);
+        proDialog.setVisible(true);
+    }
 
-            URL urlMaestro = getClass().getClassLoader().getResource(url);
-            JasperReport masterReport = null;
-            masterReport = (JasperReport) JRLoader.loadObject(urlMaestro);
-            JasperPrint masterPrint = JasperFillManager.fillReport(masterReport, parameters, cn);
-            JasperViewer vista = new JasperViewer(masterPrint);
-            vista.setTitle(titulo_informe);
-            vista.setVisible(true);
-        } catch (JRException ex) {
-            Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+    public class Hilo2 implements Runnable {
+
+        private final String url;
+        private final HashMap hashMap;
+        private final String tituloInforme;
+        private final Connection connection;
+
+        public Hilo2(String url, HashMap hashMap, String tituloInforme, Connection connection) {
+            this.url = url;
+            this.hashMap = hashMap;
+            this.tituloInforme = tituloInforme;
+            this.connection = connection;
         }
+        @Override
+        public void run() {
+            try {
+                try {
+
+                    URL urlMaestro = getClass().getClassLoader().getResource(this.url);
+                    JasperReport masterReport = null;
+                    masterReport = (JasperReport) JRLoader.loadObject(urlMaestro);
+                    JasperPrint masterPrint = JasperFillManager.fillReport(masterReport, this.hashMap, this.connection);
+                    ViewReport viewReport = new ViewReport(masterPrint, this.tituloInforme);
+                    viewReport.setVisible(true);
+
+                } catch (JRException ex) {
+                    Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+                proDialog.dispose();
+
+            } catch (Exception ex) {
+                Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
     public void JtextFieldDecimal(JTextField jTextField) {
@@ -1180,6 +1215,12 @@ public class Tools {
         int[] rows = table.getSelectedRows();
         for (int i = 0; i < rows.length; i++) {
             model.removeRow(rows[i] - i);
+        }
+    }
+
+    public void LimpiarTabla(JTable tabla, DefaultTableModel modelo) {
+        for (int i = tabla.getRowCount() - 1; i >= 0; i--) {
+            modelo.removeRow(i);
         }
     }
 
