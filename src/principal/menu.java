@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JPanel;
+import movimiento.amonestaciones;
 import movimiento.aportes_funcionario;
 import movimiento.contratos;
 import movimiento.dcto_funcionario;
@@ -1361,7 +1362,8 @@ public class menu extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btn_pais7ActionPerformed
 
     private void btn_cargo7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargo7ActionPerformed
-        // TODO add your handling code here:
+        amonestaciones ap = new amonestaciones();
+        vn.Abrir_ventana(escritorio, ap, true);
     }//GEN-LAST:event_btn_cargo7ActionPerformed
 
     private void btn_pais8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pais8ActionPerformed

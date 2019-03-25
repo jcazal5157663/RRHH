@@ -203,6 +203,8 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
         btn_aplicar = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
         fecha_vencimiento = new com.toedter.calendar.JDateChooser("dd/MM/yyyy","##/##/####",'_');
+        jLabel56 = new javax.swing.JLabel();
+        cbCortesia = new javax.swing.JComboBox<>();
         jPanel7 = new javax.swing.JPanel();
         jTextField3 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -951,6 +953,10 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
 
         fecha_vencimiento.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
 
+        jLabel56.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jLabel56.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel56.setText("Cortesía:");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -1002,7 +1008,8 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel56, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tipo_documento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1012,7 +1019,8 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                                 .addComponent(btn_nacionalidad))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(fecha_nacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(cbCortesia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
@@ -1043,7 +1051,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, 18))))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 53, Short.MAX_VALUE))))
+                                .addGap(0, 59, Short.MAX_VALUE))))
                     .addComponent(panel_funcionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1067,7 +1075,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                             .addComponent(jLabel8))
                         .addComponent(fecha_nacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(fecha_vencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(fecha_vencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1081,13 +1089,17 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                     .addComponent(btn_nacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(grupo_sanguineo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(profesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_profesion, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel13)
+                                .addComponent(grupo_sanguineo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(profesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_profesion, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel56)
+                        .addComponent(cbCortesia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1118,7 +1130,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 .addComponent(panel_funcionario, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         panel_padre.addTab("Datos Personales", jPanel6);
@@ -1958,12 +1970,10 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                                 .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_titulo))
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jDateChooser2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(165, 165, 165)))
+                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jDateChooser2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -3155,6 +3165,10 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
 
         sql = "select id, descripcion from parentesco  order by id";
         db.CargarCombo(parientParentesc, sql, menu.getConexion());
+        
+        sql = "select id, descripcion from cortesia where estado = 1 order by id";
+         db.CargarCombo(cbCortesia, sql, menu.getConexion());
+        
     }
 
     private Boolean ValidarPersona() {
@@ -3267,8 +3281,8 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
             switch (operacion) {
                 case 1:
                     sql = "INSERT INTO persona(\n"
-                            + "	 nombre, apellido, cedula, tipo_documento, fecha_nac, sexo, estado_civil, nacionalidad, grupo_sanguineo,  direccion, barrio, telefono, celular, email,  usuario_input,  profesion, esfuncionario,fecha_venDoc)\n"
-                            + "	VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)\n"
+                            + "	 nombre, apellido, cedula, tipo_documento, fecha_nac, sexo, estado_civil, nacionalidad, grupo_sanguineo,  direccion, barrio, telefono, celular, email,  usuario_input,  profesion, esfuncionario,fecha_venDoc, cortesia)\n"
+                            + "	VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)\n"
                             + "RETURNING id ";
                     ps = menu.getConexion().prepareStatement(sql);
                     ps.setString(1, nombre.getText());
@@ -3289,6 +3303,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                     ps.setInt(16, idprofesion);
                     ps.setBoolean(17, funcio.isSelected());
                     ps.setDate(18, (!((JTextField) fecha_vencimiento.getDateEditor()).getText().equals("__/__/____") ? convertUtilToSql(fecha_vencimiento.getDate()) : null));
+                    ps.setInt(19, db.getIdCombo(cbCortesia));
                     res = db.QueryDinamico(ps);
                     idpersona = Integer.parseInt(res[1]);
 
@@ -3313,7 +3328,8 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                             + "    usuario_updat=?, \n"
                             + "    profesion=?, \n"
                             + "    esfuncionario=?, \n"
-                            + "    fecha_vendoc=?\n"
+                            + "    fecha_vendoc=? ,"
+                            + "    cortesia = ? \n"
                             + "WHERE id = ?";
                     ps = menu.getConexion().prepareStatement(sql);
                     ps.setString(1, nombre.getText());
@@ -3335,7 +3351,8 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                     ps.setInt(17, idprofesion);
                     ps.setBoolean(18, funcio.isSelected());
                     ps.setDate(19, (!((JTextField) fecha_vencimiento.getDateEditor()).getText().equals("__/__/____") ? convertUtilToSql(fecha_vencimiento.getDate()) : null));
-                    ps.setInt(20, idpersona);
+                    ps.setInt(20, db.getIdCombo(cbCortesia));
+                    ps.setInt(21, idpersona);                    
                     db.Actualizar(ps, true);
                     break;
                 case 3:
@@ -4071,7 +4088,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JButton ExpeNuevo;
     private javax.swing.JButton ExpeNuevo1;
     private javax.swing.JTextField apellido;
-    private javax.swing.JComboBox<Tools> banco;
+    private javax.swing.JComboBox<clases.Tools> banco;
     private javax.swing.JTextField barrio;
     private javax.swing.JButton btn_aplicar;
     private javax.swing.JButton btn_barrio;
@@ -4092,6 +4109,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JButton cancelarPariente;
     private javax.swing.JButton cancelarreflab;
     private javax.swing.JTextField cargo;
+    private javax.swing.JComboBox<Tools> cbCortesia;
     private javax.swing.JTextField cedula;
     private javax.swing.JTextField celular;
     private javax.swing.JTextField ciudad;
@@ -4101,7 +4119,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JButton eliminarPariente;
     private javax.swing.JButton eliminarreflab;
     private javax.swing.JTextField emails;
-    private javax.swing.JComboBox<Tools> estado_civil;
+    private javax.swing.JComboBox<clases.Tools> estado_civil;
     private javax.swing.JTextField expeEmpresa;
     private com.toedter.calendar.JDateChooser fecha_contrato;
     private com.toedter.calendar.JDateChooser fecha_fin_contrato;
@@ -4110,11 +4128,11 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser fecha_nacimiento;
     private com.toedter.calendar.JDateChooser fecha_vencimiento;
     private javax.swing.JTextField formInstituto;
-    private javax.swing.JComboBox<Tools> forma_cobro;
+    private javax.swing.JComboBox<clases.Tools> forma_cobro;
     private javax.swing.JCheckBox funcio;
     private javax.swing.JButton grabarPariente;
     private javax.swing.JButton grabarreflab;
-    private javax.swing.JComboBox<Tools> grupo_sanguineo;
+    private javax.swing.JComboBox<clases.Tools> grupo_sanguineo;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
@@ -4170,6 +4188,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -4212,7 +4231,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JDialog modal;
     private javax.swing.JButton modificarPariente;
     private javax.swing.JButton modificarreflab;
-    private javax.swing.JComboBox<Tools> moneda;
+    private javax.swing.JComboBox<clases.Tools> moneda;
     private javax.swing.JTextField nacionalidad;
     private javax.swing.JTextField nombre;
     private javax.swing.JTextField nro_cuenta;
@@ -4226,7 +4245,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField parientApellido;
     private com.toedter.calendar.JDateChooser parientFechaNac;
     private javax.swing.JTextField parientNombre;
-    private javax.swing.JComboBox<Tools> parientParentesc;
+    private javax.swing.JComboBox<clases.Tools> parientParentesc;
     private javax.swing.JTextField parientTelefono;
     private javax.swing.JTextField profesion;
     private javax.swing.JTextField reflaCargo;
@@ -4236,8 +4255,8 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField resolucion;
     private javax.swing.JTextField salario;
     private javax.swing.JTextField sector;
-    private javax.swing.JComboBox<Tools> sexo;
-    private javax.swing.JComboBox<Tools> sucursal;
+    private javax.swing.JComboBox<clases.Tools> sexo;
+    private javax.swing.JComboBox<clases.Tools> sucursal;
     private javax.swing.JTable tbl_Experiencia;
     private javax.swing.JTable tbl_Experiencia1;
     private javax.swing.JTable tbl_funcionario;
@@ -4245,8 +4264,8 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbl_persona;
     private javax.swing.JTable tbl_ref_laboral;
     private javax.swing.JTextField telefono;
-    private javax.swing.JComboBox<Tools> tipo_Contrato;
-    private javax.swing.JComboBox<Tools> tipo_documento;
-    private javax.swing.JComboBox<Tools> tipo_empleado;
+    private javax.swing.JComboBox<clases.Tools> tipo_Contrato;
+    private javax.swing.JComboBox<clases.Tools> tipo_documento;
+    private javax.swing.JComboBox<clases.Tools> tipo_empleado;
     // End of variables declaration//GEN-END:variables
 }

@@ -50,7 +50,6 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
 
         validarCaracteres();
 
-
         addKeyEvent();
 
         db.Busqued(tbl_dcto, modelo, txtBusqueda);
@@ -394,7 +393,7 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -405,7 +404,7 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
                 .addComponent(btn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btn_informes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 209, Short.MAX_VALUE))
+                .addGap(0, 213, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(64, 142, 186));
@@ -418,7 +417,7 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGap(0, 46, Short.MAX_VALUE)
         );
 
         txtBusqueda.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Funcionario"));
@@ -447,9 +446,9 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
             tbl_dcto.getColumnModel().getColumn(2).setMinWidth(75);
             tbl_dcto.getColumnModel().getColumn(2).setPreferredWidth(75);
             tbl_dcto.getColumnModel().getColumn(2).setMaxWidth(75);
-            tbl_dcto.getColumnModel().getColumn(3).setMinWidth(100);
-            tbl_dcto.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tbl_dcto.getColumnModel().getColumn(3).setMaxWidth(100);
+            tbl_dcto.getColumnModel().getColumn(3).setMinWidth(150);
+            tbl_dcto.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tbl_dcto.getColumnModel().getColumn(3).setMaxWidth(150);
             tbl_dcto.getColumnModel().getColumn(4).setMinWidth(100);
             tbl_dcto.getColumnModel().getColumn(4).setPreferredWidth(100);
             tbl_dcto.getColumnModel().getColumn(4).setMaxWidth(100);
@@ -465,6 +464,7 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
             tbl_dcto.getColumnModel().getColumn(8).setMinWidth(0);
             tbl_dcto.getColumnModel().getColumn(8).setPreferredWidth(0);
             tbl_dcto.getColumnModel().getColumn(8).setMaxWidth(0);
+            tbl_dcto.getColumnModel().getColumn(8).setHeaderValue("esta");
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -555,7 +555,7 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
         idFuncionario = bp.getIdbarrio();
         txtFuncionario.setText(bp.getDescBarrio());
 
-        System.out.println(""+bp.getIdbarrio());
+        System.out.println("" + bp.getIdbarrio());
     }//GEN-LAST:event_btnFuncionarioActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -612,10 +612,10 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
             return false;
         }
 
-        if(!va.Verifica(idFuncionario, txtMonto)){
+        if (!va.Verifica(idFuncionario, txtMonto)) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -718,10 +718,10 @@ public class sol_anticipo extends javax.swing.JInternalFrame {
             if (Verificar(idAnticipo)) {
 
                 try {
-                    sql = "select f.id, nom.apenomb, a.monto, a.fecha_solicitud from anticipo a\n" +
-                            "join funcionario f on f.id = a.funcionario\n" +
-                            "join view_nompersona nom on nom.id = f.persona\n" +
-                            "where a.id = ?";
+                    sql = "select f.id, nom.apenomb, a.monto, a.fecha_solicitud from anticipo a\n"
+                            + "join funcionario f on f.id = a.funcionario\n"
+                            + "join view_nompersona nom on nom.id = f.persona\n"
+                            + "where a.id = ?";
                     PreparedStatement ps = menu.getConexion().prepareStatement(sql);
                     ps.setInt(1, idAnticipo);
                     res = db.QueryDinamico(ps);

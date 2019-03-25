@@ -47,6 +47,8 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
         lb.CambiarColor(btn_eliminar, entrada, Salida);
         lb.CambiarColor(btn_cerrar, entrada, Salida);
         lb.CambiarColor(btn_pagar, entrada, Salida);
+        lb.CambiarColor(btnImprimir, entrada, Salida);
+
         modelo = (DefaultTableModel) tblIndex.getModel();
         modeloDetalle = (DefaultTableModel) tblDetalle.getModel();
         CargarGrilla();
@@ -58,6 +60,7 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
         montoDetalle.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tblDetalle.editingStopped(new ChangeEvent(tblDetalle));
         CargarCombo();
+        tools.Busqued(tblIndex, modelo, buscador);
 
     }
 
@@ -122,7 +125,7 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
         btn_pagar = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        buscador = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblIndex = new javax.swing.JTable();
 
@@ -836,8 +839,8 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
             .addGap(0, 46, Short.MAX_VALUE)
         );
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 11)); // NOI18N
-        jTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Emoji", 0, 11))); // NOI18N
+        buscador.setFont(new java.awt.Font("Segoe UI Emoji", 0, 11)); // NOI18N
+        buscador.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Emoji", 0, 11))); // NOI18N
 
         tblIndex.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -848,7 +851,7 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -866,12 +869,12 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
             tblIndex.getColumnModel().getColumn(3).setMinWidth(150);
             tblIndex.getColumnModel().getColumn(3).setPreferredWidth(150);
             tblIndex.getColumnModel().getColumn(3).setMaxWidth(150);
-            tblIndex.getColumnModel().getColumn(4).setMinWidth(150);
-            tblIndex.getColumnModel().getColumn(4).setPreferredWidth(150);
-            tblIndex.getColumnModel().getColumn(4).setMaxWidth(150);
-            tblIndex.getColumnModel().getColumn(5).setMinWidth(150);
-            tblIndex.getColumnModel().getColumn(5).setPreferredWidth(150);
-            tblIndex.getColumnModel().getColumn(5).setMaxWidth(150);
+            tblIndex.getColumnModel().getColumn(4).setMinWidth(200);
+            tblIndex.getColumnModel().getColumn(4).setPreferredWidth(200);
+            tblIndex.getColumnModel().getColumn(4).setMaxWidth(200);
+            tblIndex.getColumnModel().getColumn(5).setMinWidth(200);
+            tblIndex.getColumnModel().getColumn(5).setPreferredWidth(200);
+            tblIndex.getColumnModel().getColumn(5).setMaxWidth(200);
         }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -885,7 +888,7 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
+                            .addComponent(buscador)
                             .addComponent(jScrollPane1))
                         .addContainerGap())))
         );
@@ -895,7 +898,7 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1091,9 +1094,9 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
         hashMap.put("id", idAporte);
         hashMap.put("empresa", "Prueba");
 
-        tools.reporte("reporte/aportes.jasper", hashMap, "Aporte de Funcionario", menu.getConexion());
+        tools.reporte(appContext.INFORME_APORTE, hashMap, "Aporte de Funcionario", menu.getConexion());
 
-      //  tools.reporte("reporte/paises.jasper", null, "Paises", menu.getConexion());
+        //  tools.reporte("reporte/paises.jasper", null, "Paises", menu.getConexion());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -1187,6 +1190,7 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
     }
 
     private void CargarGrilla() {
+        tools.LimpiarBusqueda(buscador, tblIndex);
         sql = "select * from sp_view_aporte()";
         tools.CargarTabla(sql, tblIndex, modelo, false, menu.getConexion());
         tools.centrar(tblIndex, new int[]{0, 3, 4, 5});
@@ -1425,19 +1429,19 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
     private Boolean validarABM() {
 
         if (beneficiario.getText().isEmpty()) {
-            JOptionPane.showConfirmDialog(null, "No puede Dejar Vacio el Funcionario", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No puede Dejar Vacio el Funcionario", "Error", JOptionPane.ERROR_MESSAGE);
             beneficiario.requestFocus();
             return false;
         }
 
         if (motivoAporte.getText().isEmpty()) {
-            JOptionPane.showConfirmDialog(null, "Debe de Cargar un Motivo", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe de Cargar un Motivo", "Error", JOptionPane.ERROR_MESSAGE);
             beneficiario.requestFocus();
             return false;
         }
 
         if (tblDetalle.getRowCount() < 0) {
-            JOptionPane.showConfirmDialog(null, "Debe de Cargar el Listado de Aportadores", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe de Cargar el Listado de Aportadores", "Error", JOptionPane.ERROR_MESSAGE);
             btnFuncionario.requestFocus();
             return false;
         }
@@ -1468,6 +1472,7 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_nuevo;
     private javax.swing.JButton btn_pagar;
+    private javax.swing.JTextField buscador;
     private javax.swing.JComboBox<Tools> cbConcepto;
     private javax.swing.JComboBox<String> cbFiltro;
     private javax.swing.JTextField funcio;
@@ -1503,7 +1508,6 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JDialog modal;
     private javax.swing.JDialog modalDesembolso;
     private javax.swing.JDialog modalImprimir;

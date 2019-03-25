@@ -1,5 +1,7 @@
 package clases;
 
+import com.inet.jortho.FileUserDictionary;
+import com.inet.jortho.SpellChecker;
 import com.toedter.calendar.JDateChooser;
 
 import java.awt.Color;
@@ -42,6 +44,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import javax.swing.text.JTextComponent;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -304,7 +307,7 @@ public class Tools {
 
                     switch (resultado.getMetaData().getColumnType(i + 1)) {
                         case 12:
-                            fila[i] = resultado.getString(i + 1) != null ? resultado.getString(i + 1).trim().toUpperCase() : "";
+                            fila[i] = resultado.getString(i + 1) != null ? resultado.getString(i + 1).trim() : "";
                             break;
                         case 93:
                             fila[i] = resultado.getTimestamp(i + 1) != null ? formato_fechaH.format(resultado.getTimestamp(i + 1)) : "";
@@ -395,7 +398,7 @@ public class Tools {
 
                     switch (resultado.getMetaData().getColumnType(i + 1)) {
                         case 12:
-                            fila[i] = resultado.getString(i + 1) != null ? resultado.getString(i + 1).trim().toUpperCase() : "";
+                            fila[i] = resultado.getString(i + 1) != null ? resultado.getString(i + 1).trim() : "";
                             break;
                         case 93:
                             fila[i] = resultado.getTimestamp(i + 1) != null ? formato_fechaH.format(resultado.getTimestamp(i + 1)) : "";
@@ -716,7 +719,7 @@ public class Tools {
             @Override
             public void keyReleased(KeyEvent e) {
                 sorter = new TableRowSorter<>(modelo);
-                sorter.setRowFilter(RowFilter.regexFilter("^" + cuadro.getText().toUpperCase()));
+                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + "^" + cuadro.getText()));
                 tabla.setRowSorter(sorter);
                 tabla.getSelectionModel().setSelectionInterval(0, 0);
             }
@@ -924,7 +927,8 @@ public class Tools {
     }
 
     public void reporte(String url, HashMap parameters, String titulo_informe, Connection cn) {
-        Hilo2 h2 = new Hilo2(url, parameters, titulo_informe, cn);
+        Hilo2 h2;
+        h2 = new Hilo2(url, parameters, titulo_informe, cn);
         Thread tarea = new Thread(h2);
         tarea.start();
         proDialog.setLocationRelativeTo(null);
@@ -944,6 +948,7 @@ public class Tools {
             this.tituloInforme = tituloInforme;
             this.connection = connection;
         }
+
         @Override
         public void run() {
             try {
@@ -1222,6 +1227,13 @@ public class Tools {
         for (int i = tabla.getRowCount() - 1; i >= 0; i--) {
             modelo.removeRow(i);
         }
+    }
+
+    public void Corrector(JTextComponent cuadro) {
+        /*Con esto cargamos el Diccionario para ir controlando los textos que vamos ingresando para el contrato*/
+        SpellChecker.setUserDictionaryProvider(new FileUserDictionary());
+        SpellChecker.registerDictionaries(null, null);
+        SpellChecker.register(cuadro);
     }
 
 }
