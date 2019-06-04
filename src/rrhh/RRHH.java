@@ -102,7 +102,7 @@ public class RRHH {
             /* Create and display the form */
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                //    setFont(new FontUIResource(new fonts.CustomFont().MyFont(0, 11)));
+                    setFont(new FontUIResource(new fonts.CustomFont().MyFont(0, 11)));
                     new acceso().setVisible(true);
                 }
             });

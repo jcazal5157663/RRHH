@@ -70,7 +70,7 @@ public class calculoHorario {
     }
 
     public static void main(String[] args) {
-        String prueba = new calculoHorario().restaHorario("04:00", "00:00");
+        String prueba = new calculoHorario().restaHorario("-04:00", "00:00");
         System.out.println(prueba);
     }
 

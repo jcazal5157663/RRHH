@@ -26,6 +26,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -1198,7 +1199,10 @@ public class Tools {
         TableCellEditor cell = new DefaultCellEditor(cuadro);
         tabla.getColumnModel().getColumn(position).setCellEditor(cell);
     }
-
+    public void AsignarCuadroTexto(JFormattedTextField cuadro, JTable tabla, int position) {
+        TableCellEditor cell = new DefaultCellEditor(cuadro);
+        tabla.getColumnModel().getColumn(position).setCellEditor(cell);
+    }
     public void AsignarCombo(JComboBox combo, JTable tabla, int position) {
         TableColumn sportColumn = tabla.getColumnModel().getColumn(position);
         sportColumn.setCellEditor(new DefaultCellEditor(combo));

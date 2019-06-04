@@ -1104,6 +1104,7 @@
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="btn_cargo7" max="32767" attributes="0"/>
                                   <Component id="jLabel12" max="32767" attributes="0"/>
+                                  <Component id="btn_cargo8" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="748" max="-2" attributes="0"/>
                           </Group>
@@ -1132,6 +1133,8 @@
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="btn_cargo7" min="-2" pref="15" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="btn_cargo8" min="-2" pref="15" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -1348,6 +1351,36 @@
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cargo7ActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btn_cargo8">
+                      <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Segoe UI" size="11" style="0"/>
+                        </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="66" green="66" red="66" type="rgb"/>
+                        </Property>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/iconos/icons8_Bill_14px.png"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Horario de Funcionario"/>
+                        <Property name="borderPainted" type="boolean" value="false"/>
+                        <Property name="contentAreaFilled" type="boolean" value="false"/>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Cursor de Mano"/>
+                        </Property>
+                        <Property name="focusPainted" type="boolean" value="false"/>
+                        <Property name="horizontalAlignment" type="int" value="2"/>
+                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                          <Insets value="[2, 0, 2, 0]"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cargo8ActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>

@@ -3,13 +3,11 @@ package reporteador;
 import clases.EstilosLabel;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
@@ -19,12 +17,9 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 
 import net.sf.jasperreports.swing.JRViewer;
-import org.icepdf.ri.common.SwingController;
-import org.icepdf.ri.common.SwingViewBuilder;
+
 
 public class ViewReport extends javax.swing.JFrame {
 

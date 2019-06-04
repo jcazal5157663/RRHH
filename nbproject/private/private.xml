@@ -3,8 +3,45 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/RRHH/src/configuracion/config.java</file>
+            <file>file:/C:/RRHH/src/referenciales/tipo_descuento.java</file>
+            <file>file:/C:/RRHH/src/rrhh/splash.java</file>
+            <file>file:/C:/RRHH/src/reporteador/ViewReport.java</file>
+            <file>file:/C:/RRHH/src/clases/EstilosLabel.java</file>
+            <file>file:/C:/RRHH/src/buscadores/buscador_ciudad.java</file>
+            <file>file:/C:/RRHH/src/AppContext/appContext.java</file>
+            <file>file:/C:/RRHH/src/referenciales/pais.java</file>
+            <file>file:/C:/RRHH/src/objetos/Modelo_mes.java</file>
+            <file>file:/C:/RRHH/src/fonts/CustomFont.java</file>
+            <file>file:/C:/RRHH/src/buscadores/buscador_barrio.java</file>
+            <file>file:/C:/RRHH/src/movimiento/aportes_funcionario.java</file>
+            <file>file:/C:/RRHH/src/referenciales/profesiones.java</file>
+            <file>file:/C:/RRHH/src/clases/Tools.java</file>
+            <file>file:/C:/RRHH/src/clases/conexion.java</file>
             <file>file:/C:/RRHH/src/rrhh/RRHH.java</file>
+            <file>file:/C:/RRHH/src/clases/prueba.java</file>
+            <file>file:/C:/RRHH/src/movimiento/sol_anticipo.java</file>
+            <file>file:/C:/RRHH/src/movimiento/reg_persona_funcionario.java</file>
+            <file>file:/C:/RRHH/src/configuracion/config.java</file>
+            <file>file:/C:/RRHH/src/referenciales/tipo_amonestaciones.java</file>
+            <file>file:/C:/RRHH/src/buscadores/buscador_Funcionario.java</file>
+            <file>file:/C:/RRHH/src/referenciales/tipo_documento.java</file>
+            <file>file:/C:/RRHH/src/clases/Ventanas.java</file>
+            <file>file:/C:/RRHH/src/scriptSQL/scriptMigration.java</file>
+            <file>file:/C:/RRHH/src/clases/Verificar_Anticipo.java</file>
+            <file>file:/C:/RRHH/src/movimiento/dcto_funcionario.java</file>
+            <file>file:/C:/RRHH/src/clases/calculoHorario.java</file>
+            <file>file:/C:/RRHH/src/referenciales/tipo_cortesia.java</file>
+            <file>file:/C:/RRHH/src/referenciales/concepto.java</file>
+            <file>file:/C:/RRHH/src/objetos/Model_Cuota.java</file>
+            <file>file:/C:/RRHH/src/com/inet/jorthodictionaries/BookGenerator.java</file>
+            <file>file:/C:/RRHH/src/reporteador/JROdtExporter.java</file>
+            <file>file:/C:/RRHH/src/movimiento/amonestaciones.java</file>
+            <file>file:/C:/RRHH/nbproject/build-impl.xml</file>
+            <file>file:/C:/RRHH/src/principal/menu.java</file>
+            <file>file:/C:/RRHH/src/movimiento/contratos.java</file>
+            <file>file:/C:/RRHH/src/referenciales/bancos.java</file>
+            <file>file:/C:/RRHH/src/principal/acceso.java</file>
+            <file>file:/C:/RRHH/src/referenciales/titulos.java</file>
         </group>
     </open-files>
 </project-private>

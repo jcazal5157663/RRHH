@@ -18,6 +18,7 @@ import movimiento.amonestaciones;
 import movimiento.aportes_funcionario;
 import movimiento.contratos;
 import movimiento.dcto_funcionario;
+import movimiento.horariofuncionario;
 import movimiento.reg_persona_funcionario;
 import movimiento.sol_anticipo;
 import referenciales.bancos;
@@ -172,6 +173,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
         jSeparator5 = new javax.swing.JSeparator();
         jLabel12 = new javax.swing.JLabel();
         btn_cargo7 = new javax.swing.JButton();
+        btn_cargo8 = new javax.swing.JButton();
         p_configuración = new javax.swing.JPanel();
         btn_cargo5 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -873,6 +875,23 @@ public class menu extends javax.swing.JFrame implements Runnable {
             }
         });
 
+        btn_cargo8.setBackground(new java.awt.Color(255, 255, 255));
+        btn_cargo8.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btn_cargo8.setForeground(new java.awt.Color(102, 102, 102));
+        btn_cargo8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Bill_14px.png"))); // NOI18N
+        btn_cargo8.setText("Horario de Funcionario");
+        btn_cargo8.setBorderPainted(false);
+        btn_cargo8.setContentAreaFilled(false);
+        btn_cargo8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_cargo8.setFocusPainted(false);
+        btn_cargo8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btn_cargo8.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        btn_cargo8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cargo8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout p_movimientoLayout = new javax.swing.GroupLayout(p_movimiento);
         p_movimiento.setLayout(p_movimientoLayout);
         p_movimientoLayout.setHorizontalGroup(
@@ -895,7 +914,8 @@ public class menu extends javax.swing.JFrame implements Runnable {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_cargo7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_cargo8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(748, 748, 748))
         );
         p_movimientoLayout.setVerticalGroup(
@@ -918,6 +938,8 @@ public class menu extends javax.swing.JFrame implements Runnable {
                         .addComponent(jLabel11))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_movimientoLayout.createSequentialGroup()
                         .addComponent(btn_cargo7, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_cargo8, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel12))))
         );
@@ -1371,6 +1393,11 @@ public class menu extends javax.swing.JFrame implements Runnable {
         vn.Abrir_ventana(escritorio, ap, true);
     }//GEN-LAST:event_btn_pais8ActionPerformed
 
+    private void btn_cargo8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargo8ActionPerformed
+         horariofuncionario ap = new horariofuncionario();
+        vn.Abrir_ventana(escritorio, ap, true);
+    }//GEN-LAST:event_btn_cargo8ActionPerformed
+
     private static int iduser;
     private String nombre;
     private static Connection conexion;
@@ -1425,6 +1452,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton btn_cargo5;
     private javax.swing.JButton btn_cargo6;
     private javax.swing.JButton btn_cargo7;
+    private javax.swing.JButton btn_cargo8;
     private javax.swing.JButton btn_ciudades;
     private javax.swing.JButton btn_concepto;
     private javax.swing.JLabel btn_configuracion;
