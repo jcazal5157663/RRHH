@@ -70,7 +70,7 @@ public class buscador_Funcionario extends javax.swing.JDialog {
         siguiente = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
-        setTitle("Buscador de Barrios::::");
+        setTitle("Buscador de Funcionario::::");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
