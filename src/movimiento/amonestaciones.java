@@ -1,6 +1,6 @@
 package movimiento;
 
-import AppContext.appContext;
+import context.AppContext;
 import buscadores.buscador_Funcionario;
 import clases.EstilosLabel;
 import clases.Tools;
@@ -576,7 +576,7 @@ public class amonestaciones extends javax.swing.JInternalFrame {
             idAmonestacion = tools.getParseStringint(tblIndex, row, 0);
             HashMap hashMap = new HashMap();
             hashMap.put("id", idAmonestacion);
-            tools.reporte(appContext.INFORME_AMONESTACION, hashMap, "Amonestación de Funcionario", menu.getConexion());
+            tools.reporte(AppContext.INFORME_AMONESTACION, hashMap, "Amonestación de Funcionario", menu.getConexion());
         }
 
     }//GEN-LAST:event_btnImprimirActionPerformed

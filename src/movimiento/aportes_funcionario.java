@@ -1,6 +1,6 @@
 package movimiento;
 
-import AppContext.appContext;
+import context.AppContext;
 import buscadores.buscador_Funcionario;
 import clases.EstilosLabel;
 import clases.Tools;
@@ -1094,7 +1094,7 @@ public class aportes_funcionario extends javax.swing.JInternalFrame {
         hashMap.put("id", idAporte);
         hashMap.put("empresa", "Prueba");
 
-        tools.reporte(appContext.INFORME_APORTE, hashMap, "Aporte de Funcionario", menu.getConexion());
+        tools.reporte(AppContext.INFORME_APORTE, hashMap, "Aporte de Funcionario", menu.getConexion());
 
         //  tools.reporte("reporte/paises.jasper", null, "Paises", menu.getConexion());
     }//GEN-LAST:event_jButton4ActionPerformed

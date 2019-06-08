@@ -7,6 +7,7 @@ import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.KeyboardFocusManager;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -18,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,9 +54,10 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import objetos.Model_Cuota;
+import objetos.Model_permisos;
 import reporteador.ViewReport;
 import reporteador.progressDialog;
-
+import context.*;
 public class Tools {
 
     private int id;
@@ -1239,5 +1242,60 @@ public class Tools {
         SpellChecker.registerDictionaries(null, null);
         SpellChecker.register(cuadro);
     }
+    
+    
+       public void DetecTabKey(JTextComponent cuadro) {
+        cuadro.setFocusTraversalKeys(
+                KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET);
+    }
+
+    Boolean exist = false;
+
+    public Model_permisos permisoMenu(int id) {
+        Model_permisos permiso = new Model_permisos();
+        int indice = 0;
+        for (int i = 0; i < AppContext.PERMISOS_MENUS.size(); i++) {
+            if (AppContext.PERMISOS_MENUS.get(i).getIdMenu() == id) {
+                exist = true;
+                indice = i;
+                break;
+            }
+        }
+
+        if (exist) {
+            permiso = AppContext.PERMISOS_MENUS.get(indice);
+        } else {
+
+        }
+        return permiso;
+    }
+
+    public void CargarPermiso(String sql, Connection cn) {
+        ArrayList<Model_permisos> ms = new ArrayList<>();
+        try {
+            ResultSet resultado;
+            Statement Sentencia;
+            Sentencia = cn.createStatement();
+            resultado = Sentencia.executeQuery(sql);
+            while (resultado.next()) {
+                Model_permisos mp = new Model_permisos(
+                        resultado.getInt(1),
+                        resultado.getBoolean(2),
+                        resultado.getBoolean(3),
+                        resultado.getBoolean(4),
+                        resultado.getBoolean(5),
+                        resultado.getBoolean(6)
+                );
+                ms.add(mp);
+            }
+            resultado.close();
+            Sentencia.close();
+            AppContext.PERMISOS_MENUS = ms;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 
 }
