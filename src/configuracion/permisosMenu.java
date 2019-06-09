@@ -186,7 +186,7 @@ public class permisosMenu extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton5))
         );
@@ -284,7 +284,7 @@ public class permisosMenu extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void CargarRoles() {
-        sql = "select id, descripcion from tipo_usuario where estado = 1\n"
+        sql = "select id, descripcion from roles_usuarios where estado = 1\n"
                 + "order by id";
         tools.CargarCombo(cbRolUsuario, sql, menu.getConexion());
     }
@@ -292,7 +292,7 @@ public class permisosMenu extends javax.swing.JInternalFrame {
     private void CargarGrilla() {
         try {
             sql = "select * from viewpermisos vp \n"
-                    + "where vp.tipo_usuario = ?";
+                    + "where vp.roles_usuarios = ?";
             PreparedStatement ps = menu.getConexion().prepareStatement(sql);
             ps.setInt(1, tools.getIdCombo(cbRolUsuario));
             tools.CargarTabla(ps, tblPermisos, modelo, false);

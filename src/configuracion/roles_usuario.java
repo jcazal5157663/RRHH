@@ -613,7 +613,7 @@ public class roles_usuario extends javax.swing.JInternalFrame {
                     + "end as esta,\n"
                     + "dir.fecha_h_input,\n"
                     + "dir.fecha_h_update\n"
-                    + "from tipo_usuario dir\n"
+                    + "from roles_usuarios dir\n"
                     + "order by dir.id";
 
             PreparedStatement ps = menu.getConexion().prepareStatement(sql);
@@ -633,7 +633,7 @@ public class roles_usuario extends javax.swing.JInternalFrame {
             switch (operacion) {
                 case 1:
 
-                    sql = "select * from tipo_usuario where trim(upper(descripcion)) = ?";
+                    sql = "select * from roles_usuarios where trim(upper(descripcion)) = ?";
                     PreparedStatement bus = menu.getConexion().prepareStatement(sql);
                     bus.setString(1, descripcion.getText().trim().toUpperCase());
                     res = db.QueryDinamico(bus);
@@ -641,7 +641,7 @@ public class roles_usuario extends javax.swing.JInternalFrame {
                     if (res == null) {
 
                         try {
-                            sql = "INSERT INTO tipo_usuario(\n"
+                            sql = "INSERT INTO roles_usuarios(\n"
                                     + "	descripcion, estado, usuario_input)\n"
                                     + "	VALUES (?, ?, ?)";
                             PreparedStatement ps = menu.getConexion().prepareStatement(sql);
@@ -659,7 +659,7 @@ public class roles_usuario extends javax.swing.JInternalFrame {
                     break;
                 case 2:
 
-                    sql = "UPDATE tipo_usuario\n"
+                    sql = "UPDATE roles_usuarios\n"
                             + "	SET  \n"
                             + "	descripcion=?, \n"
                             + "	estado=?, \n"
@@ -676,7 +676,7 @@ public class roles_usuario extends javax.swing.JInternalFrame {
 
                     break;
                 case 3:
-                    sql = "delete from tipo_usuario where id = ?";
+                    sql = "delete from roles_usuarios where id = ?";
                     PreparedStatement ps3 = menu.getConexion().prepareStatement(sql);
                     ps3.setInt(1, id);
                     db.eliminar(ps3, true);
@@ -707,7 +707,7 @@ public class roles_usuario extends javax.swing.JInternalFrame {
         } else {
             try {
                 id = Integer.parseInt(tabla.getValueAt(row, 0).toString());
-                sql = "select descripcion, estado from tipo_usuario where id = ?";
+                sql = "select descripcion, estado from roles_usuarios where id = ?";
                 PreparedStatement ps = menu.getConexion().prepareStatement(sql);
                 ps.setInt(1, id);
                 res = db.QueryDinamico(ps);

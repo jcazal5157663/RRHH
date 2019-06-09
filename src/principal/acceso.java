@@ -1,6 +1,7 @@
 package principal;
 
 import clases.conexion;
+import context.AppContext;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -279,15 +280,17 @@ public class acceso extends javax.swing.JFrame {
             char[] arrayPass = contrase.getPassword();
             String password = new String(arrayPass);
             
-            sql = "SELECT nom, iduser from  sp_validar_usuario(?,?) as rs";
+            sql = "SELECT * from  sp_validar_usuario(?,?) as rs";
             PreparedStatement ps = cn.getConexion().prepareStatement(sql);
             ps.setString(1, user.getText().toUpperCase().trim());
             ps.setString(2, password);
             cn.resultado = ps.executeQuery();
             cn.resultado.next();
             if (cn.resultado.getString(1) != null) {
-                
+                 AppContext.ROL_USUARIO = cn.resultado.getInt(3);
+                AppContext.ROL_USUARIO_DESCRIP = cn.resultado.getString(4);
                 men = new menu(cn.resultado.getInt(2), cn.resultado.getString(1), cn.getConexion());
+               
                 men.setVisible(true);
                 this.dispose();
 

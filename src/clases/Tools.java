@@ -1296,6 +1296,48 @@ public class Tools {
             Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+      public void transferFocus(Component comp1, Component com2) {
+        comp1.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                int letra = e.getKeyChar();
+                if (letra == 10) {
+                    com2.requestFocus();
+                }
+            }
+        });
+    }
+
+        public void transferFocus(Component comp1, JDateChooser com2) {
+        comp1.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                int letra = e.getKeyChar();
+                if (letra == 10) {
+                    com2.getDateEditor().getUiComponent().requestFocus();
+                }
+            }
+        });
+    }
 
 }

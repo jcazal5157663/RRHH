@@ -5,8 +5,8 @@
  */
 package principal;
 
-import clases.EstilosLabel;
-import clases.Ventanas;
+import clases.*;
+
 import java.awt.Color;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
@@ -14,37 +14,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JPanel;
-import movimiento.amonestaciones;
-import movimiento.aportes_funcionario;
-import movimiento.contratos;
-import movimiento.dcto_funcionario;
-import movimiento.horariofuncionario;
-import movimiento.reg_persona_funcionario;
-import movimiento.sol_anticipo;
-import referenciales.bancos;
-import referenciales.barrios;
-import referenciales.cargo;
-import referenciales.ciudades;
+import movimiento.*;
+import configuracion.*;
+import context.*;
+import javax.swing.JOptionPane;
+import objetos.Model_permisos;
+import referenciales.*;
 
-import referenciales.concepto;
-import referenciales.departamento;
-import referenciales.dias_feriados;
-import referenciales.direccion;
-import referenciales.forma_cobro;
-import referenciales.grupo_sanguineo;
-import referenciales.institutos_estudios;
-import referenciales.moneda;
-import referenciales.pais;
-import referenciales.profesiones;
-import referenciales.seccion;
-import referenciales.sucursales;
-import referenciales.tipo_amonestaciones;
-import referenciales.tipo_contrato;
-import referenciales.tipo_cortesia;
-import referenciales.tipo_descuento;
-import referenciales.tipo_documento;
-import referenciales.tipo_empleado;
-import referenciales.titulos;
 
 public class menu extends javax.swing.JFrame implements Runnable {
 
@@ -56,6 +32,11 @@ public class menu extends javax.swing.JFrame implements Runnable {
     String hora, minutos, segundos, ampm;
     Calendar calendario;
     Thread h1;
+    Tools tools = new Tools();
+    Model_permisos permiso = new Model_permisos();
+    Object[] options = {"Refrescar Permisos",
+        "Salir"
+    };
 
     public menu() {
         initComponents();
@@ -110,6 +91,8 @@ public class menu extends javax.swing.JFrame implements Runnable {
 
         h1 = new Thread(this);
         h1.start();
+        
+        CargarPermisos();
     }
 
     public static String ucFirst(String str) {
@@ -175,7 +158,11 @@ public class menu extends javax.swing.JFrame implements Runnable {
         btn_cargo7 = new javax.swing.JButton();
         btn_cargo8 = new javax.swing.JButton();
         p_configuración = new javax.swing.JPanel();
-        btn_cargo5 = new javax.swing.JButton();
+        btnPermisos = new javax.swing.JButton();
+        btn_Men = new javax.swing.JButton();
+        btn_Mensys = new javax.swing.JButton();
+        btn_RolUser = new javax.swing.JButton();
+        btn_newUser = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btn_reg = new javax.swing.JLabel();
         btn_mov = new javax.swing.JLabel();
@@ -948,20 +935,88 @@ public class menu extends javax.swing.JFrame implements Runnable {
 
         p_configuración.setBackground(new java.awt.Color(255, 255, 255));
 
-        btn_cargo5.setBackground(new java.awt.Color(255, 255, 255));
-        btn_cargo5.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        btn_cargo5.setForeground(new java.awt.Color(102, 102, 102));
-        btn_cargo5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Bill_14px.png"))); // NOI18N
-        btn_cargo5.setText("Solicitud de Anticipos Manual");
-        btn_cargo5.setBorderPainted(false);
-        btn_cargo5.setContentAreaFilled(false);
-        btn_cargo5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_cargo5.setFocusPainted(false);
-        btn_cargo5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btn_cargo5.setMargin(new java.awt.Insets(2, 0, 2, 0));
-        btn_cargo5.addActionListener(new java.awt.event.ActionListener() {
+        btnPermisos.setBackground(new java.awt.Color(255, 255, 255));
+        btnPermisos.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btnPermisos.setForeground(new java.awt.Color(102, 102, 102));
+        btnPermisos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Access_32px.png"))); // NOI18N
+        btnPermisos.setText("<html>Permisos de<br><p align='center'>Usuario</p></html>");
+        btnPermisos.setBorderPainted(false);
+        btnPermisos.setContentAreaFilled(false);
+        btnPermisos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPermisos.setFocusPainted(false);
+        btnPermisos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPermisos.setIconTextGap(0);
+        btnPermisos.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnPermisos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPermisos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cargo5ActionPerformed(evt);
+                btnPermisosActionPerformed(evt);
+            }
+        });
+
+        btn_Men.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btn_Men.setForeground(new java.awt.Color(102, 102, 102));
+        btn_Men.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Todo_List_18px.png"))); // NOI18N
+        btn_Men.setText("Cabecera de Menú");
+        btn_Men.setBorderPainted(false);
+        btn_Men.setContentAreaFilled(false);
+        btn_Men.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Men.setFocusPainted(false);
+        btn_Men.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btn_Men.setMargin(new java.awt.Insets(2, 0, 0, 0));
+        btn_Men.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_MenActionPerformed(evt);
+            }
+        });
+
+        btn_Mensys.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btn_Mensys.setForeground(new java.awt.Color(102, 102, 102));
+        btn_Mensys.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_List_18px.png"))); // NOI18N
+        btn_Mensys.setText("Menus del Sistema");
+        btn_Mensys.setBorderPainted(false);
+        btn_Mensys.setContentAreaFilled(false);
+        btn_Mensys.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Mensys.setFocusPainted(false);
+        btn_Mensys.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btn_Mensys.setMargin(new java.awt.Insets(2, 0, 0, 0));
+        btn_Mensys.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_MensysActionPerformed(evt);
+            }
+        });
+
+        btn_RolUser.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btn_RolUser.setForeground(new java.awt.Color(102, 102, 102));
+        btn_RolUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_User_Menu_Male_18px.png"))); // NOI18N
+        btn_RolUser.setText("Roles de Usuario");
+        btn_RolUser.setBorderPainted(false);
+        btn_RolUser.setContentAreaFilled(false);
+        btn_RolUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_RolUser.setFocusPainted(false);
+        btn_RolUser.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btn_RolUser.setMargin(new java.awt.Insets(2, 0, 0, 0));
+        btn_RolUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_RolUserActionPerformed(evt);
+            }
+        });
+
+        btn_newUser.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btn_newUser.setForeground(new java.awt.Color(102, 102, 102));
+        btn_newUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_User_Location_32px_1.png"))); // NOI18N
+        btn_newUser.setText("<html><center>Nuevo<br>Usuario</center></html>");
+        btn_newUser.setBorderPainted(false);
+        btn_newUser.setContentAreaFilled(false);
+        btn_newUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_newUser.setFocusPainted(false);
+        btn_newUser.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_newUser.setIconTextGap(0);
+        btn_newUser.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btn_newUser.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_newUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_newUserActionPerformed(evt);
             }
         });
 
@@ -971,15 +1026,32 @@ public class menu extends javax.swing.JFrame implements Runnable {
             p_configuraciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_configuraciónLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btn_cargo5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(1073, 1073, 1073))
+                .addComponent(btnPermisos, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(p_configuraciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(p_configuraciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btn_RolUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_Mensys))
+                    .addComponent(btn_Men))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_newUser, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(972, Short.MAX_VALUE))
         );
         p_configuraciónLayout.setVerticalGroup(
             p_configuraciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_configuraciónLayout.createSequentialGroup()
+                .addGroup(p_configuraciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_newUser, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnPermisos, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(p_configuraciónLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btn_cargo5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addComponent(btn_RolUser, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_Mensys, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_Men, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.add(p_configuración, "card4");
@@ -1362,10 +1434,6 @@ public class menu extends javax.swing.JFrame implements Runnable {
         vn.Abrir_ventana(escritorio, desc, true);
     }//GEN-LAST:event_btn_cargo4ActionPerformed
 
-    private void btn_cargo5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargo5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_cargo5ActionPerformed
-
     private void btn_configuracionMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_configuracionMouseReleased
         p_movimiento.setVisible(false);
         p_referenciales.setVisible(false);
@@ -1394,9 +1462,117 @@ public class menu extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btn_pais8ActionPerformed
 
     private void btn_cargo8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargo8ActionPerformed
-         horariofuncionario ap = new horariofuncionario();
+        horariofuncionario ap = new horariofuncionario();
         vn.Abrir_ventana(escritorio, ap, true);
     }//GEN-LAST:event_btn_cargo8ActionPerformed
+
+    private void btnPermisosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPermisosActionPerformed
+        permiso = new Tools().permisoMenu(1);
+
+        if (permiso.getAcceder()) {
+            permisosMenu cab = new permisosMenu(permiso);
+            vn.Abrir_ventana(escritorio, cab, true);
+        } else {
+            int i = JOptionPane.showOptionDialog(this,
+                    AppContext.MENSAJE_PERMISO_DENEGADO,
+                    "Acceso Restringido",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.ERROR_MESSAGE,
+                    null,//do not use a custom Icon
+                    options,//the titles of buttons
+                    options[0]);//default button title
+            if (i == 0) {
+                CargarPermisos();
+            }
+        }
+    }//GEN-LAST:event_btnPermisosActionPerformed
+
+    private void btn_MenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_MenActionPerformed
+        permiso = new Tools().permisoMenu(2);
+
+        if (permiso.getAcceder()) {
+            menuCab cab = new menuCab(permiso);
+            vn.Abrir_ventana(escritorio, cab, true);
+        } else {
+            int i = JOptionPane.showOptionDialog(this,
+                    AppContext.MENSAJE_PERMISO_DENEGADO,
+                    "Acceso Restringido",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.ERROR_MESSAGE,
+                    null,//do not use a custom Icon
+                    options,//the titles of buttons
+                    options[0]);//default button title
+            if (i == 0) {
+                CargarPermisos();
+            }
+        }
+    }//GEN-LAST:event_btn_MenActionPerformed
+
+    private void btn_MensysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_MensysActionPerformed
+        permiso = new Tools().permisoMenu(3);
+
+        if (permiso.getAcceder()) {
+            menuDet cab = new menuDet(permiso);
+            vn.Abrir_ventana(escritorio, cab, true);
+        } else {
+            int i = JOptionPane.showOptionDialog(this,
+                    AppContext.MENSAJE_PERMISO_DENEGADO,
+                    "Acceso Restringido",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.ERROR_MESSAGE,
+                    null,//do not use a custom Icon
+                    options,//the titles of buttons
+                    options[0]);//default button title
+            if (i == 0) {
+                CargarPermisos();
+            }
+        }
+    }//GEN-LAST:event_btn_MensysActionPerformed
+
+    private void btn_RolUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RolUserActionPerformed
+
+        permiso = new Tools().permisoMenu(4);
+        if (permiso.getAcceder()) {
+
+            roles_usuario ru = new roles_usuario(permiso);
+            vn.Abrir_ventana(escritorio, ru, true);
+
+        } else {
+            int i = JOptionPane.showOptionDialog(this,
+                    AppContext.MENSAJE_PERMISO_DENEGADO,
+                    "Acceso Restringido",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.ERROR_MESSAGE,
+                    null,//do not use a custom Icon
+                    options,//the titles of buttons
+                    options[0]);//default button title
+            if (i == 0) {
+                CargarPermisos();
+            }
+        }
+    }//GEN-LAST:event_btn_RolUserActionPerformed
+
+    private void btn_newUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newUserActionPerformed
+        permiso = new Tools().permisoMenu(5);
+
+        if (permiso.getAcceder()) {
+            usuarios fac = new usuarios(permiso);
+            vn.Abrir_ventana(escritorio, fac, true);
+        } else {
+            int i = JOptionPane.showOptionDialog(this,
+                    AppContext.MENSAJE_PERMISO_DENEGADO,
+                    "Acceso Restringido",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.ERROR_MESSAGE,
+                    null,//do not use a custom Icon
+                    options,//the titles of buttons
+                    options[0]);//default button title
+            if (i == 0) {
+                CargarPermisos();
+            }
+
+        }
+    }//GEN-LAST:event_btn_newUserActionPerformed
 
     private static int iduser;
     private String nombre;
@@ -1425,6 +1601,18 @@ public class menu extends javax.swing.JFrame implements Runnable {
     public void setConexion(Connection conexion) {
         menu.conexion = conexion;
     }
+    
+    
+        private void CargarPermisos() {
+
+        String sql = "select menu_det, acceder, nuevo, editar, eliminar, informes from permiso_menu\n"
+                + "where roles_usuarios = " + AppContext.ROL_USUARIO + "\n"
+                + "order by id";
+        new Tools().CargarPermiso(sql, menu.getConexion());
+        //ConsultarPermisos();
+
+    }
+    
 
     private void botones() {
         lb.CambiarColor(btn_cargo, entrada, Salida);
@@ -1442,6 +1630,10 @@ public class menu extends javax.swing.JFrame implements Runnable {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPermisos;
+    private javax.swing.JButton btn_Men;
+    private javax.swing.JButton btn_Mensys;
+    private javax.swing.JButton btn_RolUser;
     private javax.swing.JButton btn_bancos;
     private javax.swing.JButton btn_barrios;
     private javax.swing.JButton btn_cargo;
@@ -1449,7 +1641,6 @@ public class menu extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton btn_cargo2;
     private javax.swing.JButton btn_cargo3;
     private javax.swing.JButton btn_cargo4;
-    private javax.swing.JButton btn_cargo5;
     private javax.swing.JButton btn_cargo6;
     private javax.swing.JButton btn_cargo7;
     private javax.swing.JButton btn_cargo8;
@@ -1464,6 +1655,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton btn_moneda;
     private javax.swing.JButton btn_moneda1;
     private javax.swing.JLabel btn_mov;
+    private javax.swing.JButton btn_newUser;
     private javax.swing.JButton btn_pais;
     private javax.swing.JButton btn_pais1;
     private javax.swing.JButton btn_pais2;

@@ -1,7 +1,6 @@
 package configuracion;
 
-import buscadores.buscador_menu;
-import buscadores.buscador_pais;
+import buscadores.buscador_Funcionario;
 import clases.Cerrar_Escape;
 import clases.EstilosLabel;
 import clases.Tools;
@@ -18,53 +17,50 @@ import javax.swing.table.DefaultTableModel;
 import objetos.Model_permisos;
 import principal.menu;
 
-public class menuDet extends javax.swing.JInternalFrame {
+public class usuarios extends javax.swing.JInternalFrame {
 
-    Color entrada = new Color(240, 240, 240);
-    Color Salida = new Color(255, 255, 255);
+    Color entrada = new Color(44, 59, 65);
+    Color Salida = new Color(34, 45, 50);
     EstilosLabel lb = new EstilosLabel();
-    Tools db = new Tools();
+    Tools tools = new Tools();
     Cerrar_Escape es = new Cerrar_Escape();
     DefaultTableModel modelo = new DefaultTableModel();
     String sql = "";
     String res[] = null;
     int operacion = 0;
-    int idmenu = 0;
     int id = 0;
     int xx;
     int xy;
-    Model_permisos permiso;
+    int idfuncionario;
+    Model_permisos permisos;
 
-    public menuDet(Model_permisos permiso) {
+    public usuarios(Model_permisos permisos) {
         initComponents();
-        this.permiso = permiso;
-        HabPermiso();
 
+        this.permisos = permisos;
+        HabPermiso();
+        foco();
         es.addEscapeListener(this);
         busqueda.requestFocus();
         lb.CambiarColor(btn_nuevo, entrada, Salida);
         lb.CambiarColor(btn_modificar, entrada, Salida);
         lb.CambiarColor(btn_eliminar, entrada, Salida);
         lb.CambiarColor(btn_cerrar, entrada, Salida);
-        /*botones del modal*/
-        lb.CambiarColor(btn_aplicar, entrada, Salida);
-        lb.CambiarColor(btn_guardar, entrada, Salida);
-        lb.CambiarColor(btn_cancelar, entrada, Salida);
 
         modelo = (DefaultTableModel) tabla.getModel();
         CargarGrilla();
 
-        db.Busqued(tabla, modelo, busqueda);
-        db.PagTablaAnterior(jScrollPane1, tabla, anterior, 11);
-        db.PagTablaSigte(jScrollPane1, tabla, siguiente, 11);
+        tools.Busqued(tabla, modelo, busqueda);
+        tools.PagTablaAnterior(jScrollPane1, tabla, anterior, 11);
+        tools.PagTablaSigte(jScrollPane1, tabla, siguiente, 11);
 
         String cod[] = {"1", "0"};
         String desc[] = {"Activo", "Inactivo"};
-        db.CargarCombo(estado, cod, desc);
+        tools.CargarCombo(estado, cod, desc);
 
-        db.Solo_Letras(descripcion);
-        db.limitarCaracter(descripcion, 250);
-        db.limitarCaracter(men_descri, 50);
+        tools.limitarCaracter(txtusuario, 50);
+        tools.limitarCaracter(txtFuncionario, 250);
+        cbUsuario();
 
     }
 
@@ -76,12 +72,16 @@ public class menuDet extends javax.swing.JInternalFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        descripcion = new javax.swing.JTextField();
+        txtusuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         estado = new javax.swing.JComboBox<>();
-        men_descri = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        btn_busqueda = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtPass = new javax.swing.JPasswordField();
+        jLabel6 = new javax.swing.JLabel();
+        txtFuncionario = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        cbRolUser = new javax.swing.JComboBox<>();
+        btnFuncionario1 = new javax.swing.JButton();
         btn_guardar = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
         btn_aplicar = new javax.swing.JButton();
@@ -95,14 +95,16 @@ public class menuDet extends javax.swing.JInternalFrame {
         btn_eliminar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btn_cerrar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         anterior = new javax.swing.JButton();
         siguiente = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
 
         modal.setModal(true);
         modal.setUndecorated(true);
         modal.setResizable(false);
-        modal.setSize(new java.awt.Dimension(450, 189));
+        modal.setSize(new java.awt.Dimension(396, 252));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -122,12 +124,12 @@ public class menuDet extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Descripción:");
+        jLabel1.setText("Usuario:");
 
-        descripcion.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        descripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtusuario.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        txtusuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                descripcionKeyTyped(evt);
+                txtusuarioKeyTyped(evt);
             }
         });
 
@@ -137,26 +139,25 @@ public class menuDet extends javax.swing.JInternalFrame {
 
         estado.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
 
-        men_descri.setEditable(false);
-        men_descri.setBackground(new java.awt.Color(255, 255, 255));
-        men_descri.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        men_descri.setForeground(new java.awt.Color(0, 102, 204));
-        men_descri.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                men_descriKeyTyped(evt);
-            }
-        });
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel5.setText("Contraseña:");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Menu Cab.:");
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6.setText("Nombre:");
 
-        btn_busqueda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Search_24px.png"))); // NOI18N
-        btn_busqueda.setContentAreaFilled(false);
-        btn_busqueda.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btn_busqueda.addActionListener(new java.awt.event.ActionListener() {
+        txtFuncionario.setEditable(false);
+        txtFuncionario.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel7.setText("Rol de Usuario:");
+
+        btnFuncionario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Search_24px.png"))); // NOI18N
+        btnFuncionario1.setContentAreaFilled(false);
+        btnFuncionario1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFuncionario1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnFuncionario1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_busquedaActionPerformed(evt);
+                btnFuncionario1ActionPerformed(evt);
             }
         });
 
@@ -167,20 +168,24 @@ public class menuDet extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(descripcion)
+                    .addComponent(txtPass)
+                    .addComponent(estado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbRolUser, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtusuario, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 231, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(men_descri)
+                        .addComponent(txtFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_busqueda)))
-                .addGap(16, 16, 16))
+                        .addComponent(btnFuncionario1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,17 +193,25 @@ public class menuDet extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(men_descri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5)
+                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFuncionario1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(estado)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cbRolUser)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(estado))
+                .addContainerGap())
         );
 
         btn_guardar.setBackground(new java.awt.Color(255, 255, 255));
@@ -255,15 +268,15 @@ public class menuDet extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 54, Short.MAX_VALUE)
                         .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_aplicar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -271,7 +284,7 @@ public class menuDet extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_aplicar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -283,11 +296,11 @@ public class menuDet extends javax.swing.JInternalFrame {
         modal.getContentPane().setLayout(modalLayout);
         modalLayout.setHorizontalGroup(
             modalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         modalLayout.setVerticalGroup(
             modalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         setBorder(null);
@@ -323,14 +336,14 @@ public class menuDet extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Descripción", "Orígen Menu", "Estado", "Fecha H. Creación", "Fecha H. Modificación"
+                "Código", "Usuario", "Nombre", "Rol de Usuario", "Estado", "Fecha H. Creación", "Fecha H. Modificación"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -358,18 +371,21 @@ public class menuDet extends javax.swing.JInternalFrame {
             tabla.getColumnModel().getColumn(0).setMinWidth(75);
             tabla.getColumnModel().getColumn(0).setPreferredWidth(75);
             tabla.getColumnModel().getColumn(0).setMaxWidth(75);
-            tabla.getColumnModel().getColumn(2).setMinWidth(150);
-            tabla.getColumnModel().getColumn(2).setPreferredWidth(150);
-            tabla.getColumnModel().getColumn(2).setMaxWidth(150);
-            tabla.getColumnModel().getColumn(3).setMinWidth(100);
-            tabla.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tabla.getColumnModel().getColumn(3).setMaxWidth(100);
-            tabla.getColumnModel().getColumn(4).setMinWidth(150);
-            tabla.getColumnModel().getColumn(4).setPreferredWidth(150);
-            tabla.getColumnModel().getColumn(4).setMaxWidth(150);
+            tabla.getColumnModel().getColumn(1).setMinWidth(100);
+            tabla.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tabla.getColumnModel().getColumn(1).setMaxWidth(100);
+            tabla.getColumnModel().getColumn(3).setMinWidth(150);
+            tabla.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tabla.getColumnModel().getColumn(3).setMaxWidth(150);
+            tabla.getColumnModel().getColumn(4).setMinWidth(100);
+            tabla.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tabla.getColumnModel().getColumn(4).setMaxWidth(100);
             tabla.getColumnModel().getColumn(5).setMinWidth(150);
             tabla.getColumnModel().getColumn(5).setPreferredWidth(150);
             tabla.getColumnModel().getColumn(5).setMaxWidth(150);
+            tabla.getColumnModel().getColumn(6).setMinWidth(150);
+            tabla.getColumnModel().getColumn(6).setPreferredWidth(150);
+            tabla.getColumnModel().getColumn(6).setMaxWidth(150);
         }
 
         busqueda.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
@@ -380,11 +396,11 @@ public class menuDet extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(34, 45, 50));
 
-        btn_nuevo.setBackground(new java.awt.Color(255, 255, 255));
+        btn_nuevo.setBackground(new java.awt.Color(34, 45, 50));
         btn_nuevo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btn_nuevo.setForeground(new java.awt.Color(51, 51, 51));
+        btn_nuevo.setForeground(new java.awt.Color(255, 255, 242));
         btn_nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Add_New_32px.png"))); // NOI18N
         btn_nuevo.setMnemonic('N');
         btn_nuevo.setText("Nuevo Alt+N");
@@ -400,9 +416,9 @@ public class menuDet extends javax.swing.JInternalFrame {
             }
         });
 
-        btn_modificar.setBackground(new java.awt.Color(255, 255, 255));
+        btn_modificar.setBackground(new java.awt.Color(34, 45, 50));
         btn_modificar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btn_modificar.setForeground(new java.awt.Color(51, 51, 51));
+        btn_modificar.setForeground(new java.awt.Color(255, 255, 242));
         btn_modificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Edit_32px.png"))); // NOI18N
         btn_modificar.setMnemonic('M');
         btn_modificar.setText("Modificar Alt+M");
@@ -418,9 +434,9 @@ public class menuDet extends javax.swing.JInternalFrame {
             }
         });
 
-        btn_eliminar.setBackground(new java.awt.Color(255, 255, 255));
+        btn_eliminar.setBackground(new java.awt.Color(34, 45, 50));
         btn_eliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btn_eliminar.setForeground(new java.awt.Color(51, 51, 51));
+        btn_eliminar.setForeground(new java.awt.Color(255, 255, 242));
         btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Trash_32px.png"))); // NOI18N
         btn_eliminar.setMnemonic('E');
         btn_eliminar.setText("Eliminar Alt+E");
@@ -436,12 +452,16 @@ public class menuDet extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setBackground(new java.awt.Color(0, 135, 73));
         jLabel2.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
-        jLabel2.setText("Menus Del Sistema");
+        jLabel2.setForeground(new java.awt.Color(255, 255, 242));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Usuarios");
+        jLabel2.setOpaque(true);
 
-        btn_cerrar.setBackground(new java.awt.Color(255, 255, 255));
+        btn_cerrar.setBackground(new java.awt.Color(34, 45, 50));
         btn_cerrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btn_cerrar.setForeground(new java.awt.Color(51, 51, 51));
+        btn_cerrar.setForeground(new java.awt.Color(255, 255, 242));
         btn_cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Close_Window_32px_1.png"))); // NOI18N
         btn_cerrar.setText("Salir Esc");
         btn_cerrar.setBorderPainted(false);
@@ -456,25 +476,32 @@ public class menuDet extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel4.setBackground(new java.awt.Color(26, 34, 38));
+        jLabel4.setForeground(new java.awt.Color(75, 100, 111));
+        jLabel4.setText("     GESTIÓN DE USUARIIOS");
+        jLabel4.setOpaque(true);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
             .addComponent(btn_cerrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_nuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_modificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_modificar, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
             .addComponent(btn_eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -482,7 +509,7 @@ public class menuDet extends javax.swing.JInternalFrame {
                 .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addContainerGap(242, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -494,23 +521,40 @@ public class menuDet extends javax.swing.JInternalFrame {
         siguiente.setText(">>");
         jPanel2.add(siguiente);
 
+        jPanel6.setBackground(new java.awt.Color(0, 166, 90));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 48, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
-                    .addComponent(busqueda, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                            .addComponent(busqueda)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -592,7 +636,7 @@ public class menuDet extends javax.swing.JInternalFrame {
             abm();
             limpiar();
             operacion = 1;
-            descripcion.requestFocus();
+            txtusuario.requestFocus();
         }
     }//GEN-LAST:event_btn_aplicarActionPerformed
 
@@ -632,147 +676,177 @@ public class menuDet extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tablaKeyTyped
 
-    private void descripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descripcionKeyTyped
-        int letra = evt.getKeyChar();
-        if (letra == 10) {
-            men_descri.requestFocus();
-        }
+    private void txtusuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtusuarioKeyTyped
 
-    }//GEN-LAST:event_descripcionKeyTyped
+
+    }//GEN-LAST:event_txtusuarioKeyTyped
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         busqueda.requestFocus();
     }//GEN-LAST:event_formFocusGained
 
-    private void men_descriKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_men_descriKeyTyped
-        int letra = evt.getKeyChar();
-        if (letra == 10) {
-            estado.requestFocus();
-        }
-    }//GEN-LAST:event_men_descriKeyTyped
+    private void btnFuncionario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionario1ActionPerformed
+        Boolean swt = false;
 
-    private void btn_busquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_busquedaActionPerformed
-
-        Model_permisos perm = new Tools().permisoMenu(2);
-
-        if (perm.getAcceder()) {
-            buscador_menu bp = new buscador_menu(modal, true, perm);
+        while (!swt) {
+            buscador_Funcionario bp = new buscador_Funcionario(modal, true);
             bp.setVisible(true);
-            idmenu = bp.getCod();
-            men_descri.setText(bp.getDesrip());
+            idfuncionario = bp.getIdbarrio();
+
+            swt = true;
+            txtFuncionario.setText(bp.getDescBarrio());
+            cbRolUser.requestFocus();
+
         }
 
-    }//GEN-LAST:event_btn_busquedaActionPerformed
+    }//GEN-LAST:event_btnFuncionario1ActionPerformed
 
     private void CargarGrilla() {
         try {
             tabla.getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false), "selectColumnCell");
-            db.LimpiarBusqueda(busqueda, tabla);
+            tools.LimpiarBusqueda(busqueda, tabla);
 
-            sql = "select * from viewmenus";
+            sql = "select * from viewusers";
 
             PreparedStatement ps = menu.getConexion().prepareStatement(sql);
 
-            db.CargarTabla(ps, tabla, modelo, false);
+            tools.CargarTabla(ps, tabla, modelo, false);
 
-            db.centrar(tabla, new int[]{0, 3, 4, 5});
+            tools.centrar(tabla, new int[]{0, 1, 4, 5, 6});
         } catch (SQLException ex) {
-            Logger.getLogger(menuDet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(usuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
     private void abm() {
-
-        switch (operacion) {
-            case 1:
-
-                sql = "select * from menu_det where upper(descripcion) = '" + descripcion.getText().toUpperCase().replace("'", "''") + "'";
-
-                res = db.QueryDinamico(sql, menu.getConexion());
-
-                if (res == null) {
-                    String columna[] = {"descripcion", "menu_cab", "estado", "usuario_input"};
-                    String datos[] = {"'" + descripcion.getText().replace("'", "''") + "'", String.valueOf(idmenu), String.valueOf(estado.getItemAt(estado.getSelectedIndex()).getId()), String.valueOf(menu.getIduser())};
-                    String tbl = "menu_det";
-                    db.Insertar(tbl, columna, datos, true, menu.getConexion());
-
-                } else {
-                    JOptionPane.showMessageDialog(modal, "Este Dato ya Existe");
-                }
-                break;
-            case 2:
-                String columna2[] = {"descripcion", "menu_cab", "estado", "usuario_update", "fecha_h_update"};
-                String datos2[] = {"'" + descripcion.getText().replace("'", "''") + "'", String.valueOf(idmenu), String.valueOf(estado.getItemAt(estado.getSelectedIndex()).getId()), String.valueOf(menu.getIduser()), "now()"};
-                String tbl2 = "menu_det";
-                String condicion = "id =" + id;
-                db.Actualizar(tbl2, columna2, datos2, condicion, true, menu.getConexion());
-
-                break;
-            case 3:
-                String tabla3 = "menu_det";
-                String condicion3 = "id = " + id;
-                db.eliminar(tabla3, condicion3, true, menu.getConexion());
-
-                break;
+        char[] arrayPass = txtPass.getPassword();
+        String password = new String(arrayPass);
+        try {
+            sql = "select * from sp_abmUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+            ps.setInt(1, operacion);
+            ps.setInt(2, id);
+            ps.setString(3, txtusuario.getText());
+            ps.setString(4, password);
+            ps.setString(5, txtFuncionario.getText());
+            ps.setInt(6, tools.getIdCombo(estado));
+            ps.setInt(7, menu.getIduser());
+            ps.setInt(8, menu.getIduser());
+            ps.setTimestamp(9, tools.getCurrentTimeStamp());
+            ps.setInt(10, tools.getIdCombo(cbRolUser));
+            ps.setInt(11, idfuncionario);
+            res = tools.QueryDinamico(ps);
+            JOptionPane.showMessageDialog(null, res[1], "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+            CargarGrilla();
+        } catch (SQLException ex) {
+            Logger.getLogger(usuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        CargarGrilla();
     }
 
     private Boolean validar() {
-        if (descripcion.getText().isEmpty()) {
+        if (txtusuario.getText().isEmpty()) {
             JOptionPane.showMessageDialog(modal, "Debe de Cargar una Descripcion");
-            descripcion.requestFocus();
+            txtusuario.requestFocus();
             return false;
         }
 
-        if (men_descri.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(modal, "Debe de Cargar un País");
-            men_descri.requestFocus();
+        if (txtPass.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(modal, "Debe de Cargar una Contraseña");
+            txtPass.requestFocus();
             return false;
         }
+
+        if (txtFuncionario.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(modal, "Debe de Cargar una Funcionario");
+            btnFuncionario1.requestFocus();
+            return false;
+        }
+
+        try {
+            sql = "select us.users from usuario us\n"
+                    + "where upper(trim(us.users)) = ?";
+            PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+            ps.setString(1, txtusuario.getText().toUpperCase().trim());
+            res = tools.QueryDinamico(ps);
+            if (res != null) {
+                JOptionPane.showMessageDialog(modal, "Este Usuario ya Existe en la Base de Datos");
+                txtusuario.requestFocus();
+                return false;
+            }
+
+        } catch (Exception ex) {
+
+        }
+
         return true;
     }
 
     private void Selecciona() {
         int row = tabla.getSelectedRow();
-        if (permiso.getModificar()) {
-            if (row < 0) {
-                JOptionPane.showMessageDialog(this, "Debe de Seleccionar una Fila de la Tabla", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                id = Integer.parseInt(tabla.getValueAt(row, 0).toString());
-                sql = "select c.descripcion,c.menu_cab,p.descripcion, c.estado from menu_det c join menu_cab p on p.id = c.menu_cab  where c.id = " + id;
-                res = db.QueryDinamico(sql, menu.getConexion());
 
-                descripcion.setText(res[1]);
-                idmenu = Integer.parseInt(res[2]);
-                men_descri.setText(res[3]);
-                db.SelectIdCombo(estado, Integer.parseInt(res[4]));
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Debe de Seleccionar una Fila de la Tabla", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                id = Integer.parseInt(tabla.getValueAt(row, 0).toString());
+                sql = "select users, decrypt((pass::BYTEA), 'password','3des'),nameuser, estado, tipo_usuario, sucursal from usuario where id = ?";
+                PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+                ps.setInt(1, id);
+                res = tools.QueryDinamico(ps);
+                txtusuario.setText(res[1]);
+                txtPass.setText(res[2]);
+                txtPass.setEnabled(false);
+                txtFuncionario.setText(res[3]);
+                tools.SelectIdCombo(estado, Integer.parseInt(res[4]));
+                tools.SelectIdCombo(cbRolUser, Integer.parseInt(res[5]));
+
                 modal.setLocationRelativeTo(null);
                 modal.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(usuarios.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
     }
 
     private void limpiar() {
-        descripcion.setText("");
-        men_descri.setText("");
+        txtusuario.setText("");
+        txtPass.setText("");
+        txtFuncionario.setText("");
         estado.setSelectedIndex(0);
+        cbRolUser.setSelectedIndex(0);
+
+        idfuncionario = 0;
+        txtPass.setEnabled(true);
     }
 
     private void HabPermiso() {
-        btn_nuevo.setVisible(permiso.getNuevo());
-        btn_modificar.setVisible(permiso.getModificar());
-        btn_eliminar.setVisible(permiso.getEliminar());
+        btn_nuevo.setVisible(permisos.getNuevo());
+        btn_modificar.setVisible(permisos.getModificar());
+        btn_eliminar.setVisible(permisos.getEliminar());
 
+    }
+
+    private void cbUsuario() {
+        sql = "select id, descripcion from roles_usuarios where estado = 1\n"
+                + "order by id";
+        tools.CargarCombo(cbRolUser, sql, menu.getConexion());
+
+    }
+
+    private void foco() {
+        tools.transferFocus(txtusuario, txtPass);
+        tools.transferFocus(txtPass, txtFuncionario);
+        tools.transferFocus(txtFuncionario, cbRolUser);
+        tools.transferFocus(cbRolUser, estado);
+        tools.transferFocus(estado, btn_guardar);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anterior;
+    private javax.swing.JButton btnFuncionario1;
     private javax.swing.JButton btn_aplicar;
-    private javax.swing.JButton btn_busqueda;
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_cerrar;
     private javax.swing.JButton btn_eliminar;
@@ -780,21 +854,27 @@ public class menuDet extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_nuevo;
     private javax.swing.JTextField busqueda;
-    private javax.swing.JTextField descripcion;
+    private javax.swing.JComboBox<Tools> cbRolUser;
     private javax.swing.JComboBox<clases.Tools> estado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField men_descri;
     private javax.swing.JDialog modal;
     private javax.swing.JButton siguiente;
     private javax.swing.JTable tabla;
+    private javax.swing.JTextField txtFuncionario;
+    private javax.swing.JPasswordField txtPass;
+    private javax.swing.JTextField txtusuario;
     // End of variables declaration//GEN-END:variables
 }
