@@ -46,17 +46,6 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane1" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="fechaDesde" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="fechaHasta" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="655" max="32767" attributes="0"/>
@@ -66,10 +55,23 @@
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="btnGuardar" min="-2" pref="156" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="txtfuncionario" min="-2" pref="423" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnFuncionario1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="fechaDesde" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="fechaHasta" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="txtfuncionario" min="-2" pref="423" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="btnFuncionario1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -88,16 +90,13 @@
                           <Component id="btnFuncionario1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="fechaDesde" max="32767" attributes="0"/>
-                              <Component id="jLabel1" max="32767" attributes="0"/>
-                              <Component id="fechaHasta" max="32767" attributes="0"/>
-                              <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="fechaDesde" max="32767" attributes="0"/>
+                          <Component id="jLabel1" max="32767" attributes="0"/>
+                          <Component id="fechaHasta" max="32767" attributes="0"/>
+                          <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="215" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -151,11 +150,6 @@
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.toedter.calendar.JDateChooser(&quot;dd/MM/yyyy&quot;,&quot;##/##/####&quot;,&apos;_&apos;)"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="jCheckBox1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Habilitar Horario por Rango de Fecha"/>
-              </Properties>
-            </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -167,7 +161,7 @@
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="9" rowCount="7">
-                        <Column editable="true" title="Nro" type="java.lang.Object">
+                        <Column editable="false" title="Nro" type="java.lang.Object">
                           <Data value="1"/>
                           <Data value="2"/>
                           <Data value="3"/>
@@ -176,7 +170,7 @@
                           <Data value="6"/>
                           <Data value="7"/>
                         </Column>
-                        <Column editable="true" title="D&#xed;a" type="java.lang.Object">
+                        <Column editable="false" title="D&#xed;a" type="java.lang.Object">
                           <Data value="Lunes"/>
                           <Data value="Martes"/>
                           <Data value="Miercoles"/>
@@ -249,6 +243,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(){&#xa;    @Override&#xa;    public void changeSelection(int rowIndex, int columnIndex,&#xa;        boolean toggle, boolean extend) {&#xa;        switch(columnIndex){&#xa;            case 0:&#xa;            super.changeSelection(rowIndex, columnIndex + 2, toggle, extend);&#xa;            break;&#xa;            case 1:&#xa;            super.changeSelection(rowIndex, columnIndex + 1, toggle, extend);&#xa;            break;&#xa;            case 4:&#xa;            super.changeSelection(rowIndex, columnIndex + 1, toggle, extend);&#xa;            break;&#xa;            default:&#xa;            super.changeSelection(rowIndex, columnIndex, toggle, extend);&#xa;            break;&#xa;        }&#xa;    }&#xa;}"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

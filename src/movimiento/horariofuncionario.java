@@ -6,13 +6,16 @@ import clases.calculoHorario;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
@@ -26,7 +29,7 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
     Color Salida = new Color(34, 45, 50);
     DefaultTableModel modelHorario;
     DefaultTableModel modeloIndex;
-    JFormattedTextField formatoHorario = new JFormattedTextField("");
+    JFormattedTextField formatoHorario = new JFormattedTextField("00:00");
     Tools tools = new Tools();
     calculoHorario calc = new calculoHorario();
     int operacion = 0;
@@ -35,6 +38,7 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
     String sql = "";
     String res[] = null;
     int idfuncionario = 0;
+    int idhorario = 0;
 
     public horariofuncionario() {
         initComponents();
@@ -54,6 +58,17 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
         JTableHeader header = tblHorario.getTableHeader();
         header.setPreferredSize(new Dimension(100, HEADER_HEIGHT));
         CargarGrilla();
+        //Codigo que da Aspecto del Label de la tabla a las columnas de las tablas
+        tblHorario.getColumnModel().getColumn(0).setCellRenderer(
+                tblHorario.getTableHeader().getDefaultRenderer());
+        tblHorario.getColumnModel().getColumn(1).setCellRenderer(
+                tblHorario.getTableHeader().getDefaultRenderer());
+        tblHorario.getColumnModel().getColumn(4).setCellRenderer(
+                tblHorario.getTableHeader().getDefaultRenderer());
+        tblHorario.getColumnModel().getColumn(7).setCellRenderer(
+                tblHorario.getTableHeader().getDefaultRenderer());
+        tblHorario.getColumnModel().getColumn(8).setCellRenderer(
+                tblHorario.getTableHeader().getDefaultRenderer());
 
     }
 
@@ -68,9 +83,27 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
         fechaDesde = new com.toedter.calendar.JDateChooser("dd/MM/yyyy","##/##/####",'_');
         jLabel2 = new javax.swing.JLabel();
         fechaHasta = new com.toedter.calendar.JDateChooser("dd/MM/yyyy","##/##/####",'_');
-        jCheckBox1 = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblHorario = new javax.swing.JTable();
+        tblHorario = new javax.swing.JTable(){
+            @Override
+            public void changeSelection(int rowIndex, int columnIndex,
+                boolean toggle, boolean extend) {
+                switch(columnIndex){
+                    case 0:
+                    super.changeSelection(rowIndex, columnIndex + 2, toggle, extend);
+                    break;
+                    case 1:
+                    super.changeSelection(rowIndex, columnIndex + 1, toggle, extend);
+                    break;
+                    case 4:
+                    super.changeSelection(rowIndex, columnIndex + 1, toggle, extend);
+                    break;
+                    default:
+                    super.changeSelection(rowIndex, columnIndex, toggle, extend);
+                    break;
+                }
+            }
+        };
         jLabel3 = new javax.swing.JLabel();
         txtHoraSemanal = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
@@ -109,8 +142,6 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
         jLabel2.setLabelFor(fechaHasta);
         jLabel2.setText("Fecha Hasta:");
 
-        jCheckBox1.setText("Habilitar Horario por Rango de Fecha");
-
         tblHorario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "Lunes", null, null, null, null, null, null, null},
@@ -126,7 +157,7 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, false, true, true, false, true
+                false, false, true, true, false, true, true, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -245,16 +276,6 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jCheckBox1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 655, Short.MAX_VALUE)
                         .addComponent(txtHoraSemanal, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -262,9 +283,19 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtfuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnFuncionario1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtfuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnFuncionario1)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -278,14 +309,12 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
                     .addComponent(txtfuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFuncionario1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(fechaDesde, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(fechaHasta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jCheckBox1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(fechaDesde, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(fechaHasta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(6, 6, 6)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -549,19 +578,20 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
 
     private void btn_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevoActionPerformed
         operacion = 1;
+        fechaDesde.setDate(new Date());
         modal.setLocationRelativeTo(null);
         modal.setVisible(true);
     }//GEN-LAST:event_btn_nuevoActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         operacion = 2;
-       Seleccionar();
+        Seleccionar();
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         operacion = 3;
         Seleccionar();
-       CargarGrilla();
+        CargarGrilla();
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
@@ -589,7 +619,7 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-//        Limpiar();
+        limpiar();
         modal.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -636,6 +666,7 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
 
     private void addEventModel() {
         modelHorario.addTableModelListener((TableModelEvent e) -> {
+
             if (e.getType() == TableModelEvent.UPDATE) {
                 int columna = e.getColumn();
                 int row = tblHorario.getSelectedRow();
@@ -644,30 +675,30 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
                 String hora = "";
                 switch (columna) {
                     case 2:
-                        h1 = (tblHorario.getValueAt(row, 2) != null ? tblHorario.getValueAt(row, 2).toString() : "00:00");
-                        h2 = (tblHorario.getValueAt(row, 3) != null ? tblHorario.getValueAt(row, 3).toString() : "00:00");
+                        h1 = (tblHorario.getValueAt(row, 2) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(row, 2).toString(), 5) : "00:00");
+                        h2 = (tblHorario.getValueAt(row, 3) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(row, 3).toString(), 5) : "00:00");
                         hora = calc.restaHorario(h2, h1);
                         tblHorario.setValueAt(hora, row, 4);
                         sumaFila();
                         break;
                     case 3:
-                        h1 = (tblHorario.getValueAt(row, 2) != null ? tblHorario.getValueAt(row, 2).toString() : "00:00");
-                        h2 = (tblHorario.getValueAt(row, 3) != null ? tblHorario.getValueAt(row, 3).toString() : "00:00");
+                        h1 = (tblHorario.getValueAt(row, 2) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(row, 2).toString(), 5) : "00:00");
+                        h2 = (tblHorario.getValueAt(row, 3) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(row, 3).toString(), 5) : "00:00");
                         hora = calc.restaHorario(h2, h1);
                         tblHorario.setValueAt(hora, row, 4);
                         sumaFila();
                         break;
 
                     case 5:
-                        h1 = (tblHorario.getValueAt(row, 5) != null ? tblHorario.getValueAt(row, 5).toString() : "00:00");
-                        h2 = (tblHorario.getValueAt(row, 6) != null ? tblHorario.getValueAt(row, 6).toString() : "00:00");
+                        h1 = (tblHorario.getValueAt(row, 5) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(row, 5).toString(), 5) : "00:00");
+                        h2 = (tblHorario.getValueAt(row, 6) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(row, 6).toString(), 5) : "00:00");
                         hora = calc.restaHorario(h2, h1);
                         tblHorario.setValueAt(hora, row, 7);
                         sumaFila();
                         break;
                     case 6:
-                        h1 = (tblHorario.getValueAt(row, 5) != null ? tblHorario.getValueAt(row, 5).toString() : "00:00");
-                        h2 = (tblHorario.getValueAt(row, 6) != null ? tblHorario.getValueAt(row, 6).toString() : "00:00");
+                        h1 = (tblHorario.getValueAt(row, 5) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(row, 5).toString(), 5) : "00:00");
+                        h2 = (tblHorario.getValueAt(row, 6) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(row, 6).toString(), 5) : "00:00");
                         hora = calc.restaHorario(h2, h1);
                         tblHorario.setValueAt(hora, row, 7);
                         sumaFila();
@@ -707,48 +738,137 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
         }
     }
 
-    private void limpiar(){
-        
+    private void limpiar() {
+        idfuncionario = 0;
+        operacion = 0;
+        tools.LimpiarTabla(tblHorario, modelHorario);
+
+        modelHorario.addRow(new Object[]{"1", "Lunes"});
+        modelHorario.addRow(new Object[]{"2", "Martes"});
+        modelHorario.addRow(new Object[]{"3", "Miercoles"});
+        modelHorario.addRow(new Object[]{"4", "Jueves"});
+        modelHorario.addRow(new Object[]{"5", "Viernes"});
+        modelHorario.addRow(new Object[]{"6", "Sábado"});
+        modelHorario.addRow(new Object[]{"7", "Domingo"});
+
+        fechaDesde.setDate(null);
+        fechaHasta.setDate(null);
+        txtfuncionario.setText("");
+        formatoHorario.setText("");
+        formatoHorario.setValue("");
     }
-    
-    private void abm(){
+
+    private void abm() {
         PreparedStatement ps = null;
         try {
-        switch(operacion){
-            case 1:
-                //Insertamos la Cabecera
-                ps = menu.getConexion().prepareStatement(sql);
-                tools.Insertar(ps, false);
-                
-                //insertamos El Detalle
-                
-                break;                
-            case 2:
-                
-                ps = menu.getConexion().prepareStatement(sql);
-                tools.Actualizar(ps, true);
-                break;
-            case 3:
-                
-                ps = menu.getConexion().prepareStatement(sql);
-                tools.eliminar(ps, true);
-                break;
-        }
-         } catch (SQLException ex) {
+            switch (operacion) {
+                case 1:
+                    //Insertamos la Cabecera
+                    sql = "INSERT INTO horario_fun_cab\n"
+                            + "(funcionario, fecha_desde, fecha_hasta, usuario_input, totalhorario)\n"
+                            + "VALUES(?, ?, ?, ?, ?)\n"
+                            + "returning id";
+                    ps = menu.getConexion().prepareStatement(sql);
+                    ps.setInt(1, idfuncionario);
+                    ps.setDate(2, tools.convertUtilToSql(fechaDesde));
+                    ps.setDate(3, tools.convertUtilToSql(fechaHasta));
+                    ps.setInt(4, menu.getIduser());
+                    ps.setString(5, txtHoraSemanal.getText());
+                    res = tools.QueryDinamico(ps);
+                    idhorario = Integer.parseInt(res[1]);
+
+                    //insertamos El Detalle
+                    sql = "INSERT INTO horario_fun_det\n"
+                            + "(horario_fun_cab, hora_entrada, hora_salida_alm, hora_entrada_alm, hora_salida, dia)\n"
+                            + "VALUES(?, ?, ?, ?, ?, ?)";
+                    ps = menu.getConexion().prepareStatement(sql);
+                    for (int i = 0; i < tblHorario.getRowCount(); i++) {
+                        ps.setInt(1, idhorario);
+                        ps.setTime(2, tools.hora((tblHorario.getValueAt(i, 2) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 2).toString(), 5) : "00:00")));
+                        ps.setTime(3, tools.hora((tblHorario.getValueAt(i, 3) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 3).toString(), 5) : "00:00")));
+                        ps.setTime(4, tools.hora((tblHorario.getValueAt(i, 5) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 5).toString(), 5) : "00:00")));
+                        ps.setTime(5, tools.hora((tblHorario.getValueAt(i, 6) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 6).toString(), 5) : "00:00")));
+                        ps.setInt(6, Integer.parseInt(tblHorario.getValueAt(i, 0).toString()));
+                        ps.addBatch();
+                    }
+                    ps.executeBatch();
+
+                    break;
+                case 2:
+
+                    ps = menu.getConexion().prepareStatement(sql);
+                    tools.Actualizar(ps, true);
+                    break;
+                case 3:
+
+                    ps = menu.getConexion().prepareStatement(sql);
+                    tools.eliminar(ps, true);
+                    break;
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(horariofuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private Boolean validar(){
-       
-        return true; 
+
+    private Boolean validar() {
+
+        if (!((JTextField) fechaDesde.getDateEditor()).getText().equals("__/__/____")) {
+            if (!tools.comprueba(((JTextField) fechaDesde.getDateEditor()).getText())) {
+                JOptionPane.showMessageDialog(modal, "Fecha Desde Incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
+                fechaDesde.getDateEditor().getUiComponent().requestFocus();
+                return false;
+            }
+        } else {
+            JOptionPane.showMessageDialog(modal, "No se puede dejar la fecha Desde Vacío", "Error", JOptionPane.ERROR_MESSAGE);
+            fechaDesde.getDateEditor().getUiComponent().requestFocus();
+            return false;
+        }
+
+        if (txtfuncionario.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(modal, "Debe de Cargar Funcionario", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        //Controlamos los Datos de la Tabla
+        for (int i = 0; i < tblHorario.getRowCount(); i++) {
+            if (tblHorario.getValueAt(i, 8).toString() != null) {
+                
+                if (tools.hora((tblHorario.getValueAt(i, 2) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 2).toString(), 5) : "00:00")).after(tools.hora((tblHorario.getValueAt(i, 3) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 3).toString(), 5) : "00:00")))) {
+                    JOptionPane.showMessageDialog(modal, "La Hora de Salida de Almuerzo, no puede ser Menor a la Hora de Entrada", "Error", JOptionPane.ERROR_MESSAGE);
+                    tblHorario.getSelectionModel().setSelectionInterval(i, i);
+                    tblHorario.changeSelection(i, 2, false, false);
+                    return false;
+                }
+
+                if (tools.hora((tblHorario.getValueAt(i, 2) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 2).toString(), 5) : "00:00")).equals(tools.hora((tblHorario.getValueAt(i, 3) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 3).toString(), 5) : "00:00")))) {
+                    JOptionPane.showMessageDialog(modal, "La Hora de Salida de Almuerzo, no puede ser igual a la Hora de Entrada", "Error", JOptionPane.ERROR_MESSAGE);
+                    tblHorario.getSelectionModel().setSelectionInterval(i, i);                    
+                    tblHorario.changeSelection(i, 2, false, false);
+                    return false;
+                }
+
+                if (tools.hora((tblHorario.getValueAt(i, 5) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 5).toString(), 5) : "00:00")).after(tools.hora((tblHorario.getValueAt(i, 6) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 6).toString(), 5) : "00:00")))) {
+                    JOptionPane.showMessageDialog(modal, "La Hora de Salida, no puede ser Menor a la Hora de Entrada del Almuerzo", "Error", JOptionPane.ERROR_MESSAGE);
+                    tblHorario.getSelectionModel().setSelectionInterval(i, i);
+                    tblHorario.changeSelection(i, 5, false, false);
+                    return false;
+                }
+                if (tools.hora((tblHorario.getValueAt(i, 5) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 5).toString(), 5) : "00:00")).equals(tools.hora((tblHorario.getValueAt(i, 6) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 6).toString(), 5) : "00:00")))) {
+                    JOptionPane.showMessageDialog(modal, "La Hora de Salida, no puede ser igual a la Hora de Entrada del Almuerzo", "Error", JOptionPane.ERROR_MESSAGE);
+                    tblHorario.getSelectionModel().setSelectionInterval(i, i);
+                    tblHorario.changeSelection(i, 5, false, false);
+                    return false;
+                }
+
+            }
+        }
+
+        return true;
     }
-    
-    private void Seleccionar(){
-        
+
+    private void Seleccionar() {
+
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFuncionario1;
@@ -762,7 +882,6 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser fechaDesde;
     private com.toedter.calendar.JDateChooser fechaHasta;
     private javax.swing.JButton jButton5;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

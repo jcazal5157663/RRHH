@@ -762,21 +762,22 @@ public class usuarios extends javax.swing.JInternalFrame {
             btnFuncionario1.requestFocus();
             return false;
         }
+        if (operacion == 1) {
+            try {
+                sql = "select us.users from usuario us\n"
+                        + "where upper(trim(us.users)) = ?";
+                PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+                ps.setString(1, txtusuario.getText().toUpperCase().trim());
+                res = tools.QueryDinamico(ps);
+                if (res != null) {
+                    JOptionPane.showMessageDialog(modal, "Este Usuario ya Existe en la Base de Datos");
+                    txtusuario.requestFocus();
+                    return false;
+                }
 
-        try {
-            sql = "select us.users from usuario us\n"
-                    + "where upper(trim(us.users)) = ?";
-            PreparedStatement ps = menu.getConexion().prepareStatement(sql);
-            ps.setString(1, txtusuario.getText().toUpperCase().trim());
-            res = tools.QueryDinamico(ps);
-            if (res != null) {
-                JOptionPane.showMessageDialog(modal, "Este Usuario ya Existe en la Base de Datos");
-                txtusuario.requestFocus();
-                return false;
+            } catch (Exception ex) {
+
             }
-
-        } catch (Exception ex) {
-
         }
 
         return true;
@@ -790,7 +791,7 @@ public class usuarios extends javax.swing.JInternalFrame {
         } else {
             try {
                 id = Integer.parseInt(tabla.getValueAt(row, 0).toString());
-                sql = "select users, decrypt((pass::BYTEA), 'password','3des'),nameuser, estado, tipo_usuario, sucursal from usuario where id = ?";
+                sql = "select users, decrypt((pass::BYTEA), 'password','3des'),nombre , estado, roles_usuarios, funcionario from usuario where id = ?";
                 PreparedStatement ps = menu.getConexion().prepareStatement(sql);
                 ps.setInt(1, id);
                 res = tools.QueryDinamico(ps);
@@ -800,7 +801,7 @@ public class usuarios extends javax.swing.JInternalFrame {
                 txtFuncionario.setText(res[3]);
                 tools.SelectIdCombo(estado, Integer.parseInt(res[4]));
                 tools.SelectIdCombo(cbRolUser, Integer.parseInt(res[5]));
-
+                idfuncionario = Integer.parseInt(res[6]);
                 modal.setLocationRelativeTo(null);
                 modal.setVisible(true);
             } catch (SQLException ex) {

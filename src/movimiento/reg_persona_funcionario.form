@@ -6,9 +6,12 @@
       <Properties>
         <Property name="modal" type="boolean" value="true"/>
         <Property name="undecorated" type="boolean" value="true"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[999, 644]"/>
+        </Property>
         <Property name="resizable" type="boolean" value="false"/>
         <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[993, 672]"/>
+          <Dimension value="[999, 644]"/>
         </Property>
       </Properties>
       <Events>
@@ -62,9 +65,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel13" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="panel_padre" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="panel_padre" min="-2" pref="597" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -100,7 +103,6 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               <Component id="funcio" min="-2" max="-2" attributes="0"/>
@@ -234,19 +236,17 @@
                                   <Component id="tipo_documento" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="cedula" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="fecha_nacimiento" max="32767" attributes="0"/>
-                                      <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cedula" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="fecha_vencimiento" pref="27" max="32767" attributes="0"/>
+                                  <Component id="fecha_nacimiento" max="32767" attributes="0"/>
+                                  <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="fecha_vencimiento" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="103" groupAlignment="3" attributes="0">
@@ -305,15 +305,13 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jSeparator2" min="-2" pref="9" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Component id="funcio" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="panel_funcionario" min="-2" pref="197" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="18" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -737,8 +735,6 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JSeparator" name="jSeparator2">
-                    </Component>
                     <Component class="javax.swing.JCheckBox" name="funcio">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -950,7 +946,7 @@
                                               <Component id="tipo_Contrato" min="-2" max="-2" attributes="0"/>
                                               <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                                   <Component id="jLabel36" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="salario" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="salario" alignment="0" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -1609,7 +1605,7 @@
                                           <Component id="parientParentesc" max="32767" attributes="0"/>
                                           <Component id="jLabel40" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="0" pref="352" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="324" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="jScrollPane4" max="32767" attributes="0"/>
                               </Group>
@@ -1954,7 +1950,7 @@
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="jScrollPane5" alignment="0" pref="486" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane5" alignment="0" pref="458" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel14" min="-2" max="-2" attributes="0"/>
@@ -2272,7 +2268,7 @@
                                           <Component id="ExpeFHasta" max="32767" attributes="0"/>
                                           <Component id="jLabel48" min="-2" pref="21" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="0" pref="284" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="256" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="jScrollPane6" max="32767" attributes="0"/>
                               </Group>
@@ -2655,11 +2651,11 @@
                                           <Component id="jLabel55" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="jScrollPane8" alignment="0" min="-2" pref="489" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane8" min="-2" pref="456" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jPanel16" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jPanel16" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="16" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>

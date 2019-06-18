@@ -16,11 +16,13 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import objetos.Model_permisos;
 
 import principal.menu;
 
 public class amonestaciones extends javax.swing.JInternalFrame {
 
+    Model_permisos permiso;
     private int operacion = 0;
     private String sql;
     private String res[];
@@ -36,22 +38,23 @@ public class amonestaciones extends javax.swing.JInternalFrame {
     private int idAmonestado;
     private final JComboBox<String> combo = new JComboBox<>();
 
-    public amonestaciones() {
+    public amonestaciones(Model_permisos permiso) {
         initComponents();
-
+        this.permiso = permiso;
+        HabPermiso();
         lb.CambiarColor(btn_nuevo, entrada, Salida);
         lb.CambiarColor(btn_modificar, entrada, Salida);
         lb.CambiarColor(btn_eliminar, entrada, Salida);
         lb.CambiarColor(btn_cerrar, entrada, Salida);
         lb.CambiarColor(btnImprimir, entrada, Salida);
-
+        lb.CambiarColor(btn_firmado, entrada, Salida);
         modelo = (DefaultTableModel) tblIndex.getModel();
         CargarGrilla();
         CargarCombo();
-        
+
         tools.Corrector(motivoAmonestacion);
         tools.Busqued(tblIndex, modelo, buscador);
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -74,6 +77,17 @@ public class amonestaciones extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         fechaAmonestacion = new com.toedter.calendar.JDateChooser("dd/MM/yyyy","##/##/####",'_');
         estado = new javax.swing.JCheckBox();
+        modal_firma = new javax.swing.JDialog();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtfunfirma = new javax.swing.JTextField();
+        fechFirma = new com.toedter.calendar.JDateChooser("dd/MM/yyyy","##/##/####",'_');
+        jSeparator1 = new javax.swing.JSeparator();
+        jButton1 = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -82,6 +96,7 @@ public class amonestaciones extends javax.swing.JInternalFrame {
         btn_eliminar = new javax.swing.JButton();
         btn_cerrar = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
+        btn_firmado = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         buscador = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -263,6 +278,129 @@ public class amonestaciones extends javax.swing.JInternalFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        modal_firma.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        modal_firma.setModal(true);
+        modal_firma.setUndecorated(true);
+        modal_firma.setResizable(false);
+        modal_firma.setSize(new java.awt.Dimension(400, 146));
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 255)));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setText("Fecha de Firma:");
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6.setText("Funcionario:");
+
+        txtfunfirma.setEditable(false);
+        txtfunfirma.setBackground(new java.awt.Color(255, 255, 255));
+
+        jButton1.setText("Aceptar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jPanel7.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel7.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel7MouseDragged(evt);
+            }
+        });
+        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel7MousePressed(evt);
+            }
+        });
+
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Firma del Funcionario de la Amonestación");
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Delete_24px.png"))); // NOI18N
+        jButton6.setMnemonic('X');
+        jButton6.setToolTipText("Presione Alt+X para salir");
+        jButton6.setBorderPainted(false);
+        jButton6.setContentAreaFilled(false);
+        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton6.setFocusable(false);
+        jButton6.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
+                .addComponent(jButton6))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtfunfirma))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fechFirma, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtfunfirma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(fechFirma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout modal_firmaLayout = new javax.swing.GroupLayout(modal_firma.getContentPane());
+        modal_firma.getContentPane().setLayout(modal_firmaLayout);
+        modal_firmaLayout.setHorizontalGroup(
+            modal_firmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        modal_firmaLayout.setVerticalGroup(
+            modal_firmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setBorder(null);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -370,6 +508,25 @@ public class amonestaciones extends javax.swing.JInternalFrame {
             }
         });
 
+        btn_firmado.setBackground(new java.awt.Color(34, 45, 50));
+        btn_firmado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btn_firmado.setForeground(new java.awt.Color(204, 204, 204));
+        btn_firmado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Edit_32px.png"))); // NOI18N
+        btn_firmado.setMnemonic('N');
+        btn_firmado.setText("Firmado por el Funcionario");
+        btn_firmado.setBorderPainted(false);
+        btn_firmado.setContentAreaFilled(false);
+        btn_firmado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_firmado.setFocusPainted(false);
+        btn_firmado.setFocusable(false);
+        btn_firmado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btn_firmado.setOpaque(true);
+        btn_firmado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_firmadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -380,6 +537,7 @@ public class amonestaciones extends javax.swing.JInternalFrame {
             .addComponent(btn_eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_firmado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,7 +553,9 @@ public class amonestaciones extends javax.swing.JInternalFrame {
                 .addComponent(btn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 258, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(btn_firmado, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 201, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(221, 75, 57));
@@ -551,7 +711,7 @@ public class amonestaciones extends javax.swing.JInternalFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (validarABM()) {
             if (estado.isSelected()) {
-                int r = JOptionPane.showConfirmDialog(modal, "<html><b>Desea Cerrar la Amonestación?</b><br><p style='color:red'>Una vez confirmado el Proceso no podra Revertirse ni Modificarse</p></html>","Confirmar",JOptionPane.OK_CANCEL_OPTION);
+                int r = JOptionPane.showConfirmDialog(modal, "<html><b>Desea Cerrar la Amonestación?</b><br><p style='color:red'>Una vez confirmado el Proceso no podra Revertirse ni Modificarse</p></html>", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
                 if (r == 0) {
                     abm_aporte();
                     Limpiar();
@@ -580,6 +740,38 @@ public class amonestaciones extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void btn_firmadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_firmadoActionPerformed
+        operacion = 5;
+        Seleccionar();
+    }//GEN-LAST:event_btn_firmadoActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        txtfunfirma.setText("");
+        fechFirma.setDate(null);
+        modal_firma.dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jPanel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MousePressed
+        xx = evt.getX();
+        xy = evt.getY();
+    }//GEN-LAST:event_jPanel7MousePressed
+
+    private void jPanel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        modal_firma.setLocation(x - xx, y - xy);
+    }//GEN-LAST:event_jPanel7MouseDragged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (validaFirma()) {
+            abm_aporte();
+            txtfunfirma.setText("");
+            fechFirma.setDate(null);
+            CargarGrilla();
+            modal_firma.dispose();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void abm_aporte() {
 
@@ -623,17 +815,30 @@ public class amonestaciones extends javax.swing.JInternalFrame {
                     break;
                 case 3:
 
-                    sql = "UPDATE amonestacion_funcionario SET"
+                    sql = "UPDATE amonestacion_funcionario SET "
                             + "estado = ?,"
-                            + "fecha_h_update = ?"
-                            + "usuario_update = ?"
+                            + "fecha_h_update = ?, "
+                            + "usuario_update = ? "
                             + "where id = ?";
+                    ps = menu.getConexion().prepareStatement(sql);
                     ps.setInt(1, 0);
                     ps.setTimestamp(2, tools.getCurrentTimeStamp());
                     ps.setInt(3, menu.getIduser());
                     ps.setInt(4, idAmonestacion);
                     tools.Actualizar(ps, false);
                     JOptionPane.showMessageDialog(this, "Datos Eliminados con Exito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case 5:
+                    sql = "UPDATE amonestacion_funcionario SET "
+                            + "estado = ?, "
+                            + "fecha_firma = ? "
+                            + "where id = ?";
+                    ps = menu.getConexion().prepareStatement(sql);
+                    ps.setInt(1, 2);
+                    ps.setDate(2, tools.convertUtilToSql(fechFirma));
+                    ps.setInt(3, idAmonestacion);
+                    tools.Actualizar(ps, false);
+                    JOptionPane.showMessageDialog(this, "Firma Registrada!", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
                     break;
             }
 
@@ -710,6 +915,13 @@ public class amonestaciones extends javax.swing.JInternalFrame {
                         }
                         break;
 
+                    case 5:
+                        txtfunfirma.setText(tblIndex.getValueAt(row, 1).toString());
+                        fechFirma.setDate(new Date());
+                        modal_firma.setLocationRelativeTo(null);
+                        modal_firma.setVisible(true);
+                        break;
+
                 }
             }
         }
@@ -746,13 +958,36 @@ public class amonestaciones extends javax.swing.JInternalFrame {
         return true;
     }
 
+    private Boolean validaFirma() {
+        if (!((JTextField) fechFirma.getDateEditor()).getText().equals("__/__/____")) {
+            if (!tools.comprueba(((JTextField) fechFirma.getDateEditor()).getText())) {
+                JOptionPane.showMessageDialog(modal, "Fecha de Firma Incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+                fechFirma.getDateEditor().getUiComponent().requestFocus();
+                return false;
+            }
+        } else {
+            JOptionPane.showMessageDialog(modal, "No se puede dejar la fecha de Firma Vacío", "Error", JOptionPane.ERROR_MESSAGE);
+            fechFirma.getDateEditor().getUiComponent().requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
     private void CargarCombo() {
 
         sql = "Select id, descripcion from tipo_amonestaciones where estado = 1 order by id";
         tools.CargarCombo(tipoAmonestacion, sql, menu.getConexion());
 
     }
+   private void HabPermiso() {
+        btn_nuevo.setVisible(permiso.getNuevo());
+        btn_modificar.setVisible(permiso.getModificar());
+        btn_eliminar.setVisible(permiso.getEliminar());
+        btnImprimir.setVisible(permiso.getInforme());
+        btn_firmado.setVisible(permiso.getModificar());
 
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField amonestado;
@@ -761,27 +996,39 @@ public class amonestaciones extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btn_cerrar;
     private javax.swing.JButton btn_eliminar;
+    private javax.swing.JButton btn_firmado;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_nuevo;
     private javax.swing.JTextField buscador;
     private javax.swing.JCheckBox estado;
+    private com.toedter.calendar.JDateChooser fechFirma;
     private com.toedter.calendar.JDateChooser fechaAmonestacion;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JDialog modal;
+    private javax.swing.JDialog modal_firma;
     private javax.swing.JTextPane motivoAmonestacion;
     private javax.swing.JTable tblIndex;
     private javax.swing.JComboBox<Tools> tipoAmonestacion;
+    private javax.swing.JTextField txtfunfirma;
     // End of variables declaration//GEN-END:variables
 }

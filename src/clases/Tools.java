@@ -58,6 +58,7 @@ import objetos.Model_permisos;
 import reporteador.ViewReport;
 import reporteador.progressDialog;
 import context.*;
+
 public class Tools {
 
     private int id;
@@ -832,6 +833,22 @@ public class Tools {
         }
     }
 
+    public String agregarCerosDerecha(String string, int largo) {
+        String ceros = "";
+
+        int cantidad = largo - string.trim().length();
+
+        if (cantidad >= 1) {
+            for (int i = 0; i < cantidad; i++) {
+                ceros += "0";
+            }
+
+            return (string.trim() + ceros.trim());
+        } else {
+            return string;
+        }
+    }
+
     public void limitarCaracter(JTextField texto, int limite) {
         texto.addKeyListener(new KeyListener() {
             @Override
@@ -1202,10 +1219,12 @@ public class Tools {
         TableCellEditor cell = new DefaultCellEditor(cuadro);
         tabla.getColumnModel().getColumn(position).setCellEditor(cell);
     }
+
     public void AsignarCuadroTexto(JFormattedTextField cuadro, JTable tabla, int position) {
         TableCellEditor cell = new DefaultCellEditor(cuadro);
         tabla.getColumnModel().getColumn(position).setCellEditor(cell);
     }
+
     public void AsignarCombo(JComboBox combo, JTable tabla, int position) {
         TableColumn sportColumn = tabla.getColumnModel().getColumn(position);
         sportColumn.setCellEditor(new DefaultCellEditor(combo));
@@ -1242,9 +1261,8 @@ public class Tools {
         SpellChecker.registerDictionaries(null, null);
         SpellChecker.register(cuadro);
     }
-    
-    
-       public void DetecTabKey(JTextComponent cuadro) {
+
+    public void DetecTabKey(JTextComponent cuadro) {
         cuadro.setFocusTraversalKeys(
                 KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET);
     }
@@ -1296,7 +1314,8 @@ public class Tools {
             Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-      public void transferFocus(Component comp1, Component com2) {
+
+    public void transferFocus(Component comp1, Component com2) {
         comp1.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -1318,7 +1337,7 @@ public class Tools {
         });
     }
 
-        public void transferFocus(Component comp1, JDateChooser com2) {
+    public void transferFocus(Component comp1, JDateChooser com2) {
         comp1.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -1338,6 +1357,50 @@ public class Tools {
                 }
             }
         });
+    }
+
+    /*Metodo que Comprueba si la fecha esta bien*/
+    public boolean comprueba(String fecha) {
+        try {
+
+            String par[] = fecha.split("/");
+
+            int dayOfMonth = Integer.parseInt(par[0]);
+            int month = Integer.parseInt(par[1]);
+            int year = Integer.parseInt(par[2]);
+
+            if (year < 1900) {
+                throw new IllegalArgumentException("Año inválido.");
+            }
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setLenient(false);
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, month - 1); // [0,...,11]
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            java.util.Date date = calendar.getTime();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+            return true;
+        } catch (IllegalArgumentException ex) {
+
+            return false;
+        }
+    }
+
+    public java.sql.Time hora(String hora) {
+
+        try {
+            String s = hora;
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            long ms = sdf.parse(s).getTime();
+            Time t = new Time(ms);
+
+            return t;
+        } catch (ParseException ex) {
+            Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
 }

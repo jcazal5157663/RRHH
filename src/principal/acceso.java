@@ -254,7 +254,7 @@ public class acceso extends javax.swing.JFrame {
 
     private void validarUser() {
         try {
-            sql = "SELECT u.nombre FROM usuario u WHERE u.users = ?";
+            sql = "SELECT u.nombre FROM usuario u WHERE upper(u.users) = ?";
             PreparedStatement ps = cn.getConexion().prepareStatement(sql);
             ps.setString(1, user.getText().toUpperCase().trim());
             cn.resultado = ps.executeQuery();
