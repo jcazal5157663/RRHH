@@ -858,7 +858,6 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
                     tblHorario.changeSelection(i, 5, false, false);
                     return false;
                 }
-
             }
         }
 
