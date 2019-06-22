@@ -69,7 +69,7 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
                 tblHorario.getTableHeader().getDefaultRenderer());
         tblHorario.getColumnModel().getColumn(8).setCellRenderer(
                 tblHorario.getTableHeader().getDefaultRenderer());
-
+        Atajos();
     }
 
     @SuppressWarnings("unchecked")
@@ -831,7 +831,7 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
         //Controlamos los Datos de la Tabla
         for (int i = 0; i < tblHorario.getRowCount(); i++) {
             if (tblHorario.getValueAt(i, 8).toString() != null) {
-                
+
                 if (tools.hora((tblHorario.getValueAt(i, 2) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 2).toString(), 5) : "00:00")).after(tools.hora((tblHorario.getValueAt(i, 3) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 3).toString(), 5) : "00:00")))) {
                     JOptionPane.showMessageDialog(modal, "La Hora de Salida de Almuerzo, no puede ser Menor a la Hora de Entrada", "Error", JOptionPane.ERROR_MESSAGE);
                     tblHorario.getSelectionModel().setSelectionInterval(i, i);
@@ -841,7 +841,7 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
 
                 if (tools.hora((tblHorario.getValueAt(i, 2) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 2).toString(), 5) : "00:00")).equals(tools.hora((tblHorario.getValueAt(i, 3) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 3).toString(), 5) : "00:00")))) {
                     JOptionPane.showMessageDialog(modal, "La Hora de Salida de Almuerzo, no puede ser igual a la Hora de Entrada", "Error", JOptionPane.ERROR_MESSAGE);
-                    tblHorario.getSelectionModel().setSelectionInterval(i, i);                    
+                    tblHorario.getSelectionModel().setSelectionInterval(i, i);
                     tblHorario.changeSelection(i, 2, false, false);
                     return false;
                 }
@@ -868,6 +868,15 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
 
     }
 
+    private void Atajos() {
+        new atajoTeclado(this, KeyEvent.VK_ESCAPE) {
+            @Override
+            public void Metodo() {
+                dispose();
+            }
+        };
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFuncionario1;

@@ -1,11 +1,14 @@
 package movimiento;
 
+import Adapter.jInternalFrameAdapter;
 import context.AppContext;
 import buscadores.buscador_Funcionario;
 import clases.EstilosLabel;
 import clases.Tools;
+import clases.atajoTeclado;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
@@ -20,7 +23,7 @@ import objetos.Model_permisos;
 
 import principal.menu;
 
-public class amonestaciones extends javax.swing.JInternalFrame {
+public class amonestaciones extends jInternalFrameAdapter {
 
     Model_permisos permiso;
     private int operacion = 0;
@@ -54,6 +57,7 @@ public class amonestaciones extends javax.swing.JInternalFrame {
 
         tools.Corrector(motivoAmonestacion);
         tools.Busqued(tblIndex, modelo, buscador);
+        Atajos();
 
     }
 
@@ -109,7 +113,7 @@ public class amonestaciones extends javax.swing.JInternalFrame {
         modal.setSize(new java.awt.Dimension(577, 332));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
 
         amonestado.setEditable(false);
         amonestado.setBackground(new java.awt.Color(255, 255, 255));
@@ -242,9 +246,9 @@ public class amonestaciones extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnFuncionario1)
-                    .addComponent(amonestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(amonestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFuncionario1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -782,7 +786,7 @@ public class amonestaciones extends javax.swing.JInternalFrame {
                 case 1:
                     sql = "INSERT INTO amonestacion_funcionario\n"
                             + "(funcionario, tipo_amonestaciones, fecha_amonestacion, descripcion, usuario_input, estado)\n"
-                            + "VALUES(?, ?, ?, ?, ?)";
+                            + "VALUES(?, ?, ?, ?, ?, ?)";
                     ps = menu.getConexion().prepareStatement(sql);
                     ps.setInt(1, idAmonestado);
                     ps.setInt(2, tools.getIdCombo(tipoAmonestacion));
@@ -980,7 +984,8 @@ public class amonestaciones extends javax.swing.JInternalFrame {
         tools.CargarCombo(tipoAmonestacion, sql, menu.getConexion());
 
     }
-   private void HabPermiso() {
+
+    private void HabPermiso() {
         btn_nuevo.setVisible(permiso.getNuevo());
         btn_modificar.setVisible(permiso.getModificar());
         btn_eliminar.setVisible(permiso.getEliminar());
@@ -988,6 +993,17 @@ public class amonestaciones extends javax.swing.JInternalFrame {
         btn_firmado.setVisible(permiso.getModificar());
 
     }
+
+    private void Atajos() {
+//        new atajoTeclado(this, KeyEvent.VK_ESCAPE) {
+//            @Override
+//            public void Metodo() {
+//                dispose();
+//            }
+//        };
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField amonestado;

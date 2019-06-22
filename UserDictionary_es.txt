@@ -16,3 +16,4 @@ solicitadas
 Cargo
 Tardías
 Repetidas
+repetidas
