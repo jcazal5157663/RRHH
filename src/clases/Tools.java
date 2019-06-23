@@ -304,6 +304,7 @@ public class Tools {
             DecimalFormat formato_decimal = new DecimalFormat("###,###.##");
             SimpleDateFormat formato_fecha = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat formato_fechaH = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            SimpleDateFormat hora = new SimpleDateFormat("HH:mm");
             while (resultado.next()) {
                 Object[] fila = new Object[cantidadColumnas];
 
@@ -330,6 +331,9 @@ public class Tools {
                         case 91:
                             fila[i] = resultado.getString(i + 1) != null ? formato_fecha.format(resultado.getDate(i + 1)) : "";
                             break;
+                        case 92:
+                            fila[i] = resultado.getString(i + 1) != null ? hora.format(resultado.getTime(i + 1)) : "";
+                            break;
                         default:
                             fila[i] = resultado.getObject(i + 1);
                             break;
@@ -353,7 +357,7 @@ public class Tools {
             tabla.setBackground(Color.white);
             tabla.setForeground(Color.BLACK);
             //tabla.setGridColor(Color.BLACK);
-            tabla.getTableHeader().setBackground(Color.black);
+
             tabla.getSelectionModel().setSelectionInterval(0, 0);
 
         } catch (SQLException ex) {
@@ -395,11 +399,12 @@ public class Tools {
             DecimalFormat formato_decimal = new DecimalFormat("###,###.##");
             SimpleDateFormat formato_fecha = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat formato_fechaH = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            SimpleDateFormat hora = new SimpleDateFormat("HH:mm");
             while (resultado.next()) {
                 Object[] fila = new Object[cantidadColumnas];
 
                 for (int i = 0; i < cantidadColumnas; i++) {
-                    //System.out.println(resultado.getMetaData().getColumnType(i + 1) + resultado.getMetaData().getColumnTypeName(i + 1));
+                //    System.out.println(resultado.getMetaData().getColumnType(i + 1) + resultado.getMetaData().getColumnTypeName(i + 1));
 
                     switch (resultado.getMetaData().getColumnType(i + 1)) {
                         case 12:
@@ -419,6 +424,9 @@ public class Tools {
                             break;
                         case 91:
                             fila[i] = resultado.getString(i + 1) != null ? formato_fecha.format(resultado.getDate(i + 1)) : "";
+                            break;
+                        case 92:
+                            fila[i] = resultado.getString(i + 1) != null ? hora.format(resultado.getTime(i + 1)) : "";
                             break;
                         default:
                             fila[i] = resultado.getObject(i + 1);
@@ -440,11 +448,11 @@ public class Tools {
             resultado.close();
             ps.clearParameters();
             ps.close();
-            tabla.getTableHeader().setFont(new java.awt.Font("Segoe UI", 0, 12));
+
             tabla.setBackground(Color.white);
             tabla.setForeground(Color.BLACK);
             //tabla.setGridColor(Color.BLACK);
-            tabla.getTableHeader().setBackground(Color.black);
+
             tabla.getSelectionModel().setSelectionInterval(0, 0);
 
         } catch (SQLException ex) {

@@ -125,7 +125,7 @@ public class acceso extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(51, 153, 255));
         jLabel3.setText("Acceso al Sistema");
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 0));
+        jButton1.setBackground(new java.awt.Color(0, 102, 0));
         jButton1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Acceder");

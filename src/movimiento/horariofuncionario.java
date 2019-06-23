@@ -3,6 +3,7 @@ package movimiento;
 import buscadores.buscador_Funcionario;
 import clases.*;
 import clases.calculoHorario;
+import context.AppContext;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
@@ -10,6 +11,7 @@ import java.awt.event.KeyListener;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
@@ -46,6 +48,7 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
         lb.CambiarColor(btn_modificar, entrada, Salida);
         lb.CambiarColor(btn_eliminar, entrada, Salida);
         lb.CambiarColor(btn_cerrar, entrada, Salida);
+        lb.CambiarColor(btnImprimir, entrada, Salida);
         //lb.CambiarColor(btn_informes, entrada, Salida);
         modelHorario = (DefaultTableModel) tblHorario.getModel();
         modeloIndex = (DefaultTableModel) tblIndex.getModel();
@@ -599,14 +602,9 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_cerrarActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-        int row = tblIndex.getSelectedRow();
-        if (row < 0) {
-            JOptionPane.showMessageDialog(null, "Seleccione Fila", "Alerta!", JOptionPane.WARNING_MESSAGE);
-        } else {
-//            idAporte = tools.getParseStringint(tblIndex, row, 0);
-//            modalImprimir.setLocationRelativeTo(null);
-//            modalImprimir.setVisible(true);
-        }
+        operacion = 4;
+        Seleccionar();
+
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -733,8 +731,10 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
             sql = "select * from viewhorariofun";
             PreparedStatement ps = menu.getConexion().prepareStatement(sql);
             tools.CargarTabla(ps, tblIndex, modeloIndex, false);
+
         } catch (SQLException ex) {
-            Logger.getLogger(horariofuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(horariofuncionario.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -756,6 +756,8 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
         txtfuncionario.setText("");
         formatoHorario.setText("");
         formatoHorario.setValue("");
+        txtHoraSemanal.setText("");
+
     }
 
     private void abm() {
@@ -763,6 +765,14 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
         try {
             switch (operacion) {
                 case 1:
+                    //Se Inactiva todos los horarios previos que tenga el Funcionario
+                    sql = "UPDATE horario_fun_cab set estado = ? where funcionario = ? and estado = ?";
+                    ps = menu.getConexion().prepareStatement(sql);
+                    ps.setInt(1, 0);
+                    ps.setInt(2, idfuncionario);
+                    ps.setInt(3, 1);
+                    tools.Actualizar(ps, false);
+
                     //Insertamos la Cabecera
                     sql = "INSERT INTO horario_fun_cab\n"
                             + "(funcionario, fecha_desde, fecha_hasta, usuario_input, totalhorario)\n"
@@ -792,21 +802,59 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
                         ps.addBatch();
                     }
                     ps.executeBatch();
-
+                    JOptionPane.showMessageDialog(modal, "Datos Registrados Con Exito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 case 2:
-
+                    sql = " UPDATE horario_fun_cab\n"
+                            + "SET funcionario= ?, \n"
+                            + "fecha_desde=?, \n"
+                            + "fecha_hasta= ?,  \n"
+                            + "fecha_h_updat= ?,  \n"
+                            + "usuario_updat= ?, \n"
+                            + "totalhorario= ? \n"
+                            + "WHERE id= ?";
                     ps = menu.getConexion().prepareStatement(sql);
-                    tools.Actualizar(ps, true);
+                    ps.setInt(1, idfuncionario);
+                    ps.setDate(2, tools.convertUtilToSql(fechaDesde));
+                    ps.setDate(3, tools.convertUtilToSql(fechaHasta));
+                    ps.setTimestamp(4, tools.getCurrentTimeStamp());
+                    ps.setInt(5, menu.getIduser());
+                    ps.setString(6, txtHoraSemanal.getText());
+                    ps.setInt(7, idhorario);
+                    tools.Actualizar(ps, false);
+                    sql = "delete from horario_fun_det where horario_fun_cab = ?";
+                    ps = menu.getConexion().prepareStatement(sql);
+                    ps.setInt(1, idhorario);
+                    tools.eliminar(ps, false);
+                    //
+                    sql = "INSERT INTO horario_fun_det\n"
+                            + "(horario_fun_cab, hora_entrada, hora_salida_alm, hora_entrada_alm, hora_salida, dia)\n"
+                            + "VALUES(?, ?, ?, ?, ?, ?)";
+                    ps = menu.getConexion().prepareStatement(sql);
+                    for (int i = 0; i < tblHorario.getRowCount(); i++) {
+                        ps.setInt(1, idhorario);
+                        ps.setTime(2, tools.hora((tblHorario.getValueAt(i, 2) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 2).toString(), 5) : "00:00")));
+                        ps.setTime(3, tools.hora((tblHorario.getValueAt(i, 3) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 3).toString(), 5) : "00:00")));
+                        ps.setTime(4, tools.hora((tblHorario.getValueAt(i, 5) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 5).toString(), 5) : "00:00")));
+                        ps.setTime(5, tools.hora((tblHorario.getValueAt(i, 6) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 6).toString(), 5) : "00:00")));
+                        ps.setInt(6, Integer.parseInt(tblHorario.getValueAt(i, 0).toString()));
+                        ps.addBatch();
+                    }
+                    ps.executeBatch();
+                    JOptionPane.showMessageDialog(modal, "Datos Actualizados Con Exito", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 case 3:
-
+                    sql = "UPDATE horario_fun_cab set estado = ? where id = ?";
                     ps = menu.getConexion().prepareStatement(sql);
+                    ps.setInt(1, 2);
+                    ps.setInt(2, idhorario);
                     tools.eliminar(ps, true);
                     break;
+
             }
         } catch (SQLException ex) {
-            Logger.getLogger(horariofuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(horariofuncionario.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -830,7 +878,7 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
         }
         //Controlamos los Datos de la Tabla
         for (int i = 0; i < tblHorario.getRowCount(); i++) {
-            if (tblHorario.getValueAt(i, 8).toString() != null) {
+            if (tblHorario.getValueAt(i, 8) != null) {
 
                 if (tools.hora((tblHorario.getValueAt(i, 2) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 2).toString(), 5) : "00:00")).after(tools.hora((tblHorario.getValueAt(i, 3) != null ? tools.agregarCerosDerecha(tblHorario.getValueAt(i, 3).toString(), 5) : "00:00")))) {
                     JOptionPane.showMessageDialog(modal, "La Hora de Salida de Almuerzo, no puede ser Menor a la Hora de Entrada", "Error", JOptionPane.ERROR_MESSAGE);
@@ -865,7 +913,71 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
     }
 
     private void Seleccionar() {
+        int row = tblIndex.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Debe de seleccionar una Fila para poder Modificar o eliminar");
+        } else {
+            idhorario = Integer.parseInt(tblIndex.getValueAt(row, 0).toString());
+            switch (operacion) {
+                case 2:
+                    try {
+                        //Traemos la Cabecera
+                        sql = "select per.apenomb, hfc.fecha_desde, hfc.fecha_hasta, f.id from horario_fun_cab hfc\n"
+                                + " join funcionario f on hfc.funcionario = f.id\n"
+                                + " join view_nompersona per on per.id = f.persona\n"
+                                + " where hfc.id = ?";
+                        PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+                        ps.setInt(1, idhorario);
+                        res = tools.QueryDinamico(ps);
+                        txtfuncionario.setText(res[1]);
+                        ((JTextField) fechaDesde.getDateEditor()).setText(res[2]);
+                        ((JTextField) fechaHasta.getDateEditor()).setText(res[3]);
+                        idfuncionario = Integer.parseInt(res[4]);
 
+                        //Traemos el Detalle
+                        sql = "  select vd.dia, vd.case, vd.hora_entrada, vd.hora_salida_alm, vd.hora1::time, vd.hora_entrada_alm, vd.hora_salida, vd.hora2::time, (hora1 + hora2)::time from viewHora_detalle vd\n"
+                                + " where vd.horario_fun_cab = ?";
+                        PreparedStatement psDetalle = menu.getConexion().prepareStatement(sql);
+                        psDetalle.setInt(1, idhorario);
+                        tools.CargarTabla(psDetalle, tblHorario, modelHorario, false);
+                        tblHorario.setRowHeight(25);
+                        tblHorario.setShowHorizontalLines(true);
+                        tblHorario.setShowVerticalLines(true);
+
+                        //Recorremos la Tabla
+                        for (int i = 0; i < tblHorario.getColumnCount(); i++) {
+                            for (int j = 0; j < tblHorario.getRowCount(); j++) {
+                                if (tblHorario.getValueAt(j, i).toString().contains("00:00")) {
+                                    tblHorario.setValueAt(null, j, i);
+                                }
+                            }
+                        }
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(horariofuncionario.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    modal.setLocationRelativeTo(null);
+                    modal.setVisible(true);
+
+                    break;
+                case 3:
+                    int respuesta = JOptionPane.showConfirmDialog(null, "Desea Eliminar El Horario del Funcionario?", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
+                    if (respuesta == 0) {
+                        abm();
+                        CargarGrilla();
+                    }
+
+                    break;
+                case 4:
+                    HashMap hashMap = new HashMap();
+                    hashMap.put("id", idhorario);
+                    tools.reporte(AppContext.INFORME_HORARIO_FUN, hashMap, "Horario de Funcionario", menu.getConexion());
+
+                    break;
+            }
+
+        }
     }
 
     private void Atajos() {
