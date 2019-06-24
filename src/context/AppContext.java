@@ -10,9 +10,16 @@ public class AppContext {
     public static String MENSAJE_PERMISO_DENEGADO = "Usted no tiene los permisos para ingresar, Comuniquese con el Dpto. de Informática";
     public static int ROL_USUARIO;
     public static String ROL_USUARIO_DESCRIP = "";
+    
+
     //INFORMES
-    public static String INFORME_APORTE         = "reporte/aportes.jasper";
-    public static String INFORME_PAIS           = "reporte/paises.jasper";
-    public static String INFORME_AMONESTACION   = "reporte/amonestacion.jasper";
-    public static String INFORME_HORARIO_FUN    = "reporte/horario.jasper";
+    public static String INFORME_APORTE = "reporte/aportes.jasper";
+    public static String INFORME_PAIS = "reporte/paises.jasper";
+    public static String INFORME_AMONESTACION = "reporte/amonestacion.jasper";
+    public static String INFORME_HORARIO_FUN = "reporte/horario.jasper";
+    
+    
+    //INTEGERS
+    public static int ID_EMPRESA = 1;
+    
 }

@@ -1,5 +1,6 @@
 package reporteador;
 
+import Adapter.jFrameAdapter;
 import clases.EstilosLabel;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,8 +21,7 @@ import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 
 import net.sf.jasperreports.swing.JRViewer;
 
-
-public class ViewReport extends javax.swing.JFrame {
+public class ViewReport extends jFrameAdapter {
 
     private JasperPrint jasperPrint;
     private String tituloInforme;
@@ -339,8 +339,6 @@ public class ViewReport extends javax.swing.JFrame {
         }
     }
 
- 
-    
     /**
      * @param args the command line arguments
      */
@@ -383,9 +381,6 @@ public class ViewReport extends javax.swing.JFrame {
 
             JButton saveButton = (JButton) this.tlbToolBar.getComponent(0);
             saveButton.setVisible(false);
-            
-            
-            
 
         }
 

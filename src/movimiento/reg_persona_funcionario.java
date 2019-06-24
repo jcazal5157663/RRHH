@@ -197,6 +197,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
         salario = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
         moneda = new javax.swing.JComboBox<>();
+        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel12 = new javax.swing.JPanel();
         btn_guardar = new javax.swing.JButton();
         btn_aplicar = new javax.swing.JButton();
@@ -339,10 +340,12 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
         panel_padre.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Tipo de Documento:");
+        jPanel6.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(621, 14, 110, -1));
 
         tipo_documento.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         tipo_documento.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -350,14 +353,17 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 tipo_documentoKeyTyped(evt);
             }
         });
+        jPanel6.add(tipo_documento, new org.netbeans.lib.awtextra.AbsoluteConstraints(735, 11, 227, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Cédula:");
+        jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 41, 98, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Nombre:");
+        jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 14, 98, -1));
 
         nombre.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         nombre.setFocusCycleRoot(true);
@@ -367,10 +373,12 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 nombreKeyTyped(evt);
             }
         });
+        jPanel6.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 11, 154, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Apellidos:");
+        jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 14, 96, -1));
 
         apellido.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         apellido.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -378,6 +386,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 apellidoKeyTyped(evt);
             }
         });
+        jPanel6.add(apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 11, 227, -1));
 
         cedula.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         cedula.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -385,20 +394,25 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 cedulaKeyTyped(evt);
             }
         });
+        jPanel6.add(cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 38, 154, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Fecha de Ven.:");
+        jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 41, 96, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("Fecha de Nacimiento:");
+        jPanel6.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(621, 38, -1, 21));
 
         fecha_nacimiento.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jPanel6.add(fecha_nacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(735, 38, 134, 21));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("Sexo:");
+        jPanel6.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 66, 98, 21));
 
         sexo.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         sexo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -406,10 +420,12 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 sexoKeyTyped(evt);
             }
         });
+        jPanel6.add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 66, 154, -1));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("Estado Civil:");
+        jPanel6.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 69, 96, -1));
 
         estado_civil.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         estado_civil.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -417,13 +433,16 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 estado_civilKeyTyped(evt);
             }
         });
+        jPanel6.add(estado_civil, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 66, 134, -1));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setText("Nacionalidad:");
+        jPanel6.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(621, 69, 110, -1));
 
         nacionalidad.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         nacionalidad.setFocusable(false);
+        jPanel6.add(nacionalidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(735, 66, 192, -1));
 
         btn_nacionalidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Search_24px.png"))); // NOI18N
         btn_nacionalidad.setContentAreaFilled(false);
@@ -434,10 +453,12 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 btn_nacionalidadActionPerformed(evt);
             }
         });
+        jPanel6.add(btn_nacionalidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(933, 66, -1, 21));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel13.setText("Grupo. Sanguineo:");
+        jPanel6.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 96, -1, -1));
 
         grupo_sanguineo.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         grupo_sanguineo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -445,13 +466,16 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 grupo_sanguineoKeyTyped(evt);
             }
         });
+        jPanel6.add(grupo_sanguineo, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 93, 154, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("Profesión");
+        jPanel6.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 94, 96, 20));
 
         profesion.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         profesion.setFocusable(false);
+        jPanel6.add(profesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 93, 192, -1));
 
         btn_profesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Search_24px.png"))); // NOI18N
         btn_profesion.setContentAreaFilled(false);
@@ -462,18 +486,22 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 btn_profesionActionPerformed(evt);
             }
         });
+        jPanel6.add(btn_profesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(568, 93, -1, 21));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel15.setText("Barrio:");
+        jPanel6.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 105, 21));
 
         jSeparator1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos de Domicilio/Ubicación", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 11))); // NOI18N
+        jPanel6.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 125, 972, 19));
 
         barrio.setEditable(false);
         barrio.setBackground(new java.awt.Color(255, 255, 255));
         barrio.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         barrio.setForeground(new java.awt.Color(0, 102, 204));
         barrio.setFocusable(false);
+        jPanel6.add(barrio, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 150, 228, -1));
 
         btn_barrio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Search_24px.png"))); // NOI18N
         btn_barrio.setContentAreaFilled(false);
@@ -484,20 +512,24 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 btn_barrioActionPerformed(evt);
             }
         });
+        jPanel6.add(btn_barrio, new org.netbeans.lib.awtextra.AbsoluteConstraints(353, 150, -1, 21));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel16.setText("Ciudad:");
+        jPanel6.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 105, -1));
 
         ciudad.setEditable(false);
         ciudad.setBackground(new java.awt.Color(255, 255, 255));
         ciudad.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         ciudad.setForeground(new java.awt.Color(0, 102, 204));
         ciudad.setFocusable(false);
+        jPanel6.add(ciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 177, 228, -1));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel17.setText("Teléfono:");
+        jPanel6.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(392, 153, -1, -1));
 
         telefono.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         telefono.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -505,10 +537,12 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 telefonoKeyTyped(evt);
             }
         });
+        jPanel6.add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(445, 150, 191, -1));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel18.setText("Celular:");
+        jPanel6.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 153, -1, -1));
 
         celular.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         celular.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -516,10 +550,12 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 celularKeyTyped(evt);
             }
         });
+        jPanel6.add(celular, new org.netbeans.lib.awtextra.AbsoluteConstraints(753, 150, 190, -1));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel19.setText("Emails:");
+        jPanel6.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(392, 177, 49, 21));
 
         emails.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         emails.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -527,6 +563,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 emailsKeyTyped(evt);
             }
         });
+        jPanel6.add(emails, new org.netbeans.lib.awtextra.AbsoluteConstraints(445, 177, 499, -1));
 
         direccion_particular.setColumns(20);
         direccion_particular.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
@@ -541,6 +578,8 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(direccion_particular);
 
+        jPanel6.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 204, 784, -1));
+
         funcio.setBackground(new java.awt.Color(255, 255, 255));
         funcio.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         funcio.setText("Registrar Como Funcionario");
@@ -549,16 +588,20 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 funcioItemStateChanged(evt);
             }
         });
+        jPanel6.add(funcio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
         panel_funcionario.setBackground(new java.awt.Color(255, 255, 255));
         panel_funcionario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Funcionario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 11))); // NOI18N
+        panel_funcionario.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel20.setText("Cargo:");
+        panel_funcionario.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 28, 68, 20));
 
         cargo.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         cargo.setFocusable(false);
+        panel_funcionario.add(cargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 28, 234, 20));
 
         btn_cargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Search_24px.png"))); // NOI18N
         btn_cargo.setContentAreaFilled(false);
@@ -569,13 +612,16 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 btn_cargoActionPerformed(evt);
             }
         });
+        panel_funcionario.add(btn_cargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(328, 28, -1, 20));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel21.setText("Sector:");
+        panel_funcionario.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 56, 68, 21));
 
         sector.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         sector.setFocusable(false);
+        panel_funcionario.add(sector, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 56, 234, -1));
 
         btn_sector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Search_24px.png"))); // NOI18N
         btn_sector.setContentAreaFilled(false);
@@ -586,13 +632,16 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 btn_sectorActionPerformed(evt);
             }
         });
+        panel_funcionario.add(btn_sector, new org.netbeans.lib.awtextra.AbsoluteConstraints(328, 56, -1, 20));
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel22.setText("Dpto.:");
+        panel_funcionario.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 83, 68, 20));
 
         dpto.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         dpto.setFocusable(false);
+        panel_funcionario.add(dpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 83, 234, 20));
 
         btn_dpto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Search_24px.png"))); // NOI18N
         btn_dpto.setContentAreaFilled(false);
@@ -603,13 +652,16 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 btn_dptoActionPerformed(evt);
             }
         });
+        panel_funcionario.add(btn_dpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(328, 83, -1, 20));
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel23.setText("Dirección:");
+        panel_funcionario.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 110, 68, 20));
 
         direccion.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         direccion.setFocusable(false);
+        panel_funcionario.add(direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 110, 234, 20));
 
         btn_direccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Search_24px.png"))); // NOI18N
         btn_direccion.setContentAreaFilled(false);
@@ -620,10 +672,12 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 btn_direccionActionPerformed(evt);
             }
         });
+        panel_funcionario.add(btn_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(328, 110, -1, 20));
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel24.setText("Sucursal:");
+        panel_funcionario.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 139, 68, -1));
 
         sucursal.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         sucursal.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -631,10 +685,12 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 sucursalKeyTyped(evt);
             }
         });
+        panel_funcionario.add(sucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 136, 234, -1));
 
         jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel25.setText("Nº I.P.S:");
+        panel_funcionario.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 167, 58, -1));
 
         nroips.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         nroips.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -642,32 +698,41 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 nroipsKeyTyped(evt);
             }
         });
+        panel_funcionario.add(nroips, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 164, 234, -1));
 
         jLabel26.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel26.setText("F. Ingreso I.P.S:");
+        panel_funcionario.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 29, 108, 21));
 
         fecha_ing_ips.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        panel_funcionario.add(fecha_ing_ips, new org.netbeans.lib.awtextra.AbsoluteConstraints(473, 29, 175, 21));
 
         jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel27.setText("Fecha Contrato:");
+        panel_funcionario.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 56, 108, 21));
 
         fecha_contrato.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        panel_funcionario.add(fecha_contrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(473, 56, 175, 21));
 
         jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel28.setText("Fecha Fin Contrato:");
+        panel_funcionario.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 83, 108, 21));
 
         jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel29.setText("Fecha Ing. MEETS:");
+        panel_funcionario.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 110, 108, 21));
 
         fecha_meets.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        panel_funcionario.add(fecha_meets, new org.netbeans.lib.awtextra.AbsoluteConstraints(473, 110, 175, 21));
 
         jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel30.setText("Tipo de Contrato:");
+        panel_funcionario.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 139, 108, -1));
 
         tipo_Contrato.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         tipo_Contrato.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -675,10 +740,12 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 tipo_ContratoKeyTyped(evt);
             }
         });
+        panel_funcionario.add(tipo_Contrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(473, 137, 175, -1));
 
         jLabel31.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel31.setText("Tipo Empleado:");
+        panel_funcionario.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 167, 108, -1));
 
         tipo_empleado.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         tipo_empleado.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -686,10 +753,12 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 tipo_empleadoKeyTyped(evt);
             }
         });
+        panel_funcionario.add(tipo_empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(473, 164, 175, -1));
 
         jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel32.setText("Nº Resolución:");
+        panel_funcionario.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(664, 29, 91, 20));
 
         resolucion.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         resolucion.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -697,16 +766,20 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 resolucionKeyTyped(evt);
             }
         });
+        panel_funcionario.add(resolucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(759, 29, 177, -1));
 
         jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel33.setText("Forma de Cobro:");
+        panel_funcionario.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(664, 56, 91, 21));
 
         forma_cobro.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        panel_funcionario.add(forma_cobro, new org.netbeans.lib.awtextra.AbsoluteConstraints(759, 56, 177, -1));
 
         jLabel34.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel34.setText("Nº de Cuenta:");
+        panel_funcionario.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(664, 86, 91, -1));
 
         nro_cuenta.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         nro_cuenta.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -714,14 +787,20 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 nro_cuentaKeyTyped(evt);
             }
         });
+        panel_funcionario.add(nro_cuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(759, 83, 177, -1));
 
         fecha_fin_contrato.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        panel_funcionario.add(fecha_fin_contrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(473, 83, 175, 21));
 
         jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel35.setText("Banco:");
+        panel_funcionario.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(664, 113, 91, -1));
+
+        panel_funcionario.add(banco, new org.netbeans.lib.awtextra.AbsoluteConstraints(759, 110, 177, -1));
 
         jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel36.setText("Salario:");
+        panel_funcionario.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(664, 137, 91, 20));
 
         salario.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         salario.setText("0");
@@ -733,168 +812,24 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
                 salarioKeyTyped(evt);
             }
         });
+        panel_funcionario.add(salario, new org.netbeans.lib.awtextra.AbsoluteConstraints(759, 137, 177, 21));
 
         jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel37.setText("Moneda de Cobro:");
+        panel_funcionario.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(655, 168, 100, -1));
 
-        javax.swing.GroupLayout panel_funcionarioLayout = new javax.swing.GroupLayout(panel_funcionario);
-        panel_funcionario.setLayout(panel_funcionarioLayout);
-        panel_funcionarioLayout.setHorizontalGroup(
-            panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_funcionarioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_funcionarioLayout.createSequentialGroup()
-                        .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_funcionarioLayout.createSequentialGroup()
-                                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cargo, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel_funcionarioLayout.createSequentialGroup()
-                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(sector, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_cargo)
-                            .addComponent(btn_sector)))
-                    .addGroup(panel_funcionarioLayout.createSequentialGroup()
-                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dpto, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_dpto))
-                    .addGroup(panel_funcionarioLayout.createSequentialGroup()
-                        .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(panel_funcionarioLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nroips))
-                            .addGroup(panel_funcionarioLayout.createSequentialGroup()
-                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(sucursal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_funcionarioLayout.createSequentialGroup()
-                                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_direccion)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(fecha_ing_ips, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(fecha_contrato, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(fecha_meets, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(fecha_fin_contrato, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tipo_Contrato, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tipo_empleado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                    .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(resolucion)
-                    .addComponent(forma_cobro, 0, 177, Short.MAX_VALUE)
-                    .addComponent(nro_cuenta)
-                    .addComponent(banco, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(salario)
-                    .addComponent(moneda, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panel_funcionarioLayout.setVerticalGroup(
-            panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_funcionarioLayout.createSequentialGroup()
-                .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_funcionarioLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cargo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_cargo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(8, 8, 8)
-                        .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(sector)
-                            .addComponent(btn_sector, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dpto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_dpto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(7, 7, 7)
-                        .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel24)
-                            .addComponent(sucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel30)))
-                    .addGroup(panel_funcionarioLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_funcionarioLayout.createSequentialGroup()
-                                .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(fecha_ing_ips, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(fecha_contrato, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(fecha_fin_contrato, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)))
-                            .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(resolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel_funcionarioLayout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(forma_cobro, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel34)
-                                    .addComponent(nro_cuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(fecha_meets, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
-                                .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel35)
-                                .addComponent(banco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tipo_Contrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(salario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_funcionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel25)
-                    .addComponent(nroips, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tipo_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel37)
-                    .addComponent(moneda, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        panel_funcionario.add(moneda, new org.netbeans.lib.awtextra.AbsoluteConstraints(759, 164, 177, 22));
+
+        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
+        jCheckBox1.setText("Generar Horario por Defecto del Sistema");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+        panel_funcionario.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
+
+        jPanel6.add(panel_funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 952, 220));
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -950,183 +885,17 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
         });
         jPanel12.add(btn_cancelar);
 
+        jPanel6.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 952, -1));
+
         fecha_vencimiento.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jPanel6.add(fecha_vencimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 38, 134, 21));
 
         jLabel56.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel56.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel56.setText("Cortesía:");
+        jPanel6.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(621, 95, 110, -1));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(funcio)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nombre)
-                            .addComponent(cedula)
-                            .addComponent(sexo, 0, 154, Short.MAX_VALUE)
-                            .addComponent(grupo_sanguineo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(apellido, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(profesion)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btn_profesion))
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(estado_civil, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(24, 24, 24))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(fecha_vencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel56, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tipo_documento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(nacionalidad)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_nacionalidad))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(fecha_nacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(cbCortesia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(barrio)
-                                    .addComponent(ciudad))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_barrio)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(74, 74, 74)
-                                        .addComponent(jLabel18)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(celular, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(19, 19, 19))
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(emails)
-                                        .addGap(18, 18, 18))))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 59, Short.MAX_VALUE))))
-                    .addComponent(panel_funcionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(tipo_documento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8))
-                    .addComponent(fecha_nacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(fecha_vencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(7, 7, 7)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(sexo)
-                            .addComponent(jLabel11)
-                            .addComponent(estado_civil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12)
-                            .addComponent(nacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(btn_nacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel13)
-                                .addComponent(grupo_sanguineo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(profesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_profesion, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel56)
-                        .addComponent(cbCortesia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(barrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_barrio, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel17)
-                        .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel18)
-                        .addComponent(celular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel16)
-                        .addComponent(ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(emails)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(funcio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel_funcionario, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        jPanel6.add(cbCortesia, new org.netbeans.lib.awtextra.AbsoluteConstraints(735, 93, 227, 23));
 
         panel_padre.addTab("Datos Personales", jPanel6);
 
@@ -3044,6 +2813,10 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ExpeCancelar1ActionPerformed
 
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
     private void CargarGrillaPersona() {
         try {
             sql = "select p.id, concat(trim(p.apellido),', ', trim(p.nombre)) as apellidoNombre, p.cedula, p.telefono, p.celular, p.email, p.fecha_h_input, p.fecha_h_updat  from persona p "
@@ -4129,6 +3902,7 @@ public class reg_persona_funcionario extends javax.swing.JInternalFrame {
     private javax.swing.JButton grabarreflab;
     private javax.swing.JComboBox<clases.Tools> grupo_sanguineo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;

@@ -7,7 +7,6 @@ import context.AppContext;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
@@ -495,11 +494,11 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Id", "Funcionario", "Cédula", "Cargo", "Departamento", "Total Horario por Semana", "Estado", "Fecha H. Creación", "Fecha de Última Modificación"
+                "Id", "Funcionario", "Cédula", "Cargo", "Departamento", "Total Horario por Semana", "Estado", "Fecha H. Creación", "Fecha de Última Modificación", "est"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -536,6 +535,9 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
             tblIndex.getColumnModel().getColumn(8).setMinWidth(150);
             tblIndex.getColumnModel().getColumn(8).setPreferredWidth(150);
             tblIndex.getColumnModel().getColumn(8).setMaxWidth(150);
+            tblIndex.getColumnModel().getColumn(9).setMinWidth(0);
+            tblIndex.getColumnModel().getColumn(9).setPreferredWidth(0);
+            tblIndex.getColumnModel().getColumn(9).setMaxWidth(0);
         }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -918,57 +920,65 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Debe de seleccionar una Fila para poder Modificar o eliminar");
         } else {
             idhorario = Integer.parseInt(tblIndex.getValueAt(row, 0).toString());
+            int estado = Integer.parseInt(tblIndex.getValueAt(row, 9).toString());
             switch (operacion) {
+
                 case 2:
-                    try {
-                        //Traemos la Cabecera
-                        sql = "select per.apenomb, hfc.fecha_desde, hfc.fecha_hasta, f.id from horario_fun_cab hfc\n"
-                                + " join funcionario f on hfc.funcionario = f.id\n"
-                                + " join view_nompersona per on per.id = f.persona\n"
-                                + " where hfc.id = ?";
-                        PreparedStatement ps = menu.getConexion().prepareStatement(sql);
-                        ps.setInt(1, idhorario);
-                        res = tools.QueryDinamico(ps);
-                        txtfuncionario.setText(res[1]);
-                        ((JTextField) fechaDesde.getDateEditor()).setText(res[2]);
-                        ((JTextField) fechaHasta.getDateEditor()).setText(res[3]);
-                        idfuncionario = Integer.parseInt(res[4]);
+                    if (estado != 0) {
+                        try {
+                            //Traemos la Cabecera
+                            sql = "select per.apenomb, hfc.fecha_desde, hfc.fecha_hasta, f.id from horario_fun_cab hfc\n"
+                                    + " join funcionario f on hfc.funcionario = f.id\n"
+                                    + " join view_nompersona per on per.id = f.persona\n"
+                                    + " where hfc.id = ?";
+                            PreparedStatement ps = menu.getConexion().prepareStatement(sql);
+                            ps.setInt(1, idhorario);
+                            res = tools.QueryDinamico(ps);
+                            txtfuncionario.setText(res[1]);
+                            ((JTextField) fechaDesde.getDateEditor()).setText(res[2]);
+                            ((JTextField) fechaHasta.getDateEditor()).setText(res[3]);
+                            idfuncionario = Integer.parseInt(res[4]);
 
-                        //Traemos el Detalle
-                        sql = "  select vd.dia, vd.case, vd.hora_entrada, vd.hora_salida_alm, vd.hora1::time, vd.hora_entrada_alm, vd.hora_salida, vd.hora2::time, (hora1 + hora2)::time from viewHora_detalle vd\n"
-                                + " where vd.horario_fun_cab = ?";
-                        PreparedStatement psDetalle = menu.getConexion().prepareStatement(sql);
-                        psDetalle.setInt(1, idhorario);
-                        tools.CargarTabla(psDetalle, tblHorario, modelHorario, false);
-                        tblHorario.setRowHeight(25);
-                        tblHorario.setShowHorizontalLines(true);
-                        tblHorario.setShowVerticalLines(true);
+                            //Traemos el Detalle
+                            sql = "  select vd.dia, vd.case, vd.hora_entrada, vd.hora_salida_alm, vd.hora1::time, vd.hora_entrada_alm, vd.hora_salida, vd.hora2::time, (hora1 + hora2)::time from viewHora_detalle vd\n"
+                                    + " where vd.horario_fun_cab = ?";
+                            PreparedStatement psDetalle = menu.getConexion().prepareStatement(sql);
+                            psDetalle.setInt(1, idhorario);
+                            tools.CargarTabla(psDetalle, tblHorario, modelHorario, false);
+                            tblHorario.setRowHeight(25);
+                            tblHorario.setShowHorizontalLines(true);
+                            tblHorario.setShowVerticalLines(true);
 
-                        //Recorremos la Tabla
-                        for (int i = 0; i < tblHorario.getColumnCount(); i++) {
-                            for (int j = 0; j < tblHorario.getRowCount(); j++) {
-                                if (tblHorario.getValueAt(j, i).toString().contains("00:00")) {
-                                    tblHorario.setValueAt(null, j, i);
+                            //Recorremos la Tabla
+                            for (int i = 0; i < tblHorario.getColumnCount(); i++) {
+                                for (int j = 0; j < tblHorario.getRowCount(); j++) {
+                                    if (tblHorario.getValueAt(j, i).toString().contains("00:00")) {
+                                        tblHorario.setValueAt(null, j, i);
+                                    }
                                 }
                             }
+
+                        } catch (SQLException ex) {
+                            Logger.getLogger(horariofuncionario.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
-                    } catch (SQLException ex) {
-                        Logger.getLogger(horariofuncionario.class.getName()).log(Level.SEVERE, null, ex);
+                        modal.setLocationRelativeTo(null);
+                        modal.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No puede Modificar un Horario Inactivo", "Atención", JOptionPane.WARNING_MESSAGE);
+
                     }
-
-                    modal.setLocationRelativeTo(null);
-                    modal.setVisible(true);
-
                     break;
                 case 3:
-                    int respuesta = JOptionPane.showConfirmDialog(null, "Desea Eliminar El Horario del Funcionario?", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
-                    if (respuesta == 0) {
-                        abm();
-                        CargarGrilla();
+                    if (estado != 0) {
+                        int respuesta = JOptionPane.showConfirmDialog(null, "Desea Eliminar El Horario del Funcionario?", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
+                        if (respuesta == 0) {
+                            abm();
+                            CargarGrilla();
+                        }
                     }
-
                     break;
+
                 case 4:
                     HashMap hashMap = new HashMap();
                     hashMap.put("id", idhorario);

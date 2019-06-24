@@ -149,14 +149,11 @@ public class menu extends javax.swing.JFrame implements Runnable {
         btn_pais7 = new javax.swing.JButton();
         btn_pais8 = new javax.swing.JButton();
         p_movimiento = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
         btn_cargo1 = new javax.swing.JButton();
         btn_cargo2 = new javax.swing.JButton();
         btn_cargo3 = new javax.swing.JButton();
         btn_cargo4 = new javax.swing.JButton();
         btn_cargo6 = new javax.swing.JButton();
-        jSeparator5 = new javax.swing.JSeparator();
-        jLabel12 = new javax.swing.JLabel();
         btn_cargo7 = new javax.swing.JButton();
         btn_cargo8 = new javax.swing.JButton();
         p_configuración = new javax.swing.JPanel();
@@ -165,6 +162,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
         btn_Mensys = new javax.swing.JButton();
         btn_RolUser = new javax.swing.JButton();
         btn_newUser = new javax.swing.JButton();
+        btn_newUser1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btn_reg = new javax.swing.JLabel();
         btn_mov = new javax.swing.JLabel();
@@ -766,11 +764,6 @@ public class menu extends javax.swing.JFrame implements Runnable {
 
         p_movimiento.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Funcionario");
-
         btn_cargo1.setBackground(new java.awt.Color(255, 255, 255));
         btn_cargo1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btn_cargo1.setForeground(new java.awt.Color(102, 102, 102));
@@ -856,13 +849,6 @@ public class menu extends javax.swing.JFrame implements Runnable {
             }
         });
 
-        jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Sanciones");
-
         btn_cargo7.setBackground(new java.awt.Color(255, 255, 255));
         btn_cargo7.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btn_cargo7.setForeground(new java.awt.Color(102, 102, 102));
@@ -902,30 +888,27 @@ public class menu extends javax.swing.JFrame implements Runnable {
         p_movimientoLayout.setHorizontalGroup(
             p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_movimientoLayout.createSequentialGroup()
-                .addGroup(p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(p_movimientoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btn_cargo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_cargo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_cargo3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btn_cargo4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_cargo6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(btn_cargo1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_cargo7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_cargo8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(748, 748, 748))
+                    .addComponent(btn_cargo4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_cargo6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_cargo3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(p_movimientoLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addComponent(btn_cargo7)
+                        .addGap(80, 80, 80)
+                        .addComponent(btn_cargo2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(539, 539, 539))
+                    .addGroup(p_movimientoLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_cargo8, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         p_movimientoLayout.setVerticalGroup(
             p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(p_movimientoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -935,18 +918,14 @@ public class menu extends javax.swing.JFrame implements Runnable {
                             .addComponent(btn_cargo4, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_cargo2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_cargo6, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_cargo3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel11))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_movimientoLayout.createSequentialGroup()
+                            .addComponent(btn_cargo6, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_cargo8, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(p_movimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btn_cargo7, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_cargo8, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel12))))
+                        .addComponent(btn_cargo2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_cargo3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 21, Short.MAX_VALUE))
         );
 
         jPanel2.add(p_movimiento, "card3");
@@ -1038,6 +1017,24 @@ public class menu extends javax.swing.JFrame implements Runnable {
             }
         });
 
+        btn_newUser1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btn_newUser1.setForeground(new java.awt.Color(102, 102, 102));
+        btn_newUser1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Time_Machine_32px.png"))); // NOI18N
+        btn_newUser1.setText("<html><center>Horario por<br>Defecto</center></html>");
+        btn_newUser1.setBorderPainted(false);
+        btn_newUser1.setContentAreaFilled(false);
+        btn_newUser1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_newUser1.setFocusPainted(false);
+        btn_newUser1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_newUser1.setIconTextGap(0);
+        btn_newUser1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btn_newUser1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_newUser1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_newUser1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout p_configuraciónLayout = new javax.swing.GroupLayout(p_configuración);
         p_configuración.setLayout(p_configuraciónLayout);
         p_configuraciónLayout.setHorizontalGroup(
@@ -1053,14 +1050,17 @@ public class menu extends javax.swing.JFrame implements Runnable {
                     .addComponent(btn_Men))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_newUser, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(978, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_newUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(907, Short.MAX_VALUE))
         );
         p_configuraciónLayout.setVerticalGroup(
             p_configuraciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_configuraciónLayout.createSequentialGroup()
                 .addGroup(p_configuraciónLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_newUser, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(btnPermisos, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
+                    .addComponent(btnPermisos, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                    .addComponent(btn_newUser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(p_configuraciónLayout.createSequentialGroup()
                 .addContainerGap()
@@ -1679,6 +1679,28 @@ public class menu extends javax.swing.JFrame implements Runnable {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void btn_newUser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newUser1ActionPerformed
+       permiso = new Tools().permisoMenu(35);
+
+        if (permiso.getAcceder()) {
+            horario_default fac = new horario_default(permiso);
+            vn.Abrir_ventana(escritorio, fac, true);
+        } else {
+            int i = JOptionPane.showOptionDialog(this,
+                    AppContext.MENSAJE_PERMISO_DENEGADO,
+                    "Acceso Restringido",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.ERROR_MESSAGE,
+                    null,//do not use a custom Icon
+                    options,//the titles of buttons
+                    options[0]);//default button title
+            if (i == 0) {
+                CargarPermisos();
+            }
+
+        }        
+    }//GEN-LAST:event_btn_newUser1ActionPerformed
+
     private static int iduser;
     private String nombre;
     private static Connection conexion;
@@ -1759,6 +1781,7 @@ public class menu extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton btn_moneda1;
     private javax.swing.JLabel btn_mov;
     private javax.swing.JButton btn_newUser;
+    private javax.swing.JButton btn_newUser1;
     private javax.swing.JButton btn_pais;
     private javax.swing.JButton btn_pais1;
     private javax.swing.JButton btn_pais2;
@@ -1776,8 +1799,6 @@ public class menu extends javax.swing.JFrame implements Runnable {
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
@@ -1792,7 +1813,6 @@ public class menu extends javax.swing.JFrame implements Runnable {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JLabel lbDatosSecion;
     private javax.swing.JLabel lbUsuarioName;
     private javax.swing.JLabel lblFecha;
