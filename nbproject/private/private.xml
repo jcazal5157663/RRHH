@@ -23,6 +23,7 @@
             <file>file:/C:/RRHH/src/configuracion/menuCab.java</file>
             <file>file:/C:/RRHH/src/movimiento/horariofuncionario.java</file>
             <file>file:/C:/RRHH/src/com/inet/jorthodictionaries/BookGenerator.java</file>
+            <file>file:/C:/RRHH/src/reporteador/progressDialog.java</file>
             <file>file:/C:/RRHH/src/reporteador/JROdtExporter.java</file>
             <file>file:/C:/RRHH/src/movimiento/amonestaciones.java</file>
             <file>file:/C:/RRHH/src/buscadores/buscador_menu.java</file>
@@ -39,6 +40,7 @@
             <file>file:/C:/RRHH/src/clases/Tools.java</file>
             <file>file:/C:/RRHH/src/configuracion/roles_usuario.java</file>
             <file>file:/C:/RRHH/src/clases/conexion.java</file>
+            <file>file:/C:/RRHH/src/configuracion/horario_default.java</file>
             <file>file:/C:/RRHH/src/Adapter/Adapter.java</file>
             <file>file:/C:/RRHH/src/buscadores/buscador_sector.java</file>
             <file>file:/C:/RRHH/src/movimiento/sol_anticipo.java</file>
@@ -47,6 +49,7 @@
             <file>file:/C:/RRHH/src/configuracion/config.java</file>
             <file>file:/C:/RRHH/src/referenciales/tipo_amonestaciones.java</file>
             <file>file:/C:/RRHH/src/buscadores/buscador_Funcionario.java</file>
+            <file>file:/C:/RRHH/src/Adapter/jFrameAdapter.java</file>
             <file>file:/C:/RRHH/src/clases/Ventanas.java</file>
             <file>file:/C:/RRHH/src/movimiento/dcto_funcionario.java</file>
             <file>file:/C:/RRHH/src/referenciales/tipo_cortesia.java</file>
