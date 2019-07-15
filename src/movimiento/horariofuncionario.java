@@ -129,7 +129,7 @@ public class horariofuncionario extends javax.swing.JInternalFrame {
         modal.setModal(true);
         modal.setUndecorated(true);
         modal.setResizable(false);
-        modal.setSize(new java.awt.Dimension(895, 410));
+        modal.setSize(new java.awt.Dimension(895, 416));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255)));

@@ -28,7 +28,7 @@ public class conexion {
             PGSimpleDataSource dataSource = new PGSimpleDataSource();
             dataSource.setServerName("localhost");
             dataSource.setDatabaseName("recursos_Humanos");
-            dataSource.setPortNumber(5433);
+            dataSource.setPortNumber(5432);
             dataSource.setUser("postgres");
             dataSource.setPassword("5157663");
             dataSource.setCurrentSchema("public");
