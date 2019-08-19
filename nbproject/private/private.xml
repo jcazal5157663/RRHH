@@ -3,9 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/RRHH/src/informes/planillaempleados.java</file>
+            <file>file:/C:/RRHH/src/reporteador/ViewReport.java</file>
+            <file>file:/C:/RRHH/src/movimiento/reg_persona_funcionario.java</file>
+            <file>file:/C:/RRHH/src/clases/CustomTableModel.java</file>
+            <file>file:/C:/RRHH/src/referenciales/departamento.java</file>
+            <file>file:/C:/RRHH/src/Adapter/jFrameAdapter.java</file>
+            <file>file:/C:/RRHH/src/clases/Verificar_Anticipo.java</file>
+            <file>file:/C:/RRHH/src/movimiento/horariofuncionario.java</file>
+            <file>file:/C:/RRHH/src/clases/Tools.java</file>
             <file>file:/C:/RRHH/src/clases/conexion.java</file>
             <file>file:/C:/RRHH/src/rrhh/RRHH.java</file>
+            <file>file:/C:/RRHH/src/reporteador/progressDialog.java</file>
+            <file>file:/C:/RRHH/src/movimiento/amonestaciones.java</file>
+            <file>file:/C:/RRHH/src/configuracion/horario_default.java</file>
             <file>file:/C:/RRHH/src/clases/Cerrar_Escape.java</file>
+            <file>file:/C:/RRHH/src/principal/menu.java</file>
+            <file>file:/C:/RRHH/src/principal/acceso.java</file>
+            <file>file:/C:/RRHH/src/movimiento/permiso_funcionario.java</file>
+            <file>file:/C:/RRHH/src/movimiento/bonificaciones.java</file>
+            <file>file:/C:/RRHH/src/movimiento/contratos.java</file>
         </group>
     </open-files>
 </project-private>

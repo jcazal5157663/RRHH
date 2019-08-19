@@ -58,6 +58,8 @@ import objetos.Model_permisos;
 import reporteador.ViewReport;
 import reporteador.progressDialog;
 import context.*;
+import java.util.Vector;
+import javax.swing.table.DefaultTableColumnModel;
 
 public class Tools {
 
@@ -404,7 +406,7 @@ public class Tools {
                 Object[] fila = new Object[cantidadColumnas];
 
                 for (int i = 0; i < cantidadColumnas; i++) {
-                //    System.out.println(resultado.getMetaData().getColumnType(i + 1) + resultado.getMetaData().getColumnTypeName(i + 1));
+                    //    System.out.println(resultado.getMetaData().getColumnType(i + 1) + resultado.getMetaData().getColumnTypeName(i + 1));
 
                     switch (resultado.getMetaData().getColumnType(i + 1)) {
                         case 12:
@@ -464,7 +466,8 @@ public class Tools {
     public void CargarTablaSinUpper(PreparedStatement ps, JTable tabla, DefaultTableModel modelo, Boolean MostrarCabecera) {
 
         ResultSet resultado;
-
+        DefaultTableColumnModel colmodel = new DefaultTableColumnModel();
+        colmodel = (DefaultTableColumnModel) tabla.getColumnModel();
         try {
 
             for (int i = tabla.getRowCount() - 1; i >= 0; i--) {
@@ -486,9 +489,18 @@ public class Tools {
             int cantidadColumnas = rsMd.getColumnCount();
             //Establecer como cabezeras el nombre de las colimnas
             if (MostrarCabecera) {
-                for (int i = 1; i <= cantidadColumnas; i++) {
-                    modelo.addColumn(rsMd.getColumnLabel(i));
+
+                for (int i = tabla.getColumnCount() - 1; i >= 0; i--) {
+                    tabla.removeColumn(tabla.getColumnModel().getColumn(i));
                 }
+
+                modelo = (DefaultTableModel) tabla.getModel();
+
+                for (int i = 1; i <= cantidadColumnas; i++) {
+
+                    modelo.addColumn(rsMd.getColumnLabel(i).toUpperCase());
+                }
+
             }
             //Creando las filas para el JTable
             DecimalFormat formato_decimal = new DecimalFormat("###,###.##");
@@ -502,22 +514,22 @@ public class Tools {
 
                     switch (resultado.getMetaData().getColumnType(i + 1)) {
                         case 12:
-                            fila[i] = resultado.getString(i + 1) != null ? resultado.getString(i + 1).trim() : "";
+                            fila[i] = resultado.getString(i + 1) != null ? resultado.getString(i + 1).toUpperCase().trim() : "";
                             break;
                         case 93:
-                            fila[i] = resultado.getTimestamp(i + 1) != null ? formato_fechaH.format(resultado.getTimestamp(i + 1)) : "";
+                            fila[i] = resultado.getString(i + 1) != null ? formato_fechaH.format(resultado.getTimestamp(i + 1)) : "";
                             break;
                         case 4:
-                            fila[i] = resultado.getInt(i + 1);
+                            fila[i] = resultado.getString(i + 1) != null ? resultado.getInt(i + 1) : "";
                             break;
                         case 2:
-                            fila[i] = formato_decimal.format(resultado.getFloat(i + 1));
+                            fila[i] = resultado.getString(i + 1) != null ? formato_decimal.format(resultado.getFloat(i + 1)) : "";
                             break;
                         case 91:
-                            fila[i] = formato_fecha.format(resultado.getDate(i + 1));
+                            fila[i] = resultado.getString(i + 1) != null ? formato_fecha.format(resultado.getDate(i + 1)) : "";
                             break;
                         default:
-                            fila[i] = resultado.getObject(i + 1);
+                            fila[i] = resultado.getString(i + 1) != null ? resultado.getObject(i + 1) : "";
                             break;
                     }
 

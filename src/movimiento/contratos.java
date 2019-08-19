@@ -1020,7 +1020,7 @@ public class contratos extends javax.swing.JInternalFrame {
                         + "where cd.contrato_cab = ? order by cd.id";
                 ps = menu.getConexion().prepareStatement(sql);
                 ps.setInt(1, idcontrato);
-                db.CargarTablaSinUpper(ps, tbl_detalle, ModelDetalle, false);
+                db.CargarTabla(ps, tbl_detalle, ModelDetalle, false);
 
                 modal.setLocationRelativeTo(null);
                 modal.setVisible(true);
